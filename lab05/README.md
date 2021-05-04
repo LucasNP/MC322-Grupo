@@ -28,7 +28,7 @@ Estrutura de pastas:
 ### Descrição ###
 Jogo de Damas feito em Java, expressando a utilidade das caracteristicas de herança 
 e polimorfismo na programação orientada a objetos, retirando dados dos movimentos e 
-tabuleiro de arquvis .csv
+tabuleiro de arquivos .csv
 
 ## Arquivos Java do Jogo de Damas ##
 > [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/src/mc322)
