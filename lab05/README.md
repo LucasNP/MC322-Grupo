@@ -34,4 +34,4 @@ Estrutura de pastas:
 > [link]()
 
 ## Arquivos CSV de Dados do Jogo de Damas ##
-> [link]()
+> [link](data)
