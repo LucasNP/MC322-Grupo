@@ -1,4 +1,4 @@
-# MC322 - Laboratórios em Grupo #
+# MC322 - Laboratórios em Grupo - dJAVAu #
 
 ## Estrutura de Arquivos e Pastas ##
 
