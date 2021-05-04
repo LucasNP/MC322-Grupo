@@ -10,7 +10,7 @@
 
 ## Alunos ##
 - Lucas Nogueira Roberto (RA: 182553)
-- Nicolas Hecker Silva (RA: 186132)
+- Nícolas Hecker Silva (RA: 186132)
 
 ## Curso ##
 - Engenharia de Computação
