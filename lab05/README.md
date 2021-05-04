@@ -28,10 +28,10 @@ Estrutura de pastas:
 ### Descrição ###
 
 ## Arquivos Java do Jogo de Damas ##
-> [link](src/mc322/lab05b)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/src/mc322)
  
 ## Arquivo das Classes do Jogo de Damas ##
-> [link](bin/mc322/lab05b)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/bin/mc322)
 
 ## Arquivos CSV de Dados do Jogo de Damas ##
-> [link](data)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/data)
