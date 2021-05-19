@@ -55,10 +55,10 @@ e polimorfismo na programação orientada a objetos, retirando dados dos movimen
 tabuleiro de arquivos .csv
 
 ## Arquivos Java do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/src/mc322)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/src2/mc322/lab06)
  
 ## Arquivo das Classes do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/bin/mc322)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/bin2/mc322/lab06)
 
 ## Arquivos CSV de Dados do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab05/data)
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/src2/mc322/lab06/data)
