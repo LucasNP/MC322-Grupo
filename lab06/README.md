@@ -8,8 +8,6 @@ Estrutura de pastas:
 ```
 ├── README.md  <- arquivo apresentando a tarefa
 │
-├── data       <- dados usados pelo jogo (arquivos CSV)
-│
 ├── src1 <- pasta de arquivos fonte Java (.java) versao 1
 |   │
 |   └── mc322 <- raiz do pacote
