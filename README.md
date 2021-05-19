@@ -6,6 +6,8 @@
 ├── README.md  <- apresentação dos alunos
 │
 ├── lab05     <- quinto lab
+|
+├── lab06     <- sexto lab
 ```
 
 ## Alunos ##
