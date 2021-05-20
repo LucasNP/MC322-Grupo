@@ -55,10 +55,10 @@ Wumpus
 
 
 ## Arquivos Java do Jogo do WUMPUS ##
-> [link]()
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/src2/mc322/lab06)
  
 ## Arquivo das Classes do Jogo do WUMPUS ##
-> [link]()
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/bin2/mc322/lab06)
 
-## Arquivos CSV de Dados do Jogo do WUMPUS ##
+## Arquivos de CSV e Músicas do Jogo do WUMPUS ##
 > [link]()
