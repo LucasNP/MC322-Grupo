@@ -61,4 +61,4 @@ Wumpus
 > [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/bin2/mc322/lab06)
 
 ## Arquivos de CSV e Músicas do Jogo do WUMPUS ##
-> [link]()
+> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/bin2/mc322/lab06/Data)
