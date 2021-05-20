@@ -53,10 +53,10 @@ Estrutura de pastas:
 Wumpus
 
 ## Arquivos Java do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/src2/mc322/lab06)
+> [link]()
  
 ## Arquivo das Classes do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/bin2/mc322/lab06)
+> [link]()
 
 ## Arquivos CSV de Dados do Jogo do WUMPUS ##
-> [link](https://github.com/LucasNP/MC322-Grupo/tree/main/lab06/src2/mc322/lab06/data)
+> [link]()
