@@ -50,7 +50,6 @@ Estrutura de pastas:
 ```
 
 ### Descrição ###
-Wumpus
 [![Watch the video](https://img.youtube.com/vi/V6Vmk-Pxt7E/hqdefault.jpg)](https://youtu.be/V6Vmk-Pxt7E)
 
 
