@@ -360,14 +360,14 @@ public AudioPlayer(String caminho, boolean loop) throws UnsupportedAudioFileExce
 
 Além a representação requisita no trabalho com os caracteres comuns como vista a seguir 
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/LucasNP/MC322-Grupo/blob/main/lab06/MundoDeWumpus.png)
 
 Para terminais habilitados com uma fonte que suporte Unicode foi feita uma "renderização"
 do jogo para simbolos mais significativos e assim deixando a experiencia mais divertida :)
 
 como se vê a seguir:
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/LucasNP/MC322-Grupo/blob/main/lab06/MundoDeWumpus-Unicode.png)
 
 
 ~~~java
