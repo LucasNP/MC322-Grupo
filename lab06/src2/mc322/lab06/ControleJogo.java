@@ -72,7 +72,8 @@ public class ControleJogo {
                   this.console.playMusica("mc322/lab06/data/Wumpus.wav",true);
                   return;
             }
-
+            
+            this.ganhou = false;
             console.falar(this.jogador.getNome() + " encontrou o WUMPUS e estava desarmado! ;3;");
             console.playMusica("mc322/lab06/data/ceVaiMorre.wav");
             console.esperar(1000);
