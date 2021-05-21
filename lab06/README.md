@@ -1,4 +1,4 @@
-# Lab06 versoes 1.0 e 2.0 - Jogo do WUMPUS #
+# Lab06 versoes 1.0 e 2.0 - O MUNDO DE WUMPUS #
 
 Utilize a versão mais recente (2)
 caso algum erro aconteça, tente a versão inicial (1) que apresenta menos recursos adicionais
