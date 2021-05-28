@@ -8,6 +8,8 @@
 ├── lab05     <- quinto lab
 |
 ├── lab06     <- sexto lab
+|
+├── lab07     <- setimo lab
 ```
 
 ## Alunos ##
