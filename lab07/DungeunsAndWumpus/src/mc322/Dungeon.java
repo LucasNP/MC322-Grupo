@@ -6,7 +6,7 @@ public class Dungeon implements BasicObject{
 	public Dungeon()
 	{
 		ConstrutorMapa c = new ConstrutorMapa();
-		salas = c.criarSalas();
+		salas = c.criarSalas("res\\mapa");
 		this.pos = c.getOrigem();
 	}
 	

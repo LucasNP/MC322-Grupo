@@ -2,9 +2,17 @@ package mc322;
 
 
 public class Sala implements BasicObject {
-	Entidade entidades[][] = new Entidade[13][13];
-	Entidade terreno[][] = new Entidade[13][13];
+	private Entidade entidades[][] = new Entidade[13][13];
+	private Entidade terreno[][] = new Entidade[13][13];
+	private Par pos;
 
+	public Sala(ConstrutorMapa c, Par pos)
+	{
+		this.pos = pos;
+		terreno = c.construirTerreno(pos);
+		entidades = c.construirEntidades(pos);
+	}
+	
 	public void render() {
 		for(int i =0;i<18;i++)
 		{
