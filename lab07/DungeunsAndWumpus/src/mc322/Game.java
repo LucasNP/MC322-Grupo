@@ -11,7 +11,7 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 	public static final int WIDTH = 640, HEIGHT = WIDTH /12*9; //Tamanho da tela
 	private Thread thread; //rodar isso em paralelo
 	private boolean running = false; // se o jogo ainda está rodando
-
+	private int x,y;
 	
 	public Game()
 	{
@@ -79,6 +79,8 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT); //background preto
 		
+		g.setColor(new Color(170,0,255));
+		g.fillRect(x, y, 100, 100);
 		
 		g.dispose();
 		bs.show();
@@ -87,6 +89,7 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 
 
 	private void tick() {
-		
+		x+=1;
+		y+=1;
 	}
 }
