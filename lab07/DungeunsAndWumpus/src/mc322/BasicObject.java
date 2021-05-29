@@ -1,6 +1,6 @@
 package mc322;
 
-public interface BasicObject {
+public interface BasicObject{
 	void render();
 	void tick();
 }
