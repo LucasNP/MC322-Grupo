@@ -11,11 +11,12 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 	public static final int WIDTH = 640, HEIGHT = WIDTH /12*9; //Tamanho da tela
 	private Thread thread; //rodar isso em paralelo
 	private boolean running = false; // se o jogo ainda está rodando
-
+	private Controle controle;
 	
 	public Game()
 	{
 		new Window(WIDTH, HEIGHT,"Dungeons and Wumpus",this);
+		this.controle=new Controle();
 	}
 	
 	

@@ -20,5 +20,10 @@ public class Dungeon implements BasicObject{
 		
 	}
 	
+	public Sala getSalaAtual()
+	{
+		return salas[this.pos.a()][this.pos.b()];
+	}
+	
 	
 }
