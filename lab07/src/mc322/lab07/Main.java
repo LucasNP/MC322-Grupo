@@ -8,14 +8,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class Main{
       public static void main(String[] argv) throws Exception {
-            JFrame f = new JFrame();
-            f.setSize(800, 600);
+            JFrame f = new JFrame("Dungeon & Wumpus");
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setSize(1024, 720);
             f.setLocationRelativeTo(null);
+
+            Tabuleiro tabuleiro = new Tabuleiro();
+            f.add(tabuleiro);
+
             f.setVisible(true);
       }
 }
+
 
 
