@@ -1,6 +1,8 @@
 package mc322;
 
+import java.awt.Graphics;
+
 public interface BasicObject{
-	void render();
+	void render(Graphics g);
 	void tick();
 }

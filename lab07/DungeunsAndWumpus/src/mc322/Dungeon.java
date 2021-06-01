@@ -1,8 +1,11 @@
 package mc322;
 
+import java.awt.Graphics;
+
 public class Dungeon implements BasicObject{
 	public Sala salas[][];
 	public Par pos; //posição do time no mapa
+	
 	public Dungeon()
 	{
 		ConstrutorMapa c = new ConstrutorMapa();
@@ -10,7 +13,7 @@ public class Dungeon implements BasicObject{
 		this.pos = c.getOrigem();
 	}
 	
-	public void render()
+	public void render(Graphics g)
 	{
 		
 	}

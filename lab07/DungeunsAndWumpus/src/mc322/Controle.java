@@ -1,5 +1,7 @@
 package mc322;
 
+import java.awt.Graphics;
+
 public class Controle implements BasicObject{
 	private Dungeon dg;
 	public Controle()
@@ -7,8 +9,8 @@ public class Controle implements BasicObject{
 		this.dg = new Dungeon();
 	}
 
-	public void render() {
-		this.dg.getSalaAtual().render();
+	public void render(Graphics g) {
+		this.dg.getSalaAtual().render(g);
 		
 	}
 
