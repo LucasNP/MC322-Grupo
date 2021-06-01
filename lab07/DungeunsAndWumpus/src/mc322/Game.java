@@ -7,14 +7,15 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e possui metodo run da iterface runnable (necessario para os threads)
 	
 	
-	private static final long serialVersionUID = 1L; //pediu pra gerar, acho q isso serve pra ele identificar a tela
-	public static final int WIDTH = 640, HEIGHT = WIDTH /12*9; //Tamanho da tela
+	public static final long serialVersionUID = 1L; //pediu pra gerar, acho q isso serve pra ele identificar a tela
+	public static final int WIDTH = 640*2, HEIGHT = WIDTH /12*7; //Tamanho da tela
 	private Thread thread; //rodar isso em paralelo
 	private boolean running = false; // se o jogo ainda está rodando
-
+	private Controle controle;
 	
 	public Game()
 	{
+		this.controle = new Controle();
 		new Window(WIDTH, HEIGHT,"Dungeons and Wumpus",this);
 	}
 	
@@ -79,6 +80,7 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT); //background preto
 		
+		controle.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -87,6 +89,7 @@ public class Game extends Canvas implements Runnable{ //herdeiro de Canvas e pos
 
 
 	private void tick() {
-		
+		controle.tick();
 	}
+	
 }
