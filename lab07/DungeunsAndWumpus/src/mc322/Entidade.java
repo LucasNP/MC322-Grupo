@@ -5,9 +5,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public abstract class Entidade implements BasicObject{
-	private String caminho;
-	private Image img= new ImageIcon(caminho).getImage();
-	private int i;
-	private int j;
+	protected String caminho;
+	protected int i;
+	protected int j;
+	protected String inicioCaminho = "src/";
+	
+	protected Image img()
+	{
+		return new ImageIcon(inicioCaminho+caminho).getImage();
+	}
 	
 }
