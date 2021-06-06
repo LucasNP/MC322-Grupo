@@ -10,10 +10,11 @@ public class Sala implements BasicObject {
 	private Entidade terreno[][] = new Entidade[13][13];
 	
 	//texturas
-	private Image lWall = new ImageIcon("src\\tiles\\Purple\\tile_left_wall.png").getImage();
-    private Image rWall = new ImageIcon("src\\tiles\\Purple\\tile_right_wall.png").getImage();
-    private Image ground = new ImageIcon("src\\tiles\\Purple\\tile1.png").getImage();
-    private Image pilar = new ImageIcon("src\\tiles\\Purple\\tile2.png").getImage();
+	protected String inicioCaminho = "src/";
+	private Image lWall = new ImageIcon(inicioCaminho+"tiles/Purple/tile_left_wall.png").getImage();
+    private Image rWall = new ImageIcon(inicioCaminho+"tiles/Purple/tile_right_wall.png").getImage();
+    private Image ground = new ImageIcon(inicioCaminho+"tiles/Purple/tile1.png").getImage();
+    private Image pilar = new ImageIcon(inicioCaminho+"tiles/Purple/tile2.png").getImage();
 	
 
 	public Sala(ConstrutorMapa c, Par pos) //chamado em contrutorMapa
