@@ -11,10 +11,9 @@ dungeon:
 8=ponte
 
 sala:
-a = tile1 chao
-b = tile2 pilar
+a = tile1 palanque
 d = door
-# = parede lateral
+# = parede / pilar
 k = parede NS
 l = parede EO
 m = escada NS

@@ -2,6 +2,7 @@ package mc322;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -19,15 +20,17 @@ public class Sala implements BasicObject {
 
 	public Sala(ConstrutorMapa c, Par pos) //chamado em contrutorMapa
 	{
-		terreno = c.construirTerreno(pos);
+		Random ale = new Random();
+		String numeroSala = "" + (ale.nextInt(9)+1);
+		terreno = c.construirTerreno(pos,numeroSala);
 		entidades = c.construirEntidades(pos);
 	}
 	
 	public void render(Graphics g) { // deverá ser chamado no controle
 		this.renderTerrain(g);
-		for(int i =0;i<18;i++)
+		for(int i =0;i<15;i++)
 		{
-			for(int j=0;j<18;j++)
+			for(int j=0;j<15;j++)
 			{
 			if(terreno!=null)
 				if(terreno[i][j] != null)
@@ -51,7 +54,7 @@ public class Sala implements BasicObject {
 			for(int j=0;j<18;j++)
 			{
 			if(terreno!=null)
-				if(entidades[i][j] != null)
+				if(entidades != null && entidades[i][j] != null)
 					entidades[i][j].tick();
 			}
 		}
