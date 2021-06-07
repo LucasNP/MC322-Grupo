@@ -6,6 +6,7 @@ import mc322.terreno.Escada;
 import mc322.terreno.Parede;
 import mc322.terreno.Pilar;
 import mc322.terreno.Porta;
+import mc322.terreno.SafeZone;
 
 public class GameDictionary {
 
@@ -30,7 +31,7 @@ public class GameDictionary {
 				retorno = new Parede(i,j,true,'n');
 				break;
 			case 'l':
-				retorno = new Parede(i,j,true,'s');
+				retorno = new Parede(i,j,true,'o');
 				break;
 			case 'm':
 				retorno = new Escada(i,j,true);
@@ -39,7 +40,21 @@ public class GameDictionary {
 				retorno = new Escada(i,j,false);
 				break;
 			case 'o':
-				retorno = new Bau(i,j);
+				retorno = new Bau(i,j,false);
+				break;
+			case 's':
+				retorno = new SafeZone(i,j);
+				break;
+			case 'O':
+				retorno = new Bau(i,j,true);
+				break;
+			case 'L':
+				retorno = new Parede(i,j,true,'O');
+				break;
+			case 'K':
+				retorno = new Parede(i,j,true,'N');
+				break;
+			case '.':
 				break;
 			default:
 				System.out.println("erro ao criar entidade, caracer invalido: "+ carac);

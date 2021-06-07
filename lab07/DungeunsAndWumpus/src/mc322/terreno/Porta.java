@@ -26,14 +26,15 @@ public class Porta extends Entidade{
 	}
 	
 	public void render(Graphics g) {
+		
 		if(direcao == 'N' ||direcao == 'n')
-			MiscFunc.Desenha(i+2, j-2, img(), g);
+			MiscFunc.Desenha(i, j,1, img(), g);
 		else if(direcao == 'O' ||direcao == 'o')
-			MiscFunc.Desenha(i+2, j-2, img(), g);
-		else if(direcao == 'S' ||direcao == 's')
-			MiscFunc.Desenha(i+2, j-2, img(), g);
+			MiscFunc.Desenha(i, j,1, img(), g);
+		else if(direcao == 'S' || direcao == 's')
+			MiscFunc.Desenha(i, j,0, img(), g);
 		else
-			MiscFunc.Desenha(i+2, j-2, img(), g);
+			MiscFunc.Desenha(i, j,0, img(), g);
 		
 	}
 

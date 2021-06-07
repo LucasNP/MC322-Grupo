@@ -15,8 +15,8 @@ public class Pilar extends Entidade{
 	}
 	
 	public void render(Graphics g) {
-		MiscFunc.Desenha(i, j, img(), g);
-		MiscFunc.Desenha(i-1, j+1, img(), g);
+		MiscFunc.Desenha(i, j,0, img(), g);
+		MiscFunc.Desenha(i, j,1, img(), g);
 	}
 
 	public void tick() {
