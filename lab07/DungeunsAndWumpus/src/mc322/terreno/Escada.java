@@ -18,7 +18,7 @@ public class Escada extends Entidade{
 	}
 	
 	public void render(Graphics g) {
-		MiscFunc.Desenha(i, j, img(), g);
+		MiscFunc.Desenha(i, j,0, img(), g);
 	}
 
 	public void tick() {

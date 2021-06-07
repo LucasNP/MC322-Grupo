@@ -60,16 +60,10 @@ public class Renderer{
       public void drawIsometricImage(int i, int j, char c, int tileX, int tileY){
             //TODO: Classe GameTileDefinitions 
             Map<Character, String> mapTiles = new HashMap<>();
-            mapTiles.put('a', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile1.png");
-            mapTiles.put('b', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/pilar.png");
+            mapTiles.put('a', "C:\\Users\\nicol\\eclipse-workspace\\MC322-Grupo\\lab07\\Dungeons&Wumpus\\src\\mc322\\assets\\tiles\\Purple\\tile1.png");
+            mapTiles.put('b', "C:\\Users\\nicol\\eclipse-workspace\\MC322-Grupo\\lab07\\Dungeons&Wumpus\\src\\\\mc322\\assets\\tiles\\Purple\\pilar.png");
 
-            mapTiles.put('c', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_left1.png");
-            mapTiles.put('d', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_right1.png");
-            mapTiles.put('e', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_down1.png");
-            mapTiles.put('f', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_down7.png");
-
-            mapTiles.put('g', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile_left_wall.png");
-            mapTiles.put('h', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile_right_wall.png");
+            mapTiles.put('g', "C:\\Users\\nicol\\eclipse-workspace\\MC322-Grupo\\lab07\\Dungeons&Wumpus\\src\\mc322\\assets\\tiles\\Purple\\tile_left_wall.png");
 
             //TODO: Draw
             ImageTile image;

@@ -35,20 +35,21 @@ public class ConstrutorMapa {
 		CSVHandling leitor = new CSVHandling();
 		leitor.setDataSource("src/maps/sala/"+sala+".csv");
 		String sMapa[][] = leitor.requestCommands();
-		System.out.println("Sala "+sala);
+		//System.out.println("Sala "+sala);
 		
 		Entidade eMapa[][] = new Entidade[15][15];
 		
-		for(int i = 0; i <15;i++)
+		for(int i = 14; i >=0;i--)
 		{
-			System.out.println("linha "+i);
+			//System.out.println("linha "+i);
 			for(int j = 0 ; j<15;j++)
 			{
-				System.out.println("coluna "+j);
+				//System.out.println("coluna "+j);
 				//System.out.println("i: "+sMapa[i]+"ij:"+sMapa[i][j]);
-				eMapa[i][j]=GameDictionary.getTerreno(sMapa[i][0].charAt(j),i,j,decidirCanto(i,j));
+				//if(pos.a()==0 && pos.b() == 0)
+					//System.out.println("adicionando "+sMapa[i][0].charAt(j)+" em "+i+", "+j);
+				eMapa[i][j]=GameDictionary.getTerreno(sMapa[i][0].charAt(MiscFunc.modulo(14-j)),i,j,decidirCanto(i,j));
 			}
-			System.out.println();
 		}
 		
 		
@@ -58,11 +59,11 @@ public class ConstrutorMapa {
 
 	private char decidirCanto(int i, int j)
 	{
-		if(i==0)
+		if(j==0)
 			return 'n';
-		if(i == 14)
+		if(j == 14)
 			return 's';
-		if(j== 0)
+		if(i== 0)
 			return 'o';
 		return 'e';
 	}

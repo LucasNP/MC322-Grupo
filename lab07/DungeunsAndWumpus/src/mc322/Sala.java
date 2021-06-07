@@ -22,7 +22,8 @@ public class Sala implements BasicObject {
 	{
 		Random ale = new Random();
 		String numeroSala = "" + (ale.nextInt(9)+1);
-		terreno = c.construirTerreno(pos,numeroSala);
+		//numeroSala = "5";
+		terreno = c.construirTerreno(pos,""+numeroSala);
 		entidades = c.construirEntidades(pos);
 	}
 	
@@ -37,7 +38,7 @@ public class Sala implements BasicObject {
 					terreno[i][j].render(g);
 			}
 		}
-		for(int i =0;i<18;i++)
+		for(int i =0;i<15;i++)
 		{
 			for(int j=0;j<18;j++)
 			{
@@ -65,32 +66,32 @@ public class Sala implements BasicObject {
 		int lin = 14;
 	  	int col = 14;
 
-        for(int i = lin; i >= 0; i--){ // for para desenhar o chão
+        for(int i = 0; i <=lin; i++){ // for para desenhar o chão
               for(int j = 0; j <= col; j++){
-            	  MiscFunc.Desenha(i, j, ground, g);
+            	  MiscFunc.Desenha(i, j,-1, ground, g);
               }
         }
 
-        MiscFunc.Desenha(lin+1, -1, pilar, g); //desenha o pilar superior
-        MiscFunc.Desenha(lin+2, -2, pilar, g);
-
-        for(int i = lin-1; i > 0; i--){ // for para desenhar a parede esquerda
-              if(i == 7) continue;
-              MiscFunc.Desenha(i+1, -1, lWall, g);
-              MiscFunc.Desenha(i+2, -2, lWall, g);
-        }
-
-        MiscFunc.Desenha(1, -1, pilar, g); // desenha o pilar esquerdo
-        MiscFunc.Desenha(2, -2, pilar, g);
-
-        for(int j = 1; j < col; j++){// for para desenhar a parede direita
-              if(j == 7) continue;
-              MiscFunc.Desenha(col+1, j-1, rWall, g);
-              MiscFunc.Desenha(col+2, j-2, rWall, g);
-        }
-
-        MiscFunc.Desenha(col+1, col-1, pilar, g); // desenha pilar a direita
-        MiscFunc.Desenha(col+2, col-2, pilar, g);
+//        MiscFunc.Desenha(lin+1, -1, pilar, g); //desenha o pilar superior
+//        MiscFunc.Desenha(lin+2, -2, pilar, g);
+//
+//        for(int i = lin-1; i > 0; i--){ // for para desenhar a parede esquerda
+//              if(i == 7) continue;
+//              MiscFunc.Desenha(i+1, -1, lWall, g);
+//              MiscFunc.Desenha(i+2, -2, lWall, g);
+//        }
+//
+//        MiscFunc.Desenha(1, -1, pilar, g); // desenha o pilar esquerdo
+//        MiscFunc.Desenha(2, -2, pilar, g);
+//
+//        for(int j = 1; j < col; j++){// for para desenhar a parede direita
+//              if(j == 7) continue;
+//              MiscFunc.Desenha(col+1, j-1, rWall, g);
+//              MiscFunc.Desenha(col+2, j-2, rWall, g);
+//        }
+//
+//        MiscFunc.Desenha(col+1, col-1, pilar, g); // desenha pilar a direita
+//        MiscFunc.Desenha(col+2, col-2, pilar, g);
 	}
 	
 }
