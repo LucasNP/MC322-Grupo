@@ -31,11 +31,42 @@ public class ConstrutorMapa {
 		return origem;
 	}
 
-	public Entidade[][] construirTerreno(Par pos) {
+	public Entidade[][] construirTerreno(Par pos, String sala) {
+		CSVHandling leitor = new CSVHandling();
+		leitor.setDataSource("src/maps/sala/"+sala+".csv");
+		String sMapa[][] = leitor.requestCommands();
+		System.out.println("Sala "+sala);
 		
-		return null;
+		Entidade eMapa[][] = new Entidade[15][15];
+		
+		for(int i = 0; i <15;i++)
+		{
+			System.out.println("linha "+i);
+			for(int j = 0 ; j<15;j++)
+			{
+				System.out.println("coluna "+j);
+				//System.out.println("i: "+sMapa[i]+"ij:"+sMapa[i][j]);
+				eMapa[i][j]=GameDictionary.getTerreno(sMapa[i][0].charAt(j),i,j,decidirCanto(i,j));
+			}
+			System.out.println();
+		}
+		
+		
+		
+		return eMapa;
 	}
 
+	private char decidirCanto(int i, int j)
+	{
+		if(i==0)
+			return 'n';
+		if(i == 14)
+			return 's';
+		if(j== 0)
+			return 'o';
+		return 'e';
+	}
+	
 	public Entidade[][] construirEntidades(Par pos) {
 		
 		return null;
