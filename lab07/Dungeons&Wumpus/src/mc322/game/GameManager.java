@@ -24,9 +24,11 @@ public class GameManager extends AbstractGame{
             DIR = "/home/lucas/GameDev/Dungeons&Wumpus/characters/Milo/1/idle.png";
             image = new ImageTile(DIR, 64, 64);
 
-            board = new char[13][13];
+            board = new char[14][14];
             for(int i = 0; i < board[0].length; i++){
-                  for(int j = 0; j < board.length; j++) board[i][j] = 'c';
+                  for(int j = 0; j < board.length; j++) {
+                        board[i][j] = 'a';
+                  }
             }
       }
 

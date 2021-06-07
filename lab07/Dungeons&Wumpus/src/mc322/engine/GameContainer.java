@@ -13,8 +13,8 @@ public class GameContainer implements Runnable{
       private boolean running = false;
       private final double UPDATE_CAP = 1.0/60.0;
       
-      private int width = 640, height = 380;
-      private double scale = 1.8;
+      private int width = 540, height = 340;
+      private double scale = 2;
       private String title = "Dungeons & Wumpus";
 
       public GameContainer(AbstractGame game){

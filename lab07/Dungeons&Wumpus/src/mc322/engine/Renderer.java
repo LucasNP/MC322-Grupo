@@ -56,6 +56,38 @@ public class Renderer{
             }           
       }
 
+      //TODO: Modularizar essa função em classes
+      public void drawIsometricImage(int i, int j, char c, int tileX, int tileY){
+            //TODO: Classe GameTileDefinitions 
+            Map<Character, String> mapTiles = new HashMap<>();
+            mapTiles.put('a', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile1.png");
+            mapTiles.put('b', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/pilar.png");
+
+            mapTiles.put('c', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_left1.png");
+            mapTiles.put('d', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_right1.png");
+            mapTiles.put('e', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_down1.png");
+            mapTiles.put('f', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/metal_door_down7.png");
+
+            mapTiles.put('g', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile_left_wall.png");
+            mapTiles.put('h', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile_right_wall.png");
+
+            //TODO: Draw
+            ImageTile image;
+            String DIR;
+            DIR = mapTiles.get(c);
+            image = new ImageTile(DIR, 64, 64);
+            
+            int tx = pW/2 - 7*image.getTileWidth()/2;
+            int ty = pH/2 - image.getTileHeight()/2;
+
+            int sizeX = image.getTileWidth()/4;
+            int sizeY = image.getTileHeight()/4;
+            
+            Pair <Integer, Integer> b = Pair.of(i*sizeX, j*sizeY);
+            b = linearAlgebra.toIsometrica(b);
+            drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
+      }
+
       public void drawImageTile(ImageTile image, int offX, int offY, int tileX, int tileY){
             int newX = 0,
                 newY = 0,
@@ -80,22 +112,30 @@ public class Renderer{
             }  
       }
 
-
+      //TODO: Modularizar essa função em classes
       public void drawBoard(int offX, int offY, char board[][]){
-            Image image;
-            String DIR;
-            Map<Character, String> mapTiles = new HashMap<>();
-            mapTiles.put('c', "/home/lucas/GameDev/Dungeons&Wumpus/tiles/Purple/tile1.png");
-            
-            for(int i = board[0].length - 1 ; i >= 0; i--){
-                  for(int j = 0; j < board.length; j++){
-                        DIR = mapTiles.get(board[i][j]);
-                        image = new Image(DIR);
 
-                        Pair <Integer, Integer> b = Pair.of(i*16, j*16);
-                        b = linearAlgebra.toIsometrica(b);
-                        drawImage(image, b.getFirst() + 100, b.getSecond() + 150);
+            int lin = board[0].length;
+            int col = board.length;
+
+            for(int i = lin - 1 ; i >= 0; i--){
+                  for(int j = 0; j < col; j++){
+                        drawIsometricImage(i, j, board[i][j], 0, 0);
                   }
             }
+
+            drawIsometricImage(lin, -1, 'b', 0, 0);
+            //drawIsometricImage(lin+1, -2, 'b');
+
+            for(int i = lin-1; i > 0; i--){
+                  drawIsometricImage(i, -1, 'g', 0, 0);
+                  //drawIsometricImage(i+1, -2, 'g');
+            }
+
+
+            drawIsometricImage(0, -1, 'b', 1, 0);
+            drawIsometricImage(col, col-1, 'b', 2, 0);
+            //drawIsometricImage(1, -2, 'b');
+
       }
 }
