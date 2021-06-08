@@ -14,19 +14,9 @@ public class GameManager implements AbstractGame{
       private double temp = 0;
       private char[][] board;
 
-      private boolean update_board;
-
       public GameManager(){
-            DIR = "C:\\Users\\nicol\\eclipse-workspace\\MC322-Grupo\\lab07\\Dungeons&Wumpus\\assets\\characters\\Milo\\1\\idle.png";
-            try 
-            {
-            	image = new ImageTile(DIR, 64, 64);
-            }
-            catch(Exception e)
-            {
-            	System.out.println(e.toString());
-            }
-            
+            DIR = "assets/characters/Milo/idle.png";
+            image = new ImageTile(DIR, 64, 64);
 
             //TODO: Substituir com Classe Construstora de tabuleiro
             board = new char[15][15];
@@ -53,16 +43,16 @@ public class GameManager implements AbstractGame{
 
       }
 
-      // equivalente to tick
-      public void update(GameContainer gc, double dt){ 
+      @Override
+      public void update(GameContainer gc, double dt){
             if(gc.getInput().isKey(KeyEvent.VK_A)) System.out.println("A");
 
             int velocidade_anim = 10;
             temp = (temp + velocidade_anim*dt);
       }
 
-      // equivalente to render
-      public void renderer(GameContainer gc, Renderer r){ 
+      @Override
+      public void renderer(GameContainer gc, Renderer r){
             int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
             int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
 
@@ -71,9 +61,9 @@ public class GameManager implements AbstractGame{
       }
 
       public static void main(String args[]){
-            System.setProperty("sun.java2d.opengl", "true"); // ?
-            GameContainer gc = new GameContainer(new GameManager()); //gamecontainer?
-            gc.start(); 
+            System.setProperty("sun.java2d.opengl", "true"); 
+            GameContainer gc = new GameContainer(new GameManager());
+            gc.start();
 
       }
 
