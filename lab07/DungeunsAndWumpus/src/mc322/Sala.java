@@ -22,7 +22,7 @@ public class Sala implements BasicObject {
 	{
 		Random ale = new Random();
 		String numeroSala = "" + (ale.nextInt(9)+1);
-		//numeroSala = "5";
+		numeroSala = "3";
 		terreno = c.construirTerreno(pos,""+numeroSala);
 		entidades = c.construirEntidades(pos);
 	}
