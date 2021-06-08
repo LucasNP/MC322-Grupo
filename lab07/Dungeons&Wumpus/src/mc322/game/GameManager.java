@@ -7,7 +7,7 @@ import mc322.engine.GameContainer;
 import mc322.engine.Renderer;
 import java.awt.event.KeyEvent;
 
-public class GameManager extends AbstractGame{
+public class GameManager implements AbstractGame{
       private ImageTile image;
       private String DIR;
       
