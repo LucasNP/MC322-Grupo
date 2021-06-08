@@ -23,7 +23,7 @@ public class GameMapTiles{
             tileHeight = 64;
             tileWidth  = 64;
 
-            DIR =  "/home/lucas/GameDev/Dungeons&Wumpus";
+            DIR = "/home/lucas/p/java/codes/MC322-Grupo/lab07/Dungeons&Wumpus/assets";
             ALPHABET = ".abcde";
 
             FillTokens();

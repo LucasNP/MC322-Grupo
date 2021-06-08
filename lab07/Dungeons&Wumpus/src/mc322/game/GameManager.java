@@ -20,10 +20,9 @@ public class GameManager extends AbstractGame{
       private double temp = 0;
       private char[][] board;
 
-      private boolean update_board;
-
       public GameManager(){
-            DIR = "/home/lucas/GameDev/Dungeons&Wumpus/characters/Milo/idle.png";
+            DIR = "/home/lucas/p/java/codes/MC322-Grupo/lab07/Dungeons&Wumpus/assets";
+            DIR += "/characters/Milo/idle.png";
             image = new ImageTile(DIR, 64, 64);
 
             //TODO: Substituir com Classe Construstora de tabuleiro
@@ -47,8 +46,6 @@ public class GameManager extends AbstractGame{
             board[0][col-1] = 'b';
             board[col-1][0] = 'b';
             board[col-1][col-1] = 'b';
-
-
       }
 
       @Override
