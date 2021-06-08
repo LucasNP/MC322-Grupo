@@ -2,7 +2,7 @@ package mc322.engine;
 
 import java.util.HashSet;
  
-public class Pair<U, V>{
+class Pair<U, V>{
     public final U first;     
     public final V second;
  

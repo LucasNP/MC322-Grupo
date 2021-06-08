@@ -78,17 +78,7 @@ public class Renderer{
 
             for(int y = newY; y < newHeight; y++){
                   for(int x = newX; x < newWidth; x++){
-                	  try
-                	  {
-                		  int pos = ((x+fixX)+ (y+fixY)*image.getWidth());
-                		  if(pos<image.getP().length)
-                			  setPixel(x + offX, y + offY, image.getP()[pos]);
-                	  }
-                	  catch(Exception e)
-                	  {
-                		  System.out.println("algo deu errado: "+e);
-                	  }
-                             
+                        setPixel(x + offX, y + offY, image.getP()[(x+fixX)+ (y+fixY)*image.getWidth()]);     
                   }
             }  
       }

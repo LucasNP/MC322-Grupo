@@ -1,5 +1,6 @@
 package mc322.game;
 
+import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
 
 import java.util.HashMap;
@@ -32,9 +33,9 @@ public class GameMapTiles{
       public void FillTokens(){
             mapTokens.put('.', DIR+"/tiles/Purple/blank.png");
             mapTokens.put('a', DIR+"/tiles/Purple/tile.png");
-            mapTokens.put('b', DIR+"/tiles\\Purple/pilar.png");
-            mapTokens.put('c', DIR+"/tiles\\Purple/tile_wall.png");
-            mapTokens.put('d', DIR+"/tiles\\Purple/metal_door.png");
+            mapTokens.put('b', DIR+"/tiles/Purple/pilar.png");
+            mapTokens.put('c', DIR+"/tiles/Purple/tile_wall.png");
+            mapTokens.put('d', DIR+"/tiles/Purple/metal_door.png");
             mapTokens.put('e', DIR+"/tiles/Purple/torch.png");
 
       }
