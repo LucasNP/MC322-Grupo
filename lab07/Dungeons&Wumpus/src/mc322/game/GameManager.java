@@ -1,22 +1,29 @@
 package mc322.game;
 
+import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
+
+import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 import mc322.engine.AbstractGame;
 import mc322.engine.GameContainer;
 import mc322.engine.Renderer;
+import mc322.engine.Input;
+import mc322.game.GameMapTokens;
 import java.awt.event.KeyEvent;
 
 public class GameManager implements AbstractGame{
       private ImageTile image;
-      private String DIR;
-      
+      private GameMapTokens gameMapTokens;
+
       private double temp = 0;
       private char[][] board;
 
       public GameManager(){
-            DIR = "assets/characters/Milo/idle.png";
-            image = new ImageTile(DIR, 64, 64);
+            gameMapTokens = new GameMapTokens();
+            image = gameMapTokens.getImageCharacter("Milo", "idle");
 
             //TODO: Substituir com Classe Construstora de tabuleiro
             board = new char[15][15];
@@ -39,8 +46,6 @@ public class GameManager implements AbstractGame{
             board[0][col-1] = 'b';
             board[col-1][0] = 'b';
             board[col-1][col-1] = 'b';
-
-
       }
 
       @Override
@@ -64,7 +69,6 @@ public class GameManager implements AbstractGame{
             System.setProperty("sun.java2d.opengl", "true"); 
             GameContainer gc = new GameContainer(new GameManager());
             gc.start();
-
       }
 
 }
