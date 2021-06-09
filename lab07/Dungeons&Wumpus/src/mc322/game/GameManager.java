@@ -11,19 +11,19 @@ import mc322.engine.AbstractGame;
 import mc322.engine.GameContainer;
 import mc322.engine.Renderer;
 import mc322.engine.Input;
+import mc322.game.GameMapTokens;
 import java.awt.event.KeyEvent;
 
-public class GameManager extends AbstractGame{
+public class GameManager implements AbstractGame{
       private ImageTile image;
-      private String DIR;
-      
+      private GameMapTokens gameMapTokens;
+
       private double temp = 0;
       private char[][] board;
 
       public GameManager(){
-            DIR = "/home/lucas/p/java/codes/MC322-Grupo/lab07/Dungeons&Wumpus/assets";
-            DIR += "/characters/Milo/idle.png";
-            image = new ImageTile(DIR, 64, 64);
+            gameMapTokens = new GameMapTokens();
+            image = gameMapTokens.getImageCharacter("Milo", "idle");
 
             //TODO: Substituir com Classe Construstora de tabuleiro
             board = new char[15][15];
@@ -69,7 +69,6 @@ public class GameManager extends AbstractGame{
             System.setProperty("sun.java2d.opengl", "true"); 
             GameContainer gc = new GameContainer(new GameManager());
             gc.start();
-
       }
 
 }
