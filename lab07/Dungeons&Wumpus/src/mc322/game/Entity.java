@@ -8,9 +8,11 @@ public abstract class Entity implements BasicObject{
       protected int elevation;
       protected int i;
       protected int j;
+      protected int updateDir;
+      protected int updateFrame;
 
       
-      public abstract void update(double dt);
+      public abstract void update(int dt);
 
       
       public abstract void renderer(Renderer r);
