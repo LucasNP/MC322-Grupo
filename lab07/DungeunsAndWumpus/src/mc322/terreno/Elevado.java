@@ -11,10 +11,11 @@ public class Elevado extends Entidade{
 		this.i=i;
 		this.j= j;
 		this.caminho = "tiles/Purple/tile2.png";
+		img();
 	}
 	
 	public void render(Graphics g) {
-		MiscFunc.Desenha(i, j,0, img(), g);
+		MiscFunc.Desenha(i, j,0, img, g);
 	}
 
 	public void tick() {

@@ -48,7 +48,7 @@ public class Parede extends Entidade{
 				this.caminho = "";
 		}
 		
-		
+		img();
 	}
 	
 	private Image img2()
@@ -60,8 +60,8 @@ public class Parede extends Entidade{
 		if(elevado)
 			MiscFunc.Desenha(i, j, 0,img2(), g);
 		else
-			MiscFunc.Desenha(i, j, 0,img(), g);
-		MiscFunc.Desenha(i, j,1, img(), g);
+			MiscFunc.Desenha(i, j, 0,img, g);
+		MiscFunc.Desenha(i, j,1, img, g);
 	}
 
 	public void tick() {

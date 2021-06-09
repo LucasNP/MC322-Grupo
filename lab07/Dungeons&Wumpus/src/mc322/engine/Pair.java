@@ -2,7 +2,7 @@ package mc322.engine;
 
 import java.util.HashSet;
  
-class Pair<U, V>{
+public class Pair<U, V>{
     public final U first;     
     public final V second;
  
@@ -40,5 +40,7 @@ class Pair<U, V>{
     public V getSecond(){
           return second;
     }
+
+
 }
 

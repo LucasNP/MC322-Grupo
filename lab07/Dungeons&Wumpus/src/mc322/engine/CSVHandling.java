@@ -1,4 +1,4 @@
-package mc322;
+package mc322.engine;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
