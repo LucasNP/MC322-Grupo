@@ -53,7 +53,7 @@ public class GameManager implements AbstractGame{
             if(gc.getInput().isKey(KeyEvent.VK_A)) System.out.println("A");
 
             int velocidade_anim = 10;
-            temp = (temp + velocidade_anim*dt);
+            temp += velocidade_anim*dt;
       }
 
       @Override

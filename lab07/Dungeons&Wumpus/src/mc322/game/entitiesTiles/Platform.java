@@ -7,10 +7,9 @@ import mc322.game.GameRenderer;
 
 public class Platform extends Entity{
 
-	public Platform(int i, int j)
-	{
-		this.i=i;
-		this.j= j;
+	public Platform(int i, int j){
+		this.i = i;
+		this.j = j;
 		this.name = "platform";
 	}
 
@@ -19,7 +18,7 @@ public class Platform extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawImage(i,j,elevation,name,r);
+		GameRenderer.drawImage(i,j,elevation,name,r, 0, 0);
 	}
 
 }

@@ -17,6 +17,7 @@ public class Room implements BasicObject {
       private String numberRoom;
       private ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>(size);
 
+      //TODO: Porque cada room precisa saber pos ?
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
@@ -29,17 +30,14 @@ public class Room implements BasicObject {
             String floor = "tile";
             int elevationFloor = 0;
             
-            int lin = 14;
-            int col = 14;
-
-            for(int i = 0; i <=lin; i++){
-                  for(int j = 0; j <= col; j++){
+            for(int i = 0; i <= size; i++){
+                  for(int j = 0; j <= size; j++){
                         GameRenderer.drawImage(i, j, elevationFloor, floor, r);
                   }
             }
       }
 
-	public void update(double dt) {
+      public void update(double dt) {
             for(int i =0;i<size;i++){
                   for(int j=0;j<size;j++){
                         if(tiles!=null)
@@ -50,9 +48,9 @@ public class Room implements BasicObject {
                                     entities[i][j].update(dt);
                   }
             }
-	}
+      }
 
-	public void renderer(Renderer r) {
+      public void renderer(Renderer r) {
             this.renderTerrain(r);
 
             for(int i =0;i<size;i++){

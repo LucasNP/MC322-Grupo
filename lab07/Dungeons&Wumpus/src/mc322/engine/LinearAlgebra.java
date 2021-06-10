@@ -19,6 +19,12 @@ public class LinearAlgebra{
       }
 
       public Pair<Integer, Integer> getOrigin(){
+            Pair <Integer, Integer> origin = Pair.of(0, 0);
             return origin;
+      }
+
+      public int getModulo(int number){
+            if(number < 0) number = -number;
+            return number;
       }
 }

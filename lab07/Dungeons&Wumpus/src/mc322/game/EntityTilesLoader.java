@@ -5,7 +5,7 @@ import mc322.game.entitiesTiles.*;
 
 public class EntityTilesLoader {
 
-      public static Entity getEntity(char token, int i, int j, String dir){
+      public Entity getEntity(char token, int i, int j, String dir){
             Entity entityTile = null;
 
             boolean interna;
