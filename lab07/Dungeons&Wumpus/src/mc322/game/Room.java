@@ -11,7 +11,7 @@ import mc322.engine.Renderer;
 import mc322.engine.LinearAlgebra;
 
 public class Room implements BasicObject {
-      private final int size = 14;
+      private final int size = 15;
       private Entity entities[][] = new Entity[size][size];
 
       private String numberRoom;
@@ -21,7 +21,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "3";
+            numberRoom = "9";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom);
             entities = mapBuilder.buildEntities(pos);
       }
@@ -29,14 +29,17 @@ public class Room implements BasicObject {
       private void renderTerrain(Renderer r){
     	  
             String floor = "tile";
-            int elevationFloor = 0;
+            int elevationFloor = -1;
             
-            for(int i0 = size; i0 >0; i0--){
-                  for(int j0= 0; j0 <=size; j0++){
+            for(int i0 = size-1; i0 >0; i0--){
+                  for(int j0= 0; j0 <size-1; j0++){
                 	  //System.out.println("desenhando o chao em x: "+j0+" y: "+i0);
                         GameRenderer.drawTile(i0, j0, elevationFloor, floor, r,0,0);
                   }
             }
+            GameRenderer.drawTile(size/2, size-1, elevationFloor, floor, r,0,0);
+            GameRenderer.drawTile(0, size/2, elevationFloor, floor, r,0,0);
+            
       }
 
       public void update(double dt) {
@@ -55,9 +58,8 @@ public class Room implements BasicObject {
       public void renderer(Renderer r) {
             this.renderTerrain(r);
 
-            for(int i0 = size-1; i0 >0; i0--){
+            for(int i0 = size-1; i0 >=0; i0--){
                   for(int j0=0;j0<size;j0++){
-                        if(tiles!=null)
                               if(tiles.get(i0).get(j0) != null)
                               {
                             	  tiles.get(i0).get(j0).getFirst().renderer(r);

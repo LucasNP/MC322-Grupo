@@ -16,7 +16,6 @@ public class GameManager implements AbstractGame{
       public GameManager(){
             dungeon = new Dungeon();
             image = GameMapTokens.getImageCharacter("Milo", "idle");
-            pilar = new Pillar(4,4,"north-south",0);
             //TODO: Substituir com Classe Construstora de tabuleiro
 //            board = new char[15][15];
 //            int lin = board[0].length;
@@ -53,7 +52,6 @@ public class GameManager implements AbstractGame{
             int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
             int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
             dungeon.renderer(r);
-            pilar.renderer(r);
             //r.drawBoard(0, 0, board, (int)temp%3);
             r.drawImageTile(image, xCurrent, yCurrent, (int)temp%6, 0);
       }

@@ -12,12 +12,12 @@ public class Door extends Entity{
 	{
 		this.i=i;
 		this.j= j;
-		this.elevation = elevation;
+		this.elevation = elevation+1;
 		this.name = "door";
-		if(dir == "north-south")
-			this.dir = 0;
-		else
+		if(dir == "north" || dir =="south")
 			this.dir = 1;
+		else
+			this.dir = 0;
 	}
 	
 	public void renderer(Renderer r) {
