@@ -16,7 +16,7 @@ public class Pillar extends Entity{
 		if(dir == "north-south")
 			this.dir = 0;
 		else
-			this.dir = 2;
+			this.dir = 0;
 	}
 	
 	public void update(double dt) {

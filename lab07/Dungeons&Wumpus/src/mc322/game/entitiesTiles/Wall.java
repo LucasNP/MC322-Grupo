@@ -18,17 +18,21 @@ public class Wall extends Entity{
 		{
 			this.name = "tile_side_wall";
 			if(dir == "north-south")
-				this.dir = 0;
-			else
 				this.dir = 1;
+			else
+				this.dir = 0;
 		}
 		else
 		{
-			this.name = "tile_wall";
-			if(dir == "north-south")
+			this.name = "tile_wall2";
+			if(dir == "north")
 				this.dir = 1;
-			else
+			else if(dir == "west")
 				this.dir = 0;
+			else
+			{
+				this.name = "blank";
+			}
 		}
 	}
 	

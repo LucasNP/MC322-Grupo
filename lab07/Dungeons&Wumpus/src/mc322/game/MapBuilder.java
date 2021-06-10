@@ -15,7 +15,7 @@ public class MapBuilder{
       private Room[][] rooms;
       private final int mapHeight = 10;
       private final int mapWidth  = 10;
-
+      
       private String dungeonPath;
       private Pair <Integer, Integer> origin;
  
@@ -43,13 +43,15 @@ public class MapBuilder{
             String scannedRoom[][] = scannerCSV.requestCommands();
             ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>();
 
-            for(int i=0; i < size; i++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
+            for(int j=0; j < size; j++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
 
-            for(int i = size-1; i>=0;i--){
+            for(int i = 0; i<size;i++){
                   for(int j = 0 ; j < size;j++){
-                        char token = scannedRoom[i][0].charAt(LinearAlgebra.getModulo(size-j));
+                		System.out.println(scannedRoom[j][0]);
+                		
+                        char token = scannedRoom[j][0].charAt(i);
 
-                        Pair <Entity, Entity> pe = entityTilesLoader.getEntity(token, i, j, decidirCanto(i,j));
+                        Pair <Entity, Entity> pe = entityTilesLoader.getEntity(token, i, j, chooseOrientation(i,j,size));
                         tiles.get(i).add(pe);
                   }
             }
@@ -57,10 +59,14 @@ public class MapBuilder{
             return tiles;
       }
 
-      private String decidirCanto(int i, int j){
-            if(i== 0) return "north-south";
-            return "east-west";
+      private String chooseOrientation(int i, int j,int size){
+            if(i== 0 ) return "south";
+            if(i==size-1) return "north";
+            if(j== 0 ) return "west";
+            return "east";
       }
+      
+      
       
       public Entity[][] buildEntities(Pair<Integer,Integer>pos) {
             return null;
