@@ -52,7 +52,6 @@ public class MapBuilder{
                         tiles.get(i).add(pe);
                   }
             }
-
             return tiles;
       }
 
