@@ -17,4 +17,8 @@ public class LinearAlgebra{
             Pair <Integer, Integer> np = Pair.of(nx, ny);
             return np;
       }
+
+      public Pair<Integer, Integer> getOrigin(){
+            return origin;
+      }
 }

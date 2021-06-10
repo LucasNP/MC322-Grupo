@@ -14,9 +14,9 @@ public class GameMapTokens{
       private String PNG = ".png";
       private String CSV = ".csv";
 
-      private String ASSETS = "/_assets";
-      private String SOUNDS = "/_sounds";
-      private String DATA   = "/_data";
+      private String ASSETS = "../_assets";
+      private String SOUNDS = "../_sounds";
+      private String DATA   = "../_data";
 
       private Map<String, ImageTile> mapTokens;
 
@@ -38,6 +38,13 @@ public class GameMapTokens{
             tileWidth  = 64;
       }
 
+      public String getDungeonPATH(){
+            return DUNGEON;
+      }
+      public String getRoomPATH(String numberRoom){
+            return DIR_CSV+numberRoom+CSV;
+      }
+
       // TokensTiles: blank, door, pillar, tile_half, tile_ladder, tile_side_wall, tile_wall, tile, torch
       // TokensColors: Red, Blue, Purple, Yellow, Green, White, Black
       public ImageTile getImageTile(String object, String color){
@@ -54,7 +61,6 @@ public class GameMapTokens{
       public ImageTile getImageCharacter(String object, String state){
             if(mapTokens.get(object) == null){
                   String path = DIR_CHARACTERS + object + "/" + state + PNG;
-                  System.out.println(path);
                   image = new ImageTile(path, tileWidth, tileHeight);
                   mapTokens.put(object, image);
             }

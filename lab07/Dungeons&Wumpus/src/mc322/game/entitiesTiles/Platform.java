@@ -1,24 +1,25 @@
-//package mc322.terreno;
+package mc322.game.entitiesTiles;
 
-//import java.awt.Graphics;
-//import mc322.Entidade;
-//import mc322.MiscFunc;
+import mc322.engine.Renderer;
+import mc322.game.Entity;
+import mc322.game.GameRenderer;
 
-//public class Elevado extends Entidade{
 
-	//public Elevado(int i, int j)
-	//{
-		//this.i=i;
-		//this.j= j;
-		//this.caminho = "tiles/Purple/tile2.png";
-	//}
-	
-	//public void render(Graphics g) {
-		//MiscFunc.Desenha(i, j,0, img(), g);
-	//}
+public class Platform extends Entity{
 
-	//public void tick() {
+	public Platform(int i, int j)
+	{
+		this.i=i;
+		this.j= j;
+		this.name = "platform";
+	}
+
+	public void update(double dt) {
 		
-	//}
+	}
 
-//}
+	public void renderer(Renderer r) {
+		GameRenderer.drawImage(i,j,elevation,name,r);
+	}
+
+}
