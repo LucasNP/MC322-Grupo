@@ -5,27 +5,26 @@ import mc322.game.Entity;
 import mc322.game.GameRenderer;
 
 public class Chest extends Entity{
-	
-	public Chest (int i, int j, int elevation, String direction)
+
+	private int dir;
+	public Chest(int i, int j,String dir,int elevation)
 	{
+		this.i = i;
+		this.j = j;
 		this.elevation = elevation;
-		this.i=i;
-		this.j=j;
 		this.name = "chest";
-		if(direction=="north-south")
-			this.updateDir = 0;
-		this.updateFrame = 0;
+		if(dir == "north-south")
+			this.dir = 0;
+		else
+			this.dir = 1;
 	}
 	
-
-	public void update(int dt) {
-		this.updateFrame = dt%2;
+	public void update(double dt) {
+		
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawImage(i,j,elevation,name,r,0,0);
+		GameRenderer.drawTile(i , j , elevation , name , r , 0 , this.dir);
 	}
-
-
 
 }

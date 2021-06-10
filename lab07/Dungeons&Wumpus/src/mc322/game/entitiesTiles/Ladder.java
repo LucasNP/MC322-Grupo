@@ -1,28 +1,30 @@
-//package mc322.terreno;
+package mc322.game.entitiesTiles;
 
-//import java.awt.Graphics;
+import mc322.engine.Renderer;
+import mc322.game.Entity;
+import mc322.game.GameRenderer;
 
-//import mc322.Entidade;
-//import mc322.MiscFunc;
+public class Ladder extends Entity{
 
-//public class Escada extends Entidade{
-
-	//public Escada(int i, int j,boolean NS)
-	//{
-		//this.i = i;
-		//this.j = j;
-		//if(NS)
-			//this.caminho = "tiles/Purple/tile_ladder_right.png";
-		//else
-			//this.caminho = "tiles/Purple/tile_ladder_left.png";
-	//}
+	private int dir;
+	public Ladder(int i, int j,String dir,int elevation)
+	{
+		this.i = i;
+		this.j = j;
+		this.elevation = elevation;
+		this.name = "tile_ladder";
+		if(dir == "north-south")
+			this.dir = 1;
+		else
+			this.dir = 0;
+	}
 	
-	//public void render(Graphics g) {
-		//MiscFunc.Desenha(i, j,0, img(), g);
-	//}
-
-	//public void tick() {
+	public void update(double dt) {
 		
-	//}
+	}
 
-//}
+	public void renderer(Renderer r) {
+		GameRenderer.drawTile(i , j , elevation , name , r , 0 , this.dir);
+	}
+
+}

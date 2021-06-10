@@ -1,26 +1,30 @@
-//package mc322.terreno;
+package mc322.game.entitiesTiles;
 
-//import java.awt.Graphics;
+import mc322.engine.Renderer;
+import mc322.game.Entity;
+import mc322.game.GameRenderer;
 
-//import mc322.Entidade;
-//import mc322.MiscFunc;
+public class Pillar extends Entity{
 
-//public class Pilar extends Entidade{
-
-	//public Pilar(int i, int j)
-	//{
-		//this.i=i;
-		//this.j= j;
-		//this.caminho = "tiles/Purple/tile2.png";
-	//}
+	private int dir;
+	public Pillar(int i, int j,String dir,int elevation)
+	{
+		this.i = i;
+		this.j = j;
+		this.elevation = elevation;
+		this.name = "pillar";
+		if(dir == "north-south")
+			this.dir = 0;
+		else
+			this.dir = 2;
+	}
 	
-	//public void render(Graphics g) {
-		//MiscFunc.Desenha(i, j,0, img(), g);
-		//MiscFunc.Desenha(i, j,1, img(), g);
-	//}
-
-	//public void tick() {
+	public void update(double dt) {
 		
-	//}
+	}
 
-//}
+	public void renderer(Renderer r) {
+		GameRenderer.drawTile(i , j , elevation , name , r , 0 , this.dir);
+	}
+
+}

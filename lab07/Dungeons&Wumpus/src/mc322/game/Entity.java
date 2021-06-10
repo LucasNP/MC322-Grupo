@@ -5,16 +5,15 @@ import mc322.engine.Renderer;
 
 public abstract class Entity implements BasicObject{
       protected String name;
+      protected int velocityAnim;
+      protected int nFrames;
       protected int elevation;
       protected int i;
       protected int j;
       protected int updateDir;
-      protected int updateFrame;
+      protected double updateFrame;
 
       
-      public abstract void update(int dt);
-
-      
+      public abstract void update(double dt);
       public abstract void renderer(Renderer r);
-      
 }
