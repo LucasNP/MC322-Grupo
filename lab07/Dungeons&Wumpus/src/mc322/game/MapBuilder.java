@@ -11,8 +11,6 @@ import mc322.game.entitiesTiles.*;
 
 public class MapBuilder{
       private EntityTilesLoader entityTilesLoader;
-      private GameMapTokens gameMapTokens;
-      private LinearAlgebra linearAlgebra;
 
       private Room[][] rooms;
       private final int mapHeight = 10;
@@ -24,7 +22,7 @@ public class MapBuilder{
 
       public Room[][] buildRooms(String dungeonPath) { 
             this.dungeonPath = dungeonPath;
-            this.origin = linearAlgebra.getOrigin();
+            this.origin = LinearAlgebra.getOrigin();
             this.rooms = new Room[mapHeight][mapWidth]; 
             
             for(int i = 0; i < mapHeight; i++){
@@ -37,36 +35,33 @@ public class MapBuilder{
             return rooms;
       }
 
-
       public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos,String numberRoom){
             CSVHandling scannerCSV = new CSVHandling();
-            scannerCSV.setDataSource(gameMapTokens.getRoomPATH(numberRoom));
+            scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
             
             String scannedRoom[][] = scannerCSV.requestCommands();
             ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>();
 
             for(int i=0; i < size; i++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
 
-            for(int i = size-1; i>=0;i--){
+            for(int i = 0; i < size;i++){
                   for(int j = 0 ; j < size;j++){
-                        Entity entity1;
-                        Entity entity2;
-
-                        char token = scannedRoom[i][0].charAt(linearAlgebra.getModulo(size-j));
-                        entity1 = entityTilesLoader.getEntity(token, i, j, decidirCanto(i,j));
-                        entity2 = null;
-
-                        Pair <Entity, Entity> pe = Pair.of(entity1, entity2);
+                        char token = scannedRoom[j][0].charAt(i);
+                        String dir = chooseOrientation(i, j, size);
+                        Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir);
                         tiles.get(i).add(pe);
                   }
             }
-            
+
             return tiles;
       }
 
-      private String decidirCanto(int i, int j){
-            if(i== 0) return "north-south";
-            return "east-west";
+      private String chooseOrientation(int i, int j, int size){
+            if(i == size-1) return "north";
+            if(i == 0) return "south";
+            if(j == 0) return "west";
+            if(j == size-1) return "east";
+            return "internal";
       }
       
       public Entity[][] buildEntities(Pair<Integer,Integer>pos) {

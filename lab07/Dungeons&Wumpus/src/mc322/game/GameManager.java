@@ -6,26 +6,27 @@ import mc322.engine.gfx.ImageTile;
 import java.io.*;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.awt.event.KeyEvent;
 
 import mc322.engine.AbstractGame;
 import mc322.engine.GameContainer;
 import mc322.engine.Renderer;
 import mc322.engine.Input;
-import mc322.game.GameMapTokens;
-import java.awt.event.KeyEvent;
+
+import mc322.game.entitiesTiles.*;
 
 public class GameManager implements AbstractGame{
       private ImageTile image;
-      private GameMapTokens gameMapTokens;
+      private Dungeon dungeon;
 
       private double temp = 0;
       private char[][] board;
+      private Pillar pillar;
 
       public GameManager(){
-            gameMapTokens = new GameMapTokens();
-            image = gameMapTokens.getImageCharacter("Milo", "idle");
+            dungeon = new Dungeon();
+            image = GameMapTokens.getImageCharacter("Milo", "idle");
 
-            //TODO: Substituir com Classe Construstora de tabuleiro
             board = new char[15][15];
             int lin = board[0].length;
             int col = board.length;
@@ -61,7 +62,8 @@ public class GameManager implements AbstractGame{
             int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
             int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
 
-            r.drawBoard(0, 0, board, (int)temp%3);
+            //r.drawBoard(0, 0, board, (int)temp%3);
+            dungeon.renderer(r);
             r.drawImageTile(image, xCurrent, yCurrent, (int)temp%6, 0);
       }
 

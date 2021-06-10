@@ -1,23 +1,25 @@
-//package mc322.terreno;
+package mc322.game.entitiesTiles;
 
-//import java.awt.Graphics;
+import mc322.engine.Renderer;
+import mc322.game.Entity;
 
-//import mc322.Entidade;
+public class SafeZone extends Entity{
 
-//public class SafeZone extends Entidade{
-
-	//public SafeZone(int i, int j)
-	//{
-		//this.i = i;
-		//this.j = j;
-		//this.caminho = "";
-	//}
+	public SafeZone(int i, int j){
+		this.i = i;
+		this.j = j;
+	}
 	
-	//public void render(Graphics g) {
-	//}
-
-	//public void tick() {
+	public void update(double dt) {
 		
-	//}
+	}
 
-//}
+	public void renderer(Renderer r) {
+	
+      }
+
+      public void toggleAnimation(){
+            this.initAnimation = !(this.initAnimation);
+      }
+
+}

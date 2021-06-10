@@ -6,17 +6,15 @@ import mc322.engine.Renderer;
 import mc322.engine.LinearAlgebra;
 
 public class Dungeon implements BasicObject{
-      private GameMapTokens gameMapTokens;
-      private LinearAlgebra linearAlgebra;
 
+      private MapBuilder mapBuilder;
       private Room[][] rooms;
       private Pair <Integer, Integer> pos;
-      private MapBuilder mapBuilder;
 
       public Dungeon(){
             MapBuilder mapBuilder = new MapBuilder();
-            this.rooms = mapBuilder.buildRooms(gameMapTokens.getDungeonPATH());
-            this.pos   = linearAlgebra.getOrigin();
+            this.rooms = mapBuilder.buildRooms(GameMapTokens.getDungeonPATH());
+            this.pos   = LinearAlgebra.getOrigin();
       }
 
       @Override

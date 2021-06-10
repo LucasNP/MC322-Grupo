@@ -1,83 +1,95 @@
 package mc322.game;
 
-import java.lang.*;
+import mc322.engine.Pair;
 import mc322.game.entitiesTiles.*;
 
-public class EntityTilesLoader {
+public abstract class EntityTilesLoader {
 
-      public Entity getEntity(char token, int i, int j, String dir){
-            Entity entityTile = null;
+      public static Pair<Entity, Entity> getEntity(char token, int i, int j, String dir){
+            Pair<Entity, Entity> entityTile = null;
 
-            boolean interna;
-            int elevation;
+            boolean internal;
+            int elevation = 0;
 
             switch(token){
                   // External Wall;
                   case '#':
-                        interna = false;
-                        entityTile = new Wall(i, j, interna, dir);
+                        internal = false;
+                        entityTile = Pair.of(new Wall(i, j, internal, dir,elevation),null);
                         break;
 
                   // Internal Wall;
-                  case 'L':
                   case 'l':
-                        interna = true;
-                        dir = "north-south";
-                        if(Character.isUpperCase(token)) elevation = 1;
-                        entityTile = new Wall(i, j, interna, dir, elevation);
+                        internal = true;
+                        dir = "west";
+                        entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
+                        break;
+                  case 'L':
+                        internal = true;
+                        elevation = 1;
+                        dir = "west";
+                        entityTile = Pair.of(new Platform(i,j),new Wall(i, j, internal, dir, elevation));
+                        break;
+                  case 'k':
+                        internal = true;
+                        dir = "north";
+                        entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
                         break;
                   case 'K':
-                  case 'k':
-                        interna = true;
-                        dir = "west-east";
-                        if(Character.isUpperCase(token)) elevation = 1;
-                        entityTile = new Wall(i, j, interna, dir, elevation);
+                        internal = true;
+                        elevation = 1;
+                        dir = "north";
+                        entityTile = Pair.of(new Platform(i,j),new Wall(i, j, internal, dir, elevation));
                         break;
 
                         // Door
                   case 'd':
-                        entityTile = new Door(i, j, dir);
+                        entityTile = Pair.of(new Door(i, j, dir,elevation),null);
                         break;
 
                   // Elevated Floor
                   case 'a':
-                        entityTile = new Platform(i, j);
+                        entityTile = Pair.of(new Platform(i, j),null);
                         break;
 
                   // Ladder
                   case 'm':
                         dir = "north-south";
-                        entityTile = new Ladder(i, j, dir);
+                        entityTile = Pair.of(new Ladder(i, j, dir,elevation),null);
                         break;
                   case 'n':
                         dir = "west-east";
-                        entityTile = new Ladder(i, j, dir);
+                        entityTile = Pair.of(new Ladder(i, j, dir,elevation),null);
                         break;
 
                   // Pillar
                   case 'b':
-                        entityTile = new Pillar(i, j);
+                        entityTile = Pair.of(new Pillar(i, j,dir,elevation),null);
                         break;
 
                   // SafeZone
                   case 's':
-                        entityTile = new SafeZone(i, j);
+                        entityTile = Pair.of(new SafeZone(i, j),null);
                         break;
 
                   // Chest
                   case 'o':
-                  case 'O':
-                        interna = true;
                         dir = "north-south";
-                        if(Character.isUpperCase(token)) elevation = 1;
-                        entityTile = new Chest(i, j, interna, dir, elevation);
+                        entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
+                        break;
+                  case 'O':
+                        dir = "north-south";
+                        elevation = 1;
+                        entityTile = Pair.of(new Platform(i, j),new Chest(i, j, dir, elevation));
                         break;
                   case 'r':
-                  case 'R':
-                        interna = true;
                         dir = "east-west";
-                        if(Character.isUpperCase(token)) elevation = 1;
-                        entityTile = new Chest(i, j, interna, dir, elevation);
+                        entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
+                        break;
+                  case 'R':
+                        dir = "east-west";
+                        elevation = 1;
+                        entityTile = Pair.of(new Platform(i, j),new Chest(i, j, dir, elevation));
                         break;
 
                   // Blank Space

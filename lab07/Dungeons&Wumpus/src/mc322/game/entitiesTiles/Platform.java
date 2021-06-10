@@ -10,7 +10,7 @@ public class Platform extends Entity{
 	public Platform(int i, int j){
 		this.i = i;
 		this.j = j;
-		this.name = "platform";
+		this.name = "tile";
 	}
 
 	public void update(double dt) {
@@ -18,7 +18,10 @@ public class Platform extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawImage(i,j,elevation,name,r, 0, 0);
+		GameRenderer.drawTile(i,j,elevation,name,r, 0, 1);
 	}
 
+      public void toggleAnimation(){
+            this.initAnimation = !(this.initAnimation);
+      }
 }
