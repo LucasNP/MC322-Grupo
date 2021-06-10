@@ -1,45 +1,32 @@
-//package mc322.terreno;
+package mc322.game.entitiesTiles;
 
-//import java.awt.Graphics;
+import mc322.engine.Renderer;
+import mc322.game.Entity;
+import mc322.game.GameRenderer;
 
-//import mc322.Entidade;
-//import mc322.MiscFunc;
+public class Door extends Entity{
 
-//public class Porta extends Entidade{
-
-	//char direcao;
-	//public Porta(int i, int j, char direcao)
-	//{
-		//this.i=i;
-		//this.j= j;
-		//this.direcao = direcao;
-			//if(direcao == 'N' ||direcao == 'n')
-				//this.caminho = "tiles/Purple/metal_door_right1.png";
-			//else if(direcao == 'O' ||direcao == 'o')
-				//this.caminho = "tiles/Purple/metal_door_left1.png";
-			//else if(direcao == 'S' ||direcao == 's')
-				//this.caminho = "tiles/Purple/metal_door_down1.png";
-			//else
-				//this.caminho = "tiles/Purple/metal_door_down7.png";
-		
-		
-	//}
+	private int dir;
 	
-	//public void render(Graphics g) {
+	public Door(int i, int j, String dir, int elevation)
+	{
+		this.i=i;
+		this.j= j;
+		this.elevation = elevation;
+		this.name = "door";
+		if(dir == "north-south")
+			this.dir = 0;
+		else
+			this.dir = 1;
+	}
+	
+	public void renderer(Renderer r) {
+		GameRenderer.drawTile(i , j , elevation , name , r , 0 , this.dir);
 		
-		//if(direcao == 'N' ||direcao == 'n')
-			//MiscFunc.Desenha(i, j,1, img(), g);
-		//else if(direcao == 'O' ||direcao == 'o')
-			//MiscFunc.Desenha(i, j,1, img(), g);
-		//else if(direcao == 'S' || direcao == 's')
-			//MiscFunc.Desenha(i, j,0, img(), g);
-		//else
-			//MiscFunc.Desenha(i, j,0, img(), g);
-		
-	//}
+	}
 
-	//public void tick() {
+	public void update(double dt) {
 		
-	//}
+	}
 
-//}
+}

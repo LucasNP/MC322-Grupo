@@ -1,30 +1,35 @@
-//package mc323.game;
+package mc322.game;
 
-//import java.awt.Graphics;
+import mc322.engine.BasicObject;
+import mc322.engine.Pair;
+import mc322.engine.Renderer;
+import mc322.engine.LinearAlgebra;
 
-//public class Dungeon implements BasicObject{
-    //public Sala salas[][];
-    //public Par pos; 
-    
-    //public Dungeon(){
-        //ConstrutorMapa c = new ConstrutorMapa();
-        //salas = c.criarSalas();
-        //this.pos = c.getOrigem();
-    //}
+public class Dungeon implements BasicObject{
 
-      //@Override
-      //public void update(double dt){
+      private Room rooms[][];
+      private Pair <Integer, Integer> pos;
+      private MapBuilder mapBuilder;
 
-      //}
+      public Dungeon(){
+            mapBuilder = new MapBuilder();
+            this.rooms = mapBuilder.buildRooms(GameMapTokens.getDungeonPATH());
+            this.pos   = LinearAlgebra.getOrigin();
+            
+      }
 
-      //@Override
-      //public void renderer(Renderer r){
-            //getSalaAtual().rederer();
-      //}
-    
-    //public Sala getSalaAtual(){
-        //return salas[this.pos.a()][this.pos.b()];
-    //}
-    
-    
-//}
+      @Override
+      public void update(double dt){
+
+      }
+
+      @Override
+      public void renderer(Renderer r){
+            getCurrentRoom().renderer(r);
+      }
+
+      public Room getCurrentRoom(){
+            return rooms[this.pos.getFirst()][this.pos.getSecond()];
+      }
+
+}

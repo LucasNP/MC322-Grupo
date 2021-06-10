@@ -1,51 +1,43 @@
 package mc322.game;
 
-import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
-
-import java.io.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-
+import mc322.game.entitiesTiles.Pillar;
 import mc322.engine.AbstractGame;
 import mc322.engine.GameContainer;
 import mc322.engine.Renderer;
-import mc322.engine.Input;
-import mc322.game.GameMapTokens;
 import java.awt.event.KeyEvent;
 
 public class GameManager implements AbstractGame{
       private ImageTile image;
       private GameMapTokens gameMapTokens;
-
+      private Dungeon dungeon;
       private double temp = 0;
-      private char[][] board;
-
+      private Pillar pilar;
       public GameManager(){
-            gameMapTokens = new GameMapTokens();
-            image = gameMapTokens.getImageCharacter("Milo", "idle");
-
+            dungeon = new Dungeon();
+            image = GameMapTokens.getImageCharacter("Milo", "idle");
+            pilar = new Pillar(4,4,"north-south",0);
             //TODO: Substituir com Classe Construstora de tabuleiro
-            board = new char[15][15];
-            int lin = board[0].length;
-            int col = board.length;
-            for(int i = 0; i < lin; i++){
-                  for(int j = 0; j < col; j++) {
-                        board[i][j] = 'a';
-                        if(i == lin-1 || j == 0) {
-                              board[i][j] = 'c';
-                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
-                        }
-                        if(j == col-1 || i == 0) {
-                              board[i][j] = '.';
-                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
-                        }
-                  }
-            }
-            board[0][0] = 'b';
-            board[0][col-1] = 'b';
-            board[col-1][0] = 'b';
-            board[col-1][col-1] = 'b';
+//            board = new char[15][15];
+//            int lin = board[0].length;
+//            int col = board.length;
+//            for(int i = 0; i < lin; i++){
+//                  for(int j = 0; j < col; j++) {
+//                        board[i][j] = 'a';
+//                        if(i == lin-1 || j == 0) {
+//                              board[i][j] = 'c';
+//                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
+//                        }
+//                        if(j == col-1 || i == 0) {
+//                              board[i][j] = '.';
+//                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
+//                        }
+//                  }
+//            }
+//            board[0][0] = 'b';
+//            board[0][col-1] = 'b';
+//            board[col-1][0] = 'b';
+//            board[col-1][col-1] = 'b';
       }
 
       @Override
@@ -53,15 +45,16 @@ public class GameManager implements AbstractGame{
             if(gc.getInput().isKey(KeyEvent.VK_A)) System.out.println("A");
 
             int velocidade_anim = 10;
-            temp = (temp + velocidade_anim*dt);
+            temp += velocidade_anim*dt;
       }
 
       @Override
       public void renderer(GameContainer gc, Renderer r){
             int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
             int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
-
-            r.drawBoard(0, 0, board, (int)temp%3);
+            dungeon.renderer(r);
+            pilar.renderer(r);
+            //r.drawBoard(0, 0, board, (int)temp%3);
             r.drawImageTile(image, xCurrent, yCurrent, (int)temp%6, 0);
       }
 

@@ -13,16 +13,12 @@ public class Renderer{
       
       private int pW, pH;
       private int[] p;
-      private LinearAlgebra linearAlgebra;
-      private GameMapTokens gameMapTokens;
 
       public Renderer(GameContainer gc){
             this.pW = gc.getWidth();
             this.pH = gc.getHeight();
             this.p = ((DataBufferInt) gc.getWindow().getImage().getRaster().getDataBuffer()).getData();
             
-            this.linearAlgebra = new LinearAlgebra();
-            this.gameMapTokens = new GameMapTokens();
       }
 
       public void clear(){
@@ -85,7 +81,7 @@ public class Renderer{
 
       //TODO: Modularizar essa função em classes
       public void drawIsometricImage(int i, int j, String obj, int tileX, int tileY){
-            ImageTile image = gameMapTokens.getImageTile(obj, "Purple");
+            ImageTile image = GameMapTokens.getImageTile(obj, "Purple");
 
             int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
             int ty = pH/2 - image.getTileHeight()/2 + 24;
@@ -94,7 +90,7 @@ public class Renderer{
             int sizeY = image.getTileHeight()/4;
 
             Pair <Integer, Integer> b = Pair.of(i*sizeX, j*sizeY);
-            b = linearAlgebra.toIsometrica(b);
+            b = LinearAlgebra.toIsometrica(b);
             drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
       }
 
