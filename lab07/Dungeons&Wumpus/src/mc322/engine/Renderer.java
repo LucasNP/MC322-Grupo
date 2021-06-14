@@ -66,7 +66,6 @@ public class Renderer{
 
             if(offX < 0) newX -= offX;
             if(offY < 0) newY -= offY;
-            if(newWidth + offX > pW)  newWidth  -= newWidth  + offX - pW;
             if(newHeight + offY > pH) newHeight -= newHeight + offY - pH;
 
             int fixX = tileX*newWidth;
@@ -80,9 +79,7 @@ public class Renderer{
       }
 
       //TODO: Modularizar essa função em classes
-      public void drawIsometricImage(int i, int j, String obj, int tileX, int tileY){
-            ImageTile image = GameMapTokens.getImageTile(obj, "Purple");
-
+      public void drawIsometricImage(int i, int j, ImageTile image, int tileX, int tileY){
             int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
             int ty = pH/2 - image.getTileHeight()/2 + 24;
 
@@ -94,51 +91,4 @@ public class Renderer{
             drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
       }
 
-      //TODO: Modularizar essa função em classes
-      public void drawBoard(int offX, int offY, char board[][], int updateX){
-
-            int lin = board[0].length;
-            int col = board.length;
-
-            for(int i = lin - 1 ; i >= 0; i--){
-                  for(int j = 0; j < col; j++){
-                        
-                        int di = 0, dj = 0;
-                        int tileX = 0, tileY = 0;
-
-                        //TODO: Sintetizar isso na Classe de cada Entidade
-                        if(board[i][j] == 'b'){ 
-                              di = 1; dj = -1;
-                              if(i == 0 && j == 0) tileY = 1;
-                              else if(i == lin-1 && j == col-1) tileY = 2;
-                              else if(i == lin-1 && j == 0) tileY = 3;
-                              else if(i == 0 && j == col-1) tileY = 3;
-                        }
-                        if(board[i][j] == 'c'){
-                              di = 1; dj = -1;
-                              if(i == lin-1) tileY = 1;
-                        }
-                        if(board[i][j] == 'd'){
-                              di = 2; dj = -2;
-                              if(i == lin-1 || i == 0) tileY = 1;
-                              drawIsometricImage(i, j, "tile", 0, 0);
-                        }
-
-                        String tileBlock = "";
-                        if(board[i][j] == 'a') tileBlock = "tile";
-                        else if(board[i][j] == 'b') tileBlock = "pillar";
-                        else if(board[i][j] == 'c') tileBlock = "tile_wall";
-                        else if(board[i][j] == 'd') tileBlock = "door";
-                        else if(board[i][j] == '.') tileBlock = "blank";
-
-
-                        drawIsometricImage(i+di, j+dj, tileBlock, tileX, tileY);
-
-                        if((board[i][j] == 'c') && ( ((i%2==1)&&(j == 0)) || ((j%2==1)&&(i == lin-1)) ) ) {
-                              drawIsometricImage(i+di, j+dj, "torch", updateX, 0);
-                        }
-                  }
-            }
-
-      }
 }

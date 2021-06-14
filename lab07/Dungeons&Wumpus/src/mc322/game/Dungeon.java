@@ -7,20 +7,19 @@ import mc322.engine.LinearAlgebra;
 
 public class Dungeon implements BasicObject{
 
-      private Room rooms[][];
-      private Pair <Integer, Integer> pos;
       private MapBuilder mapBuilder;
+      private Room[][] rooms;
+      private Pair <Integer, Integer> pos;
 
       public Dungeon(){
-            mapBuilder = new MapBuilder();
+            MapBuilder mapBuilder = new MapBuilder();
             this.rooms = mapBuilder.buildRooms(GameMapTokens.getDungeonPATH());
             this.pos   = LinearAlgebra.getOrigin();
-            
       }
 
       @Override
       public void update(double dt){
-
+    	  getCurrentRoom().update(dt);
       }
 
       @Override

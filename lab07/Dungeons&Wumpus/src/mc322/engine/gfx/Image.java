@@ -15,7 +15,6 @@ public class Image{
             BufferedImage image = null;
 
             try{
-            	System.out.println("lendo: "+path);
                   image = ImageIO.read(new File(path));
             }
             catch(IOException e){ 

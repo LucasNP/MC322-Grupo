@@ -7,6 +7,7 @@ import java.util.Iterator;
 import mc322.engine.Pair;
 import mc322.engine.CSVHandling;
 import mc322.engine.LinearAlgebra;
+import mc322.game.entitiesCharacters.Milo;
 import mc322.game.entitiesTiles.*;
 
 public class MapBuilder{
@@ -15,7 +16,7 @@ public class MapBuilder{
       private Room[][] rooms;
       private final int mapHeight = 10;
       private final int mapWidth  = 10;
-      
+
       private String dungeonPath;
       private Pair <Integer, Integer> origin;
  
@@ -31,10 +32,8 @@ public class MapBuilder{
                         rooms[i][j] = new Room(this, pi);
                   }
             }
-            
             return rooms;
       }
-
 
       public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos,String numberRoom){
             CSVHandling scannerCSV = new CSVHandling();
@@ -43,33 +42,52 @@ public class MapBuilder{
             String scannedRoom[][] = scannerCSV.requestCommands();
             ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>();
 
-            for(int j=0; j < size; j++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
+            for(int i=0; i < size; i++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
 
-            for(int i = 0; i<size;i++){
+            for(int i = 0; i < size;i++){
                   for(int j = 0 ; j < size;j++){
-                		System.out.println(scannedRoom[j][0]);
-                		
                         char token = scannedRoom[j][0].charAt(i);
-
-                        Pair <Entity, Entity> pe = entityTilesLoader.getEntity(token, i, j, chooseOrientation(i,j,size));
+                        String dir = chooseOrientation(i, j, size);
+                        Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir);
                         tiles.get(i).add(pe);
                   }
             }
-            
             return tiles;
       }
 
-      private String chooseOrientation(int i, int j,int size){
-            if(i== 0 ) return "south";
-            if(i==size-1) return "north";
-            if(j== 0 ) return "west";
-            return "east";
+      private String chooseOrientation(int i, int j, int size){
+            if(i == size-1) return "north";
+            if(i == 0) return "south";
+            if(j == 0) return "west";
+            if(j == size-1) return "east";
+            return "internal";
       }
       
-      
-      
-      public Entity[][] buildEntities(Pair<Integer,Integer>pos) {
-            return null;
+      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom) {
+    	  Entity entities[][] = new Entity[size][size];
+    	  
+    	  CSVHandling scannerCSV = new CSVHandling();
+          scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
+          
+          String scannedRoom[][] = scannerCSV.requestCommands();
+    	  
+    	  for(int i = 0; i < size;i++)
+              for(int j = 0 ; j < size;j++)
+            	  entities[i][j] = null;
+    	  if(this.origin.getFirst() == pos.getFirst() && this.origin.getSecond() == pos.getSecond())
+    	  {
+    		  int targetI = 1;
+    		  int targetJ = 7;
+    		  char token = scannedRoom[targetJ][0].charAt(targetI);
+    		  if(token == '.' || token == 's' ||token =='S')
+    		  {
+    			  entities[targetI][targetJ] = new Milo(targetI,targetJ,0,this.rooms[pos.getFirst()][pos.getSecond()]);
+    		  }
+    		  
+
+    	  }
+          return entities;
       }
+      
       
 }

@@ -21,4 +21,7 @@ public class Platform extends Entity{
 		GameRenderer.drawTile(i,j,elevation,name,r, 0, 1);
 	}
 
+      public void toggleAnimation(){
+            this.initAnimation = !(this.initAnimation);
+      }
 }

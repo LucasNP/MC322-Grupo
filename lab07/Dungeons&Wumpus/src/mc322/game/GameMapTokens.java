@@ -14,17 +14,17 @@ public abstract class GameMapTokens{
       private static String CSV = ".csv";
 
       private static String ASSETS = "_assets";
-      private String SOUNDS = "_sounds";
+      private static String SOUNDS        = "_sounds";
       private static String DATA   = "_data";
 
       private static Map<String, ImageTile> mapTokens = new HashMap<>();
 
-      private String DIR_BOSSES     = ASSETS + "/bosses/";
+      private static String DIR_BOSSES     = ASSETS + "/bosses/";
       private static String DIR_CHARACTERS = ASSETS + "/characters/";
-      private String DIR_ENEMIES    = ASSETS + "/enemies/";
-      private String DIR_ITENS      = ASSETS + "/itens/";
-      private String DIR_MENU       = ASSETS + "/menu/";
-      private String DIR_NPCS       = ASSETS + "/NPCs/";
+      private static String DIR_ENEMIES    = ASSETS + "/enemies/";
+      private static String DIR_ITENS      = ASSETS + "/itens/";
+      private static String DIR_MENU       = ASSETS + "/menu/";
+      private static String DIR_NPCS       = ASSETS + "/NPCs/";
       
       private static String DIR_TILES      = ASSETS + "/tiles/";
 
@@ -43,6 +43,17 @@ public abstract class GameMapTokens{
       public static ImageTile getImageTile(String object, String color){
             if(mapTokens.get(object) == null){
                   String path = DIR_TILES + color + "/" + object + PNG;
+                  image = new ImageTile(path, tileWidth, tileHeight);
+                  mapTokens.put(object, image);
+            }
+            return mapTokens.get(object);
+      }
+
+     // TokensCharacter: Milo, Luna, Raju, Ze
+      // TokensStates: idle, moving
+      public static ImageTile getImageItem(String object, String state){
+            if(mapTokens.get(object) == null){
+                  String path = DIR_ITENS + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
                   mapTokens.put(object, image);
             }

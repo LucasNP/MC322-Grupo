@@ -5,8 +5,7 @@ import mc322.game.Entity;
 
 public class SafeZone extends Entity{
 
-	public SafeZone(int i, int j)
-	{
+	public SafeZone(int i, int j){
 		this.i = i;
 		this.j = j;
 	}
@@ -16,6 +15,11 @@ public class SafeZone extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-	}
+	
+      }
+
+      public void toggleAnimation(){
+            this.initAnimation = !(this.initAnimation);
+      }
 
 }
