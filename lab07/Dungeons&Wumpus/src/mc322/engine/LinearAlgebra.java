@@ -1,5 +1,7 @@
 package mc322.engine;
 
+import mc322.engine.Pair;
+
 public abstract class LinearAlgebra{
       public static Pair<Integer, Integer> toIsometrica(Pair<Integer, Integer> p){
             int nx = p.getFirst() + p.getSecond();

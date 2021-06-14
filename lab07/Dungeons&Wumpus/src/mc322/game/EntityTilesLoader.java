@@ -20,25 +20,25 @@ public abstract class EntityTilesLoader {
 
                   // Internal Wall;
                   case 'l':
-                	  internal = true;
-                      dir = "north-south";
-                      entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
-                      break;
+                        internal = true;
+                        dir = "west";
+                        entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
+                        break;
                   case 'L':
                         internal = true;
-                        dir = "north-south";
                         elevation = 1;
+                        dir = "west";
                         entityTile = Pair.of(new Platform(i,j),new Wall(i, j, internal, dir, elevation));
                         break;
                   case 'k':
-                	  internal = true;
-                      dir = "west-east";
-                      entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
-                      break;
+                        internal = true;
+                        dir = "north";
+                        entityTile = Pair.of(new Wall(i, j, internal, dir, elevation),null);
+                        break;
                   case 'K':
                         internal = true;
-                        dir = "west-east";
                         elevation = 1;
+                        dir = "north";
                         entityTile = Pair.of(new Platform(i,j),new Wall(i, j, internal, dir, elevation));
                         break;
 
@@ -74,18 +74,18 @@ public abstract class EntityTilesLoader {
 
                   // Chest
                   case 'o':
-                	  dir = "north-south";
-                      entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
-                      break;
+                        dir = "north-south";
+                        entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
+                        break;
                   case 'O':
                         dir = "north-south";
                         elevation = 1;
                         entityTile = Pair.of(new Platform(i, j),new Chest(i, j, dir, elevation));
                         break;
                   case 'r':
-                	  dir = "east-west";
-                      entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
-                      break;
+                        dir = "east-west";
+                        entityTile = Pair.of(new Chest(i, j, dir, elevation),null);
+                        break;
                   case 'R':
                         dir = "east-west";
                         elevation = 1;
