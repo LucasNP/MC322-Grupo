@@ -12,6 +12,7 @@ public abstract class GameMapTokens{
 
       private static String PNG = ".png";
       private static String CSV = ".csv";
+      private static String WAV = ".wav";
 
       private static String ASSETS = "_assets";
       private static String SOUNDS        = "_sounds";
@@ -70,5 +71,9 @@ public abstract class GameMapTokens{
             }
             return mapTokens.get(object);
       }
+      
+      public static String getPathSound(String object){
+        return SOUNDS + "/" + object + WAV;
+    }
 
 }
