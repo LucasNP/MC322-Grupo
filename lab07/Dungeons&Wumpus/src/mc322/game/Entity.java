@@ -11,7 +11,7 @@ public abstract class Entity implements BasicObject{
       protected int velocityAnim;
       protected int nFrames;
 
-      protected int elevation;
+      protected double elevation;
       protected int i;
       protected int j;
       protected int updateDir;
@@ -21,8 +21,12 @@ public abstract class Entity implements BasicObject{
       public abstract void update(double dt);
       public abstract void renderer(Renderer r);
       public abstract void toggleAnimation();
-      public void setElevation(int newElevation)
+      public void setElevation(double newElevation)
       {
     	  this.elevation = newElevation;
+      }
+      public int getDirection()
+      {
+    	  return this.updateDir;
       }
 }

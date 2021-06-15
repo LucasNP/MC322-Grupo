@@ -94,16 +94,23 @@ public class Room implements BasicObject {
 		return player;
 	}
 	
-	public boolean isAccessible(int i, int j)
+	public boolean isAccessible(int i, int j,double elevation, double legSize,int dir)
 	{
 		
 		if(this.entities[i][j] == null)
 		{
-			if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone|| tiles.get(i).get(j).getFirst() instanceof Ladder)
+			if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
 			{
+				if(elevation < legSize)
+					return true;
+				return false;
+			}
+			if(tiles.get(i).get(j).getFirst() instanceof Ladder)
+			{
+				if(tiles.get(i).get(j).getFirst().getDirection()-dir %2==0)
 				return true;
 			}
-			if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
+			if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null && elevation > (1-legSize))// if it is platform
 				return true;
 				
 		}
@@ -116,6 +123,8 @@ public class Room implements BasicObject {
 		{
 			this.entities[i][j].setElevation(0);
 		}
+		else if( tiles.get(i).get(j).getFirst() instanceof Ladder)
+			this.entities[i][j].setElevation(0.5);
 		else
 			this.entities[i][j].setElevation(1);
 		this.entities[i0][j0]=null;
