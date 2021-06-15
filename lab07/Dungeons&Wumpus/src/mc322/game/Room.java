@@ -9,6 +9,9 @@ import mc322.engine.BasicObject;
 import mc322.engine.Pair;
 import mc322.engine.Renderer;
 import mc322.game.entitiesCharacters.Character;
+import mc322.game.entitiesCharacters.Heros;
+import mc322.game.entitiesTiles.Ladder;
+import mc322.game.entitiesTiles.Platform;
 import mc322.game.entitiesTiles.SafeZone;
 import mc322.engine.LinearAlgebra;
 
@@ -18,13 +21,15 @@ public class Room implements BasicObject {
 
       private String numberRoom;
       private ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>(size);
-
+      private Heros player;
+      
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            //numberRoom = "9";
+            numberRoom = "7";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom);
             entities = mapBuilder.buildEntities(size, pos, numberRoom);
+            player = mapBuilder.getPlayer();
       }
 
       private void renderTerrain(Renderer r){
@@ -42,7 +47,6 @@ public class Room implements BasicObject {
       }
 
       public void update(double dt) {
-    	  
     	  for(int i = size-1; i >= 0; i--){
               for(int j=0;j<size;j++){
                     if(tiles.get(i).get(j) != null){
@@ -58,16 +62,17 @@ public class Room implements BasicObject {
 
       public void renderer(Renderer r) {
             this.renderTerrain(r);
-
             for(int i = size-1; i >= 0; i--){
                   for(int j=0;j<size;j++){
+                	  
                         if(tiles.get(i).get(j) != null){
                               tiles.get(i).get(j).getFirst().renderer(r);
                               if(tiles.get(i).get(j).getSecond() != null)
                                     tiles.get(i).get(j).getSecond().renderer(r);
-                              if(entities[i][j] != null)
-                            	  entities[i][j].renderer(r);
+                              
                         }
+                        if(entities[i][j] != null)
+                      	  entities[i][j].renderer(r);
                   }
             }
       }
@@ -82,6 +87,38 @@ public class Room implements BasicObject {
 			this.entities[i][j] = character;
 		}
 		
+	}
+	
+	public Heros getPlayer()
+	{
+		return player;
+	}
+	
+	public boolean isAccessible(int i, int j)
+	{
+		
+		if(this.entities[i][j] == null)
+		{
+			if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone|| tiles.get(i).get(j).getFirst() instanceof Ladder)
+			{
+				return true;
+			}
+			if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
+				return true;
+				
+		}
+		return false;
+	}
+	public void move(int i0,int j0,int i,int j)
+	{
+		this.entities[i][j]=this.entities[i0][j0];
+		if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
+		{
+			this.entities[i][j].setElevation(0);
+		}
+		else
+			this.entities[i][j].setElevation(1);
+		this.entities[i0][j0]=null;
 	}
 	
 
