@@ -7,6 +7,7 @@ import java.util.Iterator;
 import mc322.engine.Pair;
 import mc322.engine.CSVHandling;
 import mc322.engine.LinearAlgebra;
+import mc322.game.entitiesCharacters.Heros;
 import mc322.game.entitiesCharacters.Milo;
 import mc322.game.entitiesTiles.*;
 
@@ -19,6 +20,7 @@ public class MapBuilder{
 
       private String dungeonPath;
       private Pair <Integer, Integer> origin;
+      private Heros player;
  
 
       public Room[][] buildRooms(String dungeonPath) { 
@@ -64,6 +66,7 @@ public class MapBuilder{
       }
       
       public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom) {
+    	  player = null;
     	  Entity entities[][] = new Entity[size][size];
     	  
     	  CSVHandling scannerCSV = new CSVHandling();
@@ -81,12 +84,18 @@ public class MapBuilder{
     		  char token = scannedRoom[targetJ][0].charAt(targetI);
     		  if(token == '.' || token == 's' ||token =='S')
     		  {
-    			  entities[targetI][targetJ] = new Milo(targetI,targetJ,0,this.rooms[pos.getFirst()][pos.getSecond()]);
+    			  player = new Milo(targetI,targetJ,0);
+    			  entities[targetI][targetJ] = player;
     		  }
     		  
 
     	  }
           return entities;
+      }
+      
+      public Heros getPlayer()
+      {
+    	  return player;
       }
       
       

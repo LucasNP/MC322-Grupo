@@ -9,9 +9,9 @@ public class Milo extends Heros{
 	int velocidade_anim = 10;
 	private double temp = 0;
 	
-	public Milo(int i, int j,int elevation, Room room)
+	public Milo(int i, int j,int elevation)
 	{
-		super(i,j,elevation,room);
+		super(i,j,elevation);
 		this.name = "Milo";
 		this.updateDir =3;
 		
@@ -30,9 +30,48 @@ public class Milo extends Heros{
 	}
 
 	@Override
-	public void move(int i, int j) {
-		// TODO Auto-generated method stub
+	public void move(int i, int j,Room room) {
+		room.move(this.i,this.j,i,j);
+		this.i = i;
+		this.j = j;
+
 		
+	}
+	
+	public void move(char dir,Room room) {
+		
+		int tI=0;
+		int tJ=0;
+		int newDir = updateDir;
+		switch(dir)
+		{
+		case 'A':
+			tI = i;
+			tJ = j-1;
+			newDir = 2;
+			break;
+		case 'S':
+			tI = i-1;
+			tJ = j;
+			newDir = 1;
+			break;
+		case 'D':
+			tI = i;
+			tJ = j+1;
+			newDir = 0;
+			break;
+		case 'W':
+			tI = i+1;
+			tJ = j;
+			newDir = 3;
+			break;
+		}
+		if(verifyMovement(tI,tJ,room))
+			{
+				move(tI,tJ,room);
+				
+			}
+		this.updateDir = newDir;
 	}
 
 	@Override
@@ -48,8 +87,14 @@ public class Milo extends Heros{
 	}
 
 	@Override
-	protected boolean verifyMovement(int i, int j) {
-		// TODO Auto-generated method stub
+	protected boolean verifyMovement(int i, int j, Room room) {
+		if(room == null)
+		{
+			System.out.println("erro: sala é nula");
+			return false;
+		}
+		if(room.isAccessible(i,j))
+			return true;
 		return false;
 	}
 
@@ -61,7 +106,7 @@ public class Milo extends Heros{
 
 	@Override
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, (int)(temp%6), this.updateDir);
+		GameRenderer.drawCharacter(i,j,elevation,name,r, (int)(temp%6), this.updateDir,"idle");
 		
 	}
 

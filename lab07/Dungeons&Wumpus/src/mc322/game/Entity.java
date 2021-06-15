@@ -21,4 +21,8 @@ public abstract class Entity implements BasicObject{
       public abstract void update(double dt);
       public abstract void renderer(Renderer r);
       public abstract void toggleAnimation();
+      public void setElevation(int newElevation)
+      {
+    	  this.elevation = newElevation;
+      }
 }

@@ -14,4 +14,10 @@ public class GameRenderer {
             ImageTile image = GameMapTokens.getImageItem(name, "Purple");
             r.drawIsometricImage(i+elevation, j-elevation, image, updateX, updateY);
 	}
+      
+    public static void drawCharacter(int i,int j,int elevation, String name, Renderer r, int updateX,int dir ,String state)
+    {
+    	ImageTile image = GameMapTokens.getImageCharacter(name, state);
+    	r.drawIsometricImage(i+elevation, j-elevation, image, updateX, dir);
+    }
 }

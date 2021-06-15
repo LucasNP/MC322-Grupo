@@ -110,7 +110,9 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
       
       @Override
       public void keyPressed(KeyEvent e){
+    	  
             keys[e.getKeyCode()] = true;
+            
       }
       @Override
       public void keyReleased(KeyEvent e){
@@ -118,7 +120,7 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
       }
       @Override
       public void keyTyped(KeyEvent e){
-
+    	  
       }
 
 
