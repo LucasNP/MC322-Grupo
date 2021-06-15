@@ -7,13 +7,13 @@ public class GameRenderer {
 
 	public static void drawTile(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY){
             ImageTile image = GameMapTokens.getImageTile(name, "Purple");
-            elevation+=0.5;
+            //elevation+=0.5;
             r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
 	}
 
       public static void drawItem(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY){
             ImageTile image = GameMapTokens.getImageItem(name, "Purple");
-            elevation+=0.5;
+            //elevation+=0.5;
             r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
 	}
       

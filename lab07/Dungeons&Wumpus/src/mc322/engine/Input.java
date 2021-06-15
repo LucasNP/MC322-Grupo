@@ -21,7 +21,11 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
       private boolean[] buttonsLast = new boolean[NUM_BUTTONS];
 
       private int mouseX, mouseY;
-      private int scroll; 
+      private int scroll;
+      
+      private int lastClickX;
+      private int lastClickY;
+      private boolean clicked = false;
 
 
       public Input(GameContainer gc){
@@ -88,7 +92,9 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
       }
       @Override
       public void mouseClicked(MouseEvent e){
-
+    	  lastClickX=e.getX();
+    	  lastClickY=e.getY();
+    	  clicked = true;
       }
       @Override
       public void mouseEntered(MouseEvent e){
@@ -132,6 +138,21 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
       }
       public int getScroll(){
             return this.scroll;
+      }
+      
+      
+      
+      
+      
+      public Pair<Integer, Integer> getClick()
+      {
+    	  clicked = false;
+    	  return Pair.of(lastClickX,lastClickY);
+      }
+      
+      public boolean wasClicked()
+      {
+    	  return clicked;
       }
       
 }

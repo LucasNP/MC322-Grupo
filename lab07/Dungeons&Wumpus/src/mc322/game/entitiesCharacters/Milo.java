@@ -30,52 +30,6 @@ public class Milo extends Heros{
 	}
 
 	@Override
-	public void move(int i, int j,Room room) {
-		room.move(this.i,this.j,i,j);
-		this.i = i;
-		this.j = j;
-
-		
-	}
-	
-	public void move(char dir,Room room) {
-		
-		int tI=0;
-		int tJ=0;
-		int newDir = updateDir;
-		switch(dir)
-		{
-		case 'A':
-			tI = i;
-			tJ = j-1;
-			newDir = 2;
-			break;
-		case 'S':
-			tI = i-1;
-			tJ = j;
-			newDir = 1;
-			break;
-		case 'D':
-			tI = i;
-			tJ = j+1;
-			newDir = 0;
-			break;
-		case 'W':
-			tI = i+1;
-			tJ = j;
-			newDir = 3;
-			break;
-		}
-		this.updateDir = newDir;
-		if(verifyMovement(tI,tJ,room))
-			{
-				move(tI,tJ,room);
-				
-			}
-		
-	}
-
-	@Override
 	public void die() {
 		// TODO Auto-generated method stub
 		
@@ -87,19 +41,6 @@ public class Milo extends Heros{
 		
 	}
 
-	@Override
-	protected boolean verifyMovement(int i, int j, Room room) {
-		if(room == null)
-		{
-			System.out.println("erro: sala é nula");
-			return false;
-		}
-		if(room.isAccessible(i,j,this.elevation,this.legSize,this.updateDir))
-			return true;
-		return false;
-	}
-
-	@Override
 	public void update(double dt) {
         temp += velocidade_anim*dt;
 		
