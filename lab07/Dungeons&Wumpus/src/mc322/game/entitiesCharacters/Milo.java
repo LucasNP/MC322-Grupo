@@ -9,7 +9,7 @@ public class Milo extends Heros{
 	int velocidade_anim = 10;
 	private double temp = 0;
 	
-	public Milo(int i, int j,int elevation)
+	public Milo(int i, int j,double elevation)
 	{
 		super(i,j,elevation);
 		this.name = "Milo";
@@ -66,12 +66,13 @@ public class Milo extends Heros{
 			newDir = 3;
 			break;
 		}
+		this.updateDir = newDir;
 		if(verifyMovement(tI,tJ,room))
 			{
 				move(tI,tJ,room);
 				
 			}
-		this.updateDir = newDir;
+		
 	}
 
 	@Override
@@ -93,7 +94,7 @@ public class Milo extends Heros{
 			System.out.println("erro: sala é nula");
 			return false;
 		}
-		if(room.isAccessible(i,j))
+		if(room.isAccessible(i,j,this.elevation,this.legSize,this.updateDir))
 			return true;
 		return false;
 	}

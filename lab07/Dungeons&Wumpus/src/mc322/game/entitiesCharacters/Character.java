@@ -5,12 +5,14 @@ import mc322.game.Room;
 
 public abstract class Character extends Entity{
 
-	public Character(int i,int j,int elevation)
+	public Character(int i,int j,double elevation)
 	{
 		this.i = i;
 		this.j = j;
 		this.elevation = elevation;
+		this.legSize = 0.7;
 	}
+	protected double legSize;
 	
 	protected int health;
 	
