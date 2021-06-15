@@ -10,6 +10,7 @@ import mc322.engine.Pair;
 import mc322.engine.Renderer;
 import mc322.game.entitiesCharacters.Character;
 import mc322.game.entitiesCharacters.Heros;
+import mc322.game.entitiesTiles.Chest;
 import mc322.game.entitiesTiles.Ladder;
 import mc322.game.entitiesTiles.Platform;
 import mc322.game.entitiesTiles.SafeZone;
@@ -22,14 +23,18 @@ public class Room implements BasicObject {
       private String numberRoom;
       private ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>(size);
       private Heros player;
+      private Chest chest;
+      private Heros milo;
+      private String color;
       
-      public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos){
+      public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "7";
-            tiles = mapBuilder.buildTiles(size, pos, numberRoom);
-            entities = mapBuilder.buildEntities(size, pos, numberRoom);
-            player = mapBuilder.getPlayer();
+            numberRoom = "2";
+            tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
+            entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
+            player = milo;
+            this.color = color;
       }
 
       private void renderTerrain(Renderer r){
@@ -92,10 +97,21 @@ public class Room implements BasicObject {
 		
 	}
 	
+	public void setMilo(Heros milo)
+	{
+		this.milo = milo;
+	}
+	
 	public Heros getPlayer()
 	{
 		return player;
 	}
+	
+	public void setChest(Chest chest)
+	{
+		this.chest = chest;
+	}
+	
 	
 	public boolean isAccessible(int i, int j,double elevation, double legSize,int dir)
 	{

@@ -53,7 +53,7 @@ public class CSVHandling {
 
                   String line = file.readLine();
                   int i = 0;
-                  commands = new String[16][];
+                  commands = new String[20][];
                   while (line != null) {
                         commands[i] = line.split(",");
                         line = file.readLine();

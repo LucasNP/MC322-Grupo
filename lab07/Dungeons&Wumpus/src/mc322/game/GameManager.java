@@ -19,16 +19,13 @@ import mc322.game.entitiesTiles.*;
 public class GameManager implements AbstractGame{
       private Dungeon dungeon;
 
-      private double temp = 0;
-      private char[][] board;
-      private Pillar pillar;
       private AudioManager audio;
       private String STATE = "exploration"; 
 
       public GameManager(){
             dungeon = new Dungeon();
             audio = new AudioManager();
-            audio.playMusic(GameMapTokens.getPathSound("Enviroment"),true);
+            //audio.playMusic(GameMapTokens.getPathSound("Enviroment"),true);
       }
 
       @Override

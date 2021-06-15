@@ -12,32 +12,60 @@ import mc322.game.entitiesCharacters.Milo;
 import mc322.game.entitiesTiles.*;
 
 public class MapBuilder{
-      private EntityTilesLoader entityTilesLoader;
 
       private Room[][] rooms;
-      private final int mapHeight = 10;
-      private final int mapWidth  = 10;
+      private final int mapHeight = 20;
+      private final int mapWidth  = 20;
 
-      private String dungeonPath;
       private Pair <Integer, Integer> origin;
       private Heros player;
  
 
       public Room[][] buildRooms(String dungeonPath) { 
-            this.dungeonPath = dungeonPath;
             this.origin = LinearAlgebra.getOrigin();
-            this.rooms = new Room[mapHeight][mapWidth]; 
+            this.rooms = new Room[mapHeight][mapWidth];
+            
+            
+            CSVHandling scannerCSV = new CSVHandling();
+            scannerCSV.setDataSource(dungeonPath);
+            
+            String scannedDungeon[][] = scannerCSV.requestCommands();
             
             for(int i = 0; i < mapHeight; i++){
                   for(int j = 0; j < mapHeight; j++){
-                        Pair<Integer, Integer> pi = Pair.of(i, j); 
-                        rooms[i][j] = new Room(this, pi);
+                        Pair<Integer, Integer> pi = Pair.of(i, j);
+                        char token = scannedDungeon[i][j].charAt(0);
+                        switch(token)
+                        {
+                        case 'y':
+                        	rooms[i][j] = new Room(this, pi,"Yellow");
+                        	break;
+                        case 'k':
+                        	rooms[i][j] = new Room(this, pi,"Black");
+                        	break;
+                        case 'b':
+                        	rooms[i][j] = new Room(this, pi,"Blue");
+                        	break;
+                        case 'g':
+                        	rooms[i][j] = new Room(this, pi,"Green");
+                        	break;
+                        case 'r':
+                        	rooms[i][j] = new Room(this, pi,"Red");
+                        	break;
+                        case 'p':
+                        	rooms[i][j] = new Room(this, pi,"Purple");
+                        	break;
+                        case '0':
+                        default:
+                        	rooms[i][j] = null;
+                        	break;
+                        }
                   }
             }
             return rooms;
       }
 
-      public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos,String numberRoom){
+      public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos,String numberRoom,Room room){
             CSVHandling scannerCSV = new CSVHandling();
             scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
             
@@ -52,6 +80,14 @@ public class MapBuilder{
                         String dir = chooseOrientation(i, j, size);
                         Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir);
                         tiles.get(i).add(pe);
+                        if(pe!=null && pe.getFirst() instanceof Chest)
+                        {
+                        	room.setChest((Chest) pe.getFirst());
+                        }
+                        else if(pe!=null && pe.getSecond() instanceof Chest)
+                        {
+                        	room.setChest((Chest) pe.getSecond());
+                        }
                   }
             }
             return tiles;
@@ -65,7 +101,7 @@ public class MapBuilder{
             return "internal";
       }
       
-      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom) {
+      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom,Room room) {
     	  player = null;
     	  Entity entities[][] = new Entity[size][size];
     	  
@@ -87,6 +123,7 @@ public class MapBuilder{
     			  player = new Milo(targetI,targetJ,0);
     			  entities[targetI][targetJ] = player;
     		  }
+    		  room.setMilo(player);
     		  
 
     	  }
