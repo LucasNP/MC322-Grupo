@@ -2,6 +2,7 @@ package mc322.game;
 
 import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
+import mc322.engine.sfx.AudioManager;
 
 import java.io.*;
 import java.io.BufferedReader;
@@ -21,9 +22,13 @@ public class GameManager implements AbstractGame{
       private double temp = 0;
       private char[][] board;
       private Pillar pillar;
+      private AudioManager audio;
+      private String STATE = "exploration"; 
 
       public GameManager(){
             dungeon = new Dungeon();
+            audio = new AudioManager();
+            audio.playMusic(GameMapTokens.getPathSound("Enviroment"),true);
       }
 
       @Override
