@@ -22,7 +22,7 @@ public abstract class LinearAlgebra{
       }
 
       public static Pair<Integer, Integer> getOrigin(){
-            Pair <Integer, Integer> origin = Pair.of(0, 0);
+            Pair <Integer, Integer> origin = Pair.of(11, 7);
             return origin;
       }
 
