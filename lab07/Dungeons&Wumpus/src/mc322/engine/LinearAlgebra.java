@@ -12,8 +12,11 @@ public abstract class LinearAlgebra{
       }
       
       public static Pair<Integer, Integer> toCartesianas(Pair<Integer, Integer> p){
-            int nx = p.getFirst()/2 - p.getSecond();
-            int ny = p.getFirst()/2 + p.getFirst(); 
+    	  int ny = (p.getSecond()*2 + p.getFirst())/2;
+    	  int nx = p.getFirst() - ny;
+//    	  int nx = p.getFirst()/2 - p.getSecond();
+//        int ny = p.getFirst()/2 + p.getFirst();
+            
             Pair <Integer, Integer> np = Pair.of(nx, ny);
             return np;
       }

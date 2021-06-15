@@ -1,6 +1,8 @@
 package mc322.game;
 
 import mc322.engine.GameContainer;
+import mc322.engine.LinearAlgebra;
+import mc322.engine.Pair;
 
 public abstract class KeysManager {
 
@@ -38,6 +40,17 @@ public abstract class KeysManager {
 		if(gc.getInput().isKeyDown(39))
 		{
 			dungeon.getCurrentRoom().getPlayer().move('D',dungeon.getCurrentRoom());
+		}
+		
+		
+		if(gc.getInput().wasClicked())
+		{
+			Pair<Integer,Integer> posClick = gc.getInput().getClick();
+			System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
+			posClick = LinearAlgebra.toIsometrica(posClick);
+			posClick = LinearAlgebra.toCartesianas(posClick);
+			System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
+			
 		}
 		
 	}

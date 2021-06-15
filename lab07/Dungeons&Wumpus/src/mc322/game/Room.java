@@ -53,9 +53,12 @@ public class Room implements BasicObject {
                           tiles.get(i).get(j).getFirst().update(dt);
                           if(tiles.get(i).get(j).getSecond() != null)
                                 tiles.get(i).get(j).getSecond().update(dt);
-                          if(entities[i][j] != null)
-                        	  entities[i][j].update(dt);
+                                                 	  
                     }
+                    if(entities[i][j] != null)
+	                  {
+	                	  entities[i][j].update(dt);
+	                  } 
               }
         }
       }
