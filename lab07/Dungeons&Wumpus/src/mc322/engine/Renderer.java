@@ -79,7 +79,6 @@ public class Renderer{
             }  
       }
 
-      //TODO: Modularizar essa função em classes
       public void drawIsometricImage(int i, int j, ImageTile image, int tileX, int tileY){
             int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
             int ty = pH/2 - image.getTileHeight()/2 + 24;

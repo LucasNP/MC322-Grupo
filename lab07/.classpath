@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="mc322/game/|mc322/game/entitiesTiles/" kind="src" path="Dungeons&amp;Wumpus/src"/>
+	<classpathentry excluding="entitiesTiles/" kind="src" path="Dungeons&amp;Wumpus/src/mc322/game"/>
+	<classpathentry kind="src" path="Dungeons&amp;Wumpus/src/mc322/game/entitiesTiles"/>
+	<classpathentry kind="output" path="Dungeons&amp;Wumpus/bin"/>
+</classpath>
