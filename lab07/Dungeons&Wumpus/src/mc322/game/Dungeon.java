@@ -13,7 +13,7 @@ public class Dungeon implements BasicObject{
 
       public Dungeon(){
             MapBuilder mapBuilder = new MapBuilder();
-            this.rooms = mapBuilder.buildRooms(GameMapTokens.getDungeonPATH());
+            this.rooms = mapBuilder.buildRooms(GameMapTokens.getDungeonPATH(),this);
             this.pos   = LinearAlgebra.getOrigin();
       }
 
@@ -30,5 +30,16 @@ public class Dungeon implements BasicObject{
       public Room getCurrentRoom(){
             return rooms[this.pos.getFirst()][this.pos.getSecond()];
       }
+      
+      public Room getRoom(int i, int j)
+      {
+    	  return rooms[i][j];
+      }
+      
+      public void setPos(int i, int j)
+      {
+    	  this.pos = Pair.of(i,j);
+      }
+      
 
 }

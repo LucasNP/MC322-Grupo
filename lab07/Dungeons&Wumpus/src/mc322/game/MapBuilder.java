@@ -21,7 +21,7 @@ public class MapBuilder{
       private Heros player;
  
 
-      public Room[][] buildRooms(String dungeonPath) { 
+      public Room[][] buildRooms(String dungeonPath, Dungeon dungeon) { 
             this.origin = LinearAlgebra.getOrigin();
             this.rooms = new Room[mapHeight][mapWidth];
             
@@ -38,22 +38,22 @@ public class MapBuilder{
                         switch(token)
                         {
                         case 'y':
-                        	rooms[i][j] = new Room(this, pi,"Yellow");
+                        	rooms[i][j] = new Room(this, pi,"Yellow", dungeon);
                         	break;
                         case 'k':
-                        	rooms[i][j] = new Room(this, pi,"Black");
+                        	rooms[i][j] = new Room(this, pi,"Black", dungeon);
                         	break;
                         case 'b':
-                        	rooms[i][j] = new Room(this, pi,"Blue");
+                        	rooms[i][j] = new Room(this, pi,"Blue", dungeon);
                         	break;
                         case 'g':
-                        	rooms[i][j] = new Room(this, pi,"Green");
+                        	rooms[i][j] = new Room(this, pi,"Green", dungeon);
                         	break;
                         case 'r':
-                        	rooms[i][j] = new Room(this, pi,"Red");
+                        	rooms[i][j] = new Room(this, pi,"Red", dungeon);
                         	break;
                         case 'p':
-                        	rooms[i][j] = new Room(this, pi,"Purple");
+                        	rooms[i][j] = new Room(this, pi,"Purple", dungeon);
                         	break;
                         case '0':
                         default:
