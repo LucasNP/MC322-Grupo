@@ -8,7 +8,10 @@ import mc322.engine.Pair;
 import mc322.engine.CSVHandling;
 import mc322.engine.LinearAlgebra;
 import mc322.game.entitiesCharacters.Heros;
+import mc322.game.entitiesCharacters.Luna;
 import mc322.game.entitiesCharacters.Milo;
+import mc322.game.entitiesCharacters.Raju;
+import mc322.game.entitiesCharacters.Ze;
 import mc322.game.entitiesTiles.*;
 
 public class MapBuilder{
@@ -115,16 +118,21 @@ public class MapBuilder{
             	  entities[i][j] = null;
     	  if(this.origin.getFirst() == pos.getFirst() && this.origin.getSecond() == pos.getSecond())
     	  {
-    		  int targetI = 1;
+    		  int targetI = 2;
     		  int targetJ = 7;
     		  char token = scannedRoom[targetJ][0].charAt(targetI);
     		  if(token == '.' || token == 's' ||token =='S')
     		  {
-    			  player = new Milo(targetI,targetJ,0);
+    			  player = new Luna(targetI,targetJ,0);
     			  entities[targetI][targetJ] = player;
+    			  room.setZe(new Ze(targetI-1,targetJ-1,0));
+	    		  room.setLuna(player);
+	    		  room.setRaju(new Raju(targetI-1,targetJ,0));
+	    		  room.setMilo(new Milo(targetI-1,targetJ+1,0));
+	    		  
     		  }
-    		  room.setMilo(player);
     		  
+    		  room.setPlayer(player);
 
     	  }
           return entities;

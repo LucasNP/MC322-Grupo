@@ -36,7 +36,7 @@ public class Dungeon implements BasicObject{
     	  return rooms[i][j];
       }
       
-      public void setPos(int i, int j)
+      public void setAtual(int i, int j)
       {
     	  this.pos = Pair.of(i,j);
       }

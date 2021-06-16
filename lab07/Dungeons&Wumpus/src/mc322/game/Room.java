@@ -26,6 +26,9 @@ public class Room implements BasicObject {
       private Heros player;
       private Chest chest;
       private Heros milo;
+      private Heros ze;
+      private Heros raju;
+      private Heros luna;
       private String color;
       private Dungeon dungeon;
       private int i;
@@ -37,7 +40,7 @@ public class Room implements BasicObject {
             //numberRoom = "5";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
-            player = milo;
+            this.updateHerosAtRoom();
             this.color = color;
             this.dungeon = dungeon;
             this.i = pos.getFirst();
@@ -109,21 +112,55 @@ public class Room implements BasicObject {
 		this.milo = milo;
 	}
 	
+	public Heros getMilo()
+	{
+		return milo;
+	}
+	
+	public void setLuna(Heros luna)
+	{
+		this.luna = luna;
+	}
+	
+	public Heros getLuna()
+	{
+		return luna;
+	}
+	
+	public void setZe(Heros ze)
+	{
+		this.ze = ze;
+	}
+	
+	public Heros getZe()
+	{
+		return ze;
+	}
+	
+	public void setRaju(Heros raju)
+	{
+		this.raju = raju;
+	}
+	
+	public Heros getRaju()
+	{
+		return raju;
+	}
+	
 	public void setPlayer(Heros player)
 	{
-		this.player = milo;
+		this.player = player;
 	}
 	
 	public Heros getPlayer()
 	{
-		return player;
+		return this.player;
 	}
 	
 	public void setChest(Chest chest)
 	{
 		this.chest = chest;
 	}
-	
 	
 	public boolean isAccessible(int i, int j,double elevation, double legSize,int dir)
 	{
@@ -182,6 +219,7 @@ public class Room implements BasicObject {
 		}
 		return false;
 	}
+	
 	public void move(int i0,int j0,int i,int j)
 	{
 		this.entities[i][j]=this.entities[i0][j0];
@@ -194,67 +232,154 @@ public class Room implements BasicObject {
 		else if(tiles.get(i).get(j).getFirst() instanceof Door)
 		{
 			
-			int newI=i; // nova posicao i do personagem na sala final
-			int newJ=j;// nova posicao j do personagem na nova sala
+			char dir='0'; //direcao para entrar na sala
 			int newRoomI=this.i; //nova posicao da sala
 			int newRoomJ=this.j; //nova posicao da sala
 			if(i==0)
 			{
 				//south
-				newI=LinearAlgebra.getModulo(size-(i+2));
-				newJ=j;
+				dir = 'n';
 				newRoomI = this.i;
 				newRoomJ = this.j-1; 
 			}
 			else if(i==size-1)
 			{
 				//north
-				
-				newI=1;
-				newJ=j;
+				dir = 's';
 				newRoomI = this.i;
 				newRoomJ = this.j+1;
 			}
 			else if(j==0)
 			{
 				//west
-				newI=i;
-				newJ=LinearAlgebra.getModulo(size-(j+2));
+				dir = 'e';
 				newRoomI = this.i-1;
 				newRoomJ = this.j;
 			}
 			else if(j==size-1)
 			{
 				//east
-				newI=i;
-				newJ=1;
+				dir = 'w';
 				newRoomI = this.i+1;
 				newRoomJ = this.j;
-				
-				
 			}	
 			else
 			{
 				System.out.println("error, the door is not well placed");
 			}
-			this.dungeon.getRoom(newRoomI,newRoomJ).placeEntity(this.entities[i][j],newI,newJ); // colocar a entidade na proxima sala
-			this.entities[i][j].setPos(newI,newJ); // avisar a entidade sua nova posicao
-			this.entities[i][j]=null; // retirar a entidade da sala antiga
-			this.dungeon.setPos(newRoomI,newRoomJ); // setar a sala atual
-			this.dungeon.getRoom(newRoomI,newRoomJ).setMilo(milo);
-			this.dungeon.getRoom(newRoomI,newRoomJ).setPlayer(player); //adicionar o player na nova sala
-			this.player = null; // remover o player da sala
-			this.milo = null; //remove milo
+			this.changeRoom(newRoomI,newRoomJ,dir);
 		}
 		else
 			this.entities[i][j].setElevation(1);
 		this.entities[i0][j0]=null;
 	}
 	
-	public void placeEntity(Entity entity, int i ,int j)
+	public void updateHerosAtRoom()
 	{
-		entities[i][j]=entity;
+		if(this.milo!=null)
+		this.entities[this.milo.getPos().getFirst()][this.milo.getPos().getSecond()] = this.milo;
+		if(this.raju!=null)
+		this.entities[this.raju.getPos().getFirst()][this.raju.getPos().getSecond()] = this.raju;
+		if(this.ze!=null)
+		this.entities[this.ze.getPos().getFirst()][this.ze.getPos().getSecond()] = this.ze;
+		if(this.luna!=null)
+		this.entities[this.luna.getPos().getFirst()][this.luna.getPos().getSecond()] = this.luna;
 	}
 	
+	private void changeRoom(int iSala, int jSala, char dir)
+	{
+		// remover suas posicoes da sala antiga
+		entities[luna.getPos().getFirst()][luna.getPos().getFirst()] = null;
+		entities[raju.getPos().getFirst()][raju.getPos().getFirst()] = null;
+		entities[milo.getPos().getFirst()][milo.getPos().getFirst()] = null;
+		entities[ze.getPos().getFirst()][ze.getPos().getFirst()] = null;
+		
+		
+		//setar posicoes corretas de cada um
+		
+		int li=0;
+		int lj=0;
+		int ri=0;
+		int rj=0;
+		int mi=0;
+		int mj=0;
+		int zi=0;
+		int zj=0;
+		switch(dir)
+		{
+		case 'w':
+			li=size/2;
+			lj=2;
+			ri=size/2;
+			rj=1;
+			mi=size/2-1;
+			mj=1;
+			zi=size/2+1;
+			zj=1;
+			break;
+		case 'e':
+			li=size/2;
+			lj=size-3;
+			ri=size/2;
+			rj=size-2;
+			mi=size/2-1;
+			mj=size-2;
+			zi=size/2+1;
+			zj=size-2;
+			break;
+		case 'n':
+			lj=size/2;
+			li=size-3;
+			rj=size/2;
+			ri=size-2;
+			mj=size/2-1;
+			mi=size-2;
+			zj=size/2+1;
+			zi=size-2;
+			break;
+		case 's':
+			lj=size/2;
+			li=2;
+			rj=size/2;
+			ri=1;
+			mj=size/2-1;
+			mi=1;
+			zj=size/2+1;
+			zi=1;
+			break;
+		default:
+			throw new ChangeRoomInvalidChar();
+		}
+		luna.setPos(li,lj);
+		raju.setPos(ri,rj);
+		milo.setPos(mi,mj);
+		ze.setPos(zi,zj);
+		
+		
+		// adicionar todos os personagens na nova sala
+		this.dungeon.getRoom(iSala,jSala).setLuna(this.luna);
+		this.dungeon.getRoom(iSala,jSala).setZe(this.ze);
+		this.dungeon.getRoom(iSala,jSala).setMilo(this.milo);
+		this.dungeon.getRoom(iSala,jSala).setRaju(this.raju);
+		
+		
+		//player
+		this.dungeon.getRoom(iSala,jSala).setPlayer(this.player);
+		
+		
+		
+		// remover eles da sala antiga
+		this.luna = null;
+		this.raju = null;
+		this.milo = null;
+		this.ze = null;
+		
+		//remover player
+		this.player = null;
+		
+		//atualizar nova sala
+		this.dungeon.getRoom(iSala,jSala).updateHerosAtRoom();
+		this.dungeon.setAtual(iSala,jSala);
+	}
 
 }
