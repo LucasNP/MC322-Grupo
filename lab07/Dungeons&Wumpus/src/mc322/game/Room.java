@@ -37,7 +37,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color, Dungeon dungeon){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            //numberRoom = "5";
+            numberRoom = "8";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
@@ -289,10 +289,10 @@ public class Room implements BasicObject {
 	private void changeRoom(int iSala, int jSala, char dir)
 	{
 		// remover suas posicoes da sala antiga
-		entities[luna.getPos().getFirst()][luna.getPos().getFirst()] = null;
-		entities[raju.getPos().getFirst()][raju.getPos().getFirst()] = null;
-		entities[milo.getPos().getFirst()][milo.getPos().getFirst()] = null;
-		entities[ze.getPos().getFirst()][ze.getPos().getFirst()] = null;
+		entities[luna.getPos().getFirst()][luna.getPos().getSecond()] = null;
+		entities[raju.getPos().getFirst()][raju.getPos().getSecond()] = null;
+		entities[milo.getPos().getFirst()][milo.getPos().getSecond()] = null;
+		entities[ze.getPos().getFirst()][ze.getPos().getSecond()] = null;
 		
 		
 		//setar posicoes corretas de cada um
