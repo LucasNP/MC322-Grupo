@@ -1,7 +1,5 @@
 package mc322.engine;
 
-import java.awt.event.KeyEvent;
-
 public class GameContainer implements Runnable{
       
       private Thread thread;
