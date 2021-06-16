@@ -16,9 +16,13 @@ public abstract class Heros extends Character{
 			return;
 		if(verifyMovement(i,j,room)==false)
 			return;
-		room.move(this.i,this.j,i,j);
+		
+		int lastI = this.i;
+		int lastJ = this.j;
 		this.i = i;
 		this.j = j;
+		room.move(lastI,lastJ,i,j);
+		
 
 		
 	}
