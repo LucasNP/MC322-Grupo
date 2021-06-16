@@ -277,13 +277,26 @@ public class Room implements BasicObject {
 	public void updateHerosAtRoom()
 	{
 		if(this.milo!=null)
-		this.entities[this.milo.getPos().getFirst()][this.milo.getPos().getSecond()] = this.milo;
+		{
+			this.entities[this.milo.getPos().getFirst()][this.milo.getPos().getSecond()] = this.milo;
+			milo.setElevation(0);
+		}
 		if(this.raju!=null)
-		this.entities[this.raju.getPos().getFirst()][this.raju.getPos().getSecond()] = this.raju;
+		{
+			this.entities[this.raju.getPos().getFirst()][this.raju.getPos().getSecond()] = this.raju;
+			raju.setElevation(0);
+		}
 		if(this.ze!=null)
-		this.entities[this.ze.getPos().getFirst()][this.ze.getPos().getSecond()] = this.ze;
+		{
+			this.entities[this.ze.getPos().getFirst()][this.ze.getPos().getSecond()] = this.ze;
+			ze.setElevation(0);
+		}
 		if(this.luna!=null)
-		this.entities[this.luna.getPos().getFirst()][this.luna.getPos().getSecond()] = this.luna;
+		{
+			this.entities[this.luna.getPos().getFirst()][this.luna.getPos().getSecond()] = this.luna;
+			luna.setElevation(0);
+		}
+		
 	}
 	
 	private void changeRoom(int iSala, int jSala, char dir)
