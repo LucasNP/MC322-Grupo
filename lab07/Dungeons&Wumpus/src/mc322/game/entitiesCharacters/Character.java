@@ -34,4 +34,35 @@ public abstract class Character extends Entity{
 	}
 	
 	protected abstract boolean verifyMovement(int i, int j, Room room);
+	
+	public void requestMap(Room room, int iDest, int jDest)
+	{
+		char map[][] = room.builCharMap(this.i,this.j);
+		map[iDest][jDest] = 'E';
+		
+		//map = solve(map);
+		
+		for(int i = 0;i<map.length;i++,System.out.println())
+		{
+			for(int j = 0;j<map.length;j++)
+			{
+				System.out.print(map[i][j]);
+			}
+		}
+		
+	}
+	
+	public char[][] solve(char map[][])
+	{
+		char ans[][] = new char[map.length][map.length];
+		for(int i = 0;i<map.length;i++)
+		{
+			for(int j = 0;j<map.length;j++)
+			{
+				
+			}
+		}
+		
+		return ans;
+	}
 }

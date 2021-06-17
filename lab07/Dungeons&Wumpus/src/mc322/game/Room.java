@@ -2,8 +2,6 @@ package mc322.game;
 
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
 
 import mc322.engine.BasicObject;
 import mc322.engine.Pair;
@@ -15,7 +13,6 @@ import mc322.game.entitiesTiles.Door;
 import mc322.game.entitiesTiles.Ladder;
 import mc322.game.entitiesTiles.Platform;
 import mc322.game.entitiesTiles.SafeZone;
-import mc322.engine.LinearAlgebra;
 
 public class Room implements BasicObject {
       private final int size = 15;
@@ -37,7 +34,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color, Dungeon dungeon){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "8";
+            numberRoom = "testRoom";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
@@ -393,6 +390,39 @@ public class Room implements BasicObject {
 		//atualizar nova sala
 		this.dungeon.getRoom(iSala,jSala).updateHerosAtRoom();
 		this.dungeon.setAtual(iSala,jSala);
+	}
+	
+	public char[][] builCharMap(int iOrigem, int jOrigem)
+	{
+		char map[][] = new char[size][size];
+		for(int i = 0; i < size; i++)
+		{
+			for(int j = 0; j < size; j++)
+			{
+				if(tiles.get(i).get(j)==null)
+				{
+					map[i][j] = '.';
+				}
+				else
+				{
+					map[i][j] = '#';
+					continue;
+				}
+				if(entities[i][j]!=null)
+				{
+					if(i==iOrigem && j == jOrigem)
+					{
+						map[i][j] = 'B';
+						continue;
+					}
+					map[i][j] = '#';
+					
+				}
+			}
+		}
+		
+		
+		return map;
 	}
 
 }
