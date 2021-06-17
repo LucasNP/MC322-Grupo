@@ -96,6 +96,11 @@ public abstract class KeysManager {
 			dungeon.getCurrentRoom().setPlayer(player);
 		}
 		
+		if(gc.getInput().isKeyDown('M'))
+		{
+			dungeon.getCurrentRoom().getPlayer().requestMap(dungeon.getCurrentRoom(),dungeon.getCurrentRoom().getLuna().getPos().getFirst(),dungeon.getCurrentRoom().getLuna().getPos().getSecond());
+		}
+		
 		
 		
 		if(gc.getInput().wasClicked())
