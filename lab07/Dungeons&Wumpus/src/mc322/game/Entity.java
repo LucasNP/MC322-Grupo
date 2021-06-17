@@ -13,8 +13,8 @@ public abstract class Entity implements BasicObject{
       protected int nFrames;
 
       protected double elevation;
-      public int i;
-      public int j;
+      protected int i;
+      protected int j;
       protected int updateDir;
       protected double updateFrame;
 
