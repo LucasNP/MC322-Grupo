@@ -8,6 +8,7 @@ public class Pillar extends Entity{
 	
       public Pillar (int i, int j, String direction, int elevation){
             this.name = "pillar";
+            this.updateDir = 2; 
 		this.i=i;
 		this.j=j;
             this.elevation = elevation;

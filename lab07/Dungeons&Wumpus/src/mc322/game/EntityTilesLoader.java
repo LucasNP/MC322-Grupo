@@ -64,7 +64,7 @@ public abstract class EntityTilesLoader {
 
                   // Pillar
                   case 'b':
-                        entityTile = Pair.of(new Pillar(i, j,dir,elevation),null);
+                        entityTile = Pair.of(new Pillar(i, j, dir, elevation),null);
                         break;
 
                   // SafeZone
