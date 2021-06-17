@@ -8,6 +8,7 @@ import mc322.engine.LinearAlgebra;
 public class Dungeon implements BasicObject{
 
       private MapBuilder mapBuilder;
+      private boolean follow = true;
       private Room[][] rooms;
       private Pair <Integer, Integer> pos;
 
@@ -41,5 +42,14 @@ public class Dungeon implements BasicObject{
     	  this.pos = Pair.of(i,j);
       }
       
+      public void toggleFollow()
+      {
+    	  this.follow = !this.follow;
+      }
+      
+      public boolean getFollow()
+      {
+    	  return follow;
+      }
 
 }

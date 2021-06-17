@@ -34,7 +34,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color, Dungeon dungeon){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "testRoom";
+            //numberRoom = "testRoom";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
@@ -392,16 +392,20 @@ public class Room implements BasicObject {
 		this.dungeon.setAtual(iSala,jSala);
 	}
 	
-	public char[][] builCharMap(int iOrigem, int jOrigem)
+	public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd)
 	{
 		char map[][] = new char[size][size];
 		for(int i = 0; i < size; i++)
 		{
 			for(int j = 0; j < size; j++)
 			{
-				if(tiles.get(i).get(j)==null)
+				if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone || tiles.get(i).get(j).getFirst() instanceof Ladder)
 				{
 					map[i][j] = '.';
+				}
+				else if(tiles.get(i).get(j).getFirst() instanceof Platform)
+				{
+					map[i][j] = 'U';
 				}
 				else
 				{
@@ -410,9 +414,14 @@ public class Room implements BasicObject {
 				}
 				if(entities[i][j]!=null)
 				{
-					if(i==iOrigem && j == jOrigem)
+					if(i==iBegin && j == jBegin)
 					{
 						map[i][j] = 'B';
+						continue;
+					}
+					if(i==iEnd && j == jEnd)
+					{
+						map[i][j] = 'E';
 						continue;
 					}
 					map[i][j] = '#';

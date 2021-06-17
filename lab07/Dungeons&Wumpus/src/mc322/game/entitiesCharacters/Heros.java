@@ -28,7 +28,6 @@ public abstract class Heros extends Character{
 	}
 	
 public void move(char dir,Room room) {
-		
 		int tI=0;
 		int tJ=0;
 		int newDir = updateDir;

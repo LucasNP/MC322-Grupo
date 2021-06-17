@@ -1,5 +1,10 @@
 package mc322.game.entitiesCharacters;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import mc322.engine.LinearAlgebra;
+import mc322.engine.Pair;
 import mc322.game.Entity;
 import mc322.game.Room;
 
@@ -35,34 +40,49 @@ public abstract class Character extends Entity{
 	
 	protected abstract boolean verifyMovement(int i, int j, Room room);
 	
-	public void requestMap(Room room, int iDest, int jDest)
+	protected char[][] requestMap(Room room, int iDest, int jDest)
 	{
-		char map[][] = room.builCharMap(this.i,this.j);
-		map[iDest][jDest] = 'E';
-		
-		//map = solve(map);
-		
-		for(int i = 0;i<map.length;i++,System.out.println())
-		{
-			for(int j = 0;j<map.length;j++)
-			{
-				System.out.print(map[i][j]);
-			}
-		}
-		
+		char map[][] = room.builCharMap(this.i,this.j,iDest,jDest);
+		map = LinearAlgebra.solveMaze(map);
+//		for(int i = 0;i<map.length;i++,System.out.println())
+//		{
+//			for(int j = 0;j<map.length;j++)
+//			{
+//				System.out.print(map[i][j]);
+//			}
+//		}
+		return map;
 	}
 	
-	public char[][] solve(char map[][])
+	public void follow(int i, int j, Room room)
 	{
-		char ans[][] = new char[map.length][map.length];
-		for(int i = 0;i<map.length;i++)
+		if(i == this.i && j == this.j)
+			return;
+		char map[][] = requestMap(room,i,j);
+		switch(map[this.i][this.j])
 		{
-			for(int j = 0;j<map.length;j++)
-			{
-				
-			}
+		case 'V':
+			this.move('W',room);
+			break;
+		case 'A':
+			this.move('S',room);
+			break;
+		case '<':
+			this.move('A',room);
+			break;
+		case '>':
+			this.move('D',room);
+			break;
+		default:
+			break;
 		}
-		
-		return ans;
 	}
+	
+	public void follow(Character charac, Room room)
+	{
+		this.follow(charac.getPos().getFirst(),charac.getPos().getSecond(),room);
+	}
+	
+	
+	
 }

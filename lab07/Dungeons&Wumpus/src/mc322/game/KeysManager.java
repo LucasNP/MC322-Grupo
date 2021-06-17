@@ -8,27 +8,33 @@ import mc322.game.entitiesCharacters.Luna;
 import mc322.game.entitiesCharacters.Milo;
 import mc322.game.entitiesCharacters.Raju;
 import mc322.game.entitiesCharacters.Ze;
+import java.util.Random;
 
 public abstract class KeysManager {
 
 	public static void keys(GameContainer gc, Dungeon dungeon)
 	{
+		
 		if(gc.getInput().isKeyDown('A'))
 		{
 			dungeon.getCurrentRoom().getPlayer().move('A',dungeon.getCurrentRoom());
+			walk(dungeon);
 		}
 		
 		if(gc.getInput().isKeyDown('D'))
 		{
 			dungeon.getCurrentRoom().getPlayer().move('D',dungeon.getCurrentRoom());
+			walk(dungeon);
 		}
 		if(gc.getInput().isKeyDown('S'))
 		{
 			dungeon.getCurrentRoom().getPlayer().move('S',dungeon.getCurrentRoom());
+			walk(dungeon);
 		}
 		if(gc.getInput().isKeyDown('W'))
 		{
 			dungeon.getCurrentRoom().getPlayer().move('W',dungeon.getCurrentRoom());
+			walk(dungeon);
 		}
 		if(gc.getInput().isKeyDown(38))
 		{
@@ -96,9 +102,9 @@ public abstract class KeysManager {
 			dungeon.getCurrentRoom().setPlayer(player);
 		}
 		
-		if(gc.getInput().isKeyDown('M'))
+		if(gc.getInput().isKeyDown('T'))
 		{
-			dungeon.getCurrentRoom().getPlayer().requestMap(dungeon.getCurrentRoom(),dungeon.getCurrentRoom().getLuna().getPos().getFirst(),dungeon.getCurrentRoom().getLuna().getPos().getSecond());
+			dungeon.toggleFollow();
 		}
 		
 		
@@ -114,5 +120,45 @@ public abstract class KeysManager {
 		}
 		
 	}
+	
+	//TODO: mover para uma classe melhor
+	private static void walk(Dungeon dungeon) 
+	{
+		if(!dungeon.getFollow())
+			return;
+		Random rand = new Random();
+		
+		if(dungeon.getCurrentRoom().getMilo() != dungeon.getCurrentRoom().getPlayer())
+		{
+			if(rand.nextInt(9)<7)
+				dungeon.getCurrentRoom().getMilo().follow(dungeon.getCurrentRoom().getLuna(),dungeon.getCurrentRoom());
+			else
+				dungeon.getCurrentRoom().getMilo().follow(dungeon.getCurrentRoom().getRaju(),dungeon.getCurrentRoom());
+		}
+		if(dungeon.getCurrentRoom().getLuna() != dungeon.getCurrentRoom().getPlayer())
+		{
+			if(rand.nextInt(13)<9)
+				dungeon.getCurrentRoom().getLuna().follow(dungeon.getCurrentRoom().getPlayer(),dungeon.getCurrentRoom());
+			else
+				dungeon.getCurrentRoom().getLuna().follow(dungeon.getCurrentRoom().getZe(),dungeon.getCurrentRoom());
+		}
+		if(dungeon.getCurrentRoom().getZe() != dungeon.getCurrentRoom().getPlayer())
+		{
+			if(rand.nextInt(15)<8)
+				dungeon.getCurrentRoom().getZe().follow(dungeon.getCurrentRoom().getRaju(),dungeon.getCurrentRoom());
+			else
+				dungeon.getCurrentRoom().getZe().follow(dungeon.getCurrentRoom().getLuna(),dungeon.getCurrentRoom());
+		}
+		if(dungeon.getCurrentRoom().getRaju() != dungeon.getCurrentRoom().getPlayer())
+		{
+			if(rand.nextInt(8)<5)
+				dungeon.getCurrentRoom().getRaju().follow(dungeon.getCurrentRoom().getMilo(),dungeon.getCurrentRoom());
+			else
+				dungeon.getCurrentRoom().getRaju().follow(dungeon.getCurrentRoom().getLuna(),dungeon.getCurrentRoom());
+		}
+			
+		
+	}
+	
 	
 }
