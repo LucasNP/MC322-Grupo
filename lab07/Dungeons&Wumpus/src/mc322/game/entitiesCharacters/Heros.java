@@ -63,7 +63,7 @@ public void move(char dir,Room room) {
 	protected boolean verifyMovement(int i, int j, Room room) {
 	if(room == null)
 	{
-		System.out.println("erro: sala é nula");
+		System.out.println("erro: sala e nula");
 		return false;
 	}
 	if(room.isAccessible(i,j,this.elevation,this.legSize,this.updateDir))

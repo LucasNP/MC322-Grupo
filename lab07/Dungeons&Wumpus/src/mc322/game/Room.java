@@ -34,7 +34,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color, Dungeon dungeon){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "7";
+            //numberRoom = "7";
             this.color = color;
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
