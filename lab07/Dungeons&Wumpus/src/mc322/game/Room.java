@@ -21,7 +21,7 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            numberRoom = "9";
+            numberRoom = "7";
             tiles = mapBuilder.buildTiles(size, pos, numberRoom);
             entities = mapBuilder.buildEntities(pos);
       }

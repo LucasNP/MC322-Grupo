@@ -8,7 +8,7 @@ public class Pillar extends Entity{
 	
       public Pillar (int i, int j, String direction, int elevation){
             this.name = "pillar";
-            this.updateDir = 2; 
+            this.updateDir = 1; 
 		this.i=i;
 		this.j=j;
             this.elevation = elevation;
@@ -17,7 +17,7 @@ public class Pillar extends Entity{
             this.velocityAnim = 8;
             this.nFrames = 6;
 
-		if(direction == "north-south") this.updateDir = 1;
+            if(direction == "internal") this.updateDir = 0;
 		this.updateFrame = 0;
 	}
 	
@@ -31,7 +31,7 @@ public class Pillar extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, 0, 0);
+		GameRenderer.drawTile(i,j,elevation,name,r, 0, this.updateDir);
 	}
 
       public void toggleAnimation(){
