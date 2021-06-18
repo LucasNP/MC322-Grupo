@@ -5,8 +5,8 @@ import mc322.engine.gfx.ImageTile;
 
 public class GameRenderer {
 
-	public static void drawTile(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY){
-            ImageTile image = GameMapTokens.getImageTile(name, "Purple");
+	public static void drawTile(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY, String color){
+            ImageTile image = GameMapTokens.getImageTile(name, color);
             //elevation+=0.5;
             r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
 	}

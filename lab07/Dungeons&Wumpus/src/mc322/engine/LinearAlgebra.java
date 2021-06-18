@@ -53,8 +53,17 @@ public abstract class LinearAlgebra{
   	
   	public static char[][] solveMaze(char map[][]) // for Square maps
   	{
-  		ArrayList<Pair<Pair<Integer,Integer>,Integer>> news = new ArrayList<Pair<Pair<Integer,Integer>,Integer>>();
-  		ArrayList<Pair<Pair<Integer,Integer>,Integer>> newNews = new ArrayList<Pair<Pair<Integer,Integer>,Integer>>();
+  		char auxMap[][] = new char[map.length][map.length];
+  		for(int i = 0;i<map.length;i++)
+  		{
+  			for(int j = 0;j<map.length;j++)
+  			{
+  				auxMap[i][j] = map[i][j];
+  				
+  			}
+  		}
+  		ArrayList<Pair<Integer,Integer>> news = new ArrayList<Pair<Integer,Integer>>();
+  		ArrayList<Pair<Integer,Integer>> newNews = new ArrayList<Pair<Integer,Integer>>();
   		int dirI[] = {1,0,0,-1};
   		int dirJ[] = {0,-1,1,0};
   		
@@ -62,8 +71,8 @@ public abstract class LinearAlgebra{
   		{
   			for(int j = 0;j<map.length;j++)
   			{
-  				if(map[i][j]=='E')
-  					newNews.add(Pair.of(Pair.of(i,j),1));
+  				if(map[i][j]=='E' || map[i][j]=='e')
+  					newNews.add(Pair.of(i,j));
   				
   			}
   		}
@@ -90,33 +99,85 @@ public abstract class LinearAlgebra{
   			{
   				for(int k =0;k<4;k++)
   				{
-  					if(!between(news.get(i).getFirst().getFirst()+dirI[k],0,map.length-1) || !between(news.get(i).getFirst().getSecond()+dirJ[k],0,map.length-1))
+  					if(!between(news.get(i).getFirst()+dirI[k],0,map.length-1) || !between(news.get(i).getSecond()+dirJ[k],0,map.length-1))
   						continue;
-  					if(map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]]=='.' || map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]]=='B')
+  					char v = map[news.get(i).getFirst()+dirI[k]][news.get(i).getSecond()+dirJ[k]];
+  					if(v=='.' || v=='B' || v == 'U' || v == 'M' || v == 'N' || v == 'E' || v == 'e' || v == 'b')
   					{
-  						if(map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]]=='B')
+  						
+  						char c = auxMap[news.get(i).getFirst()][news.get(i).getSecond()];
+  						if(c == 'B' || c == 'b')
   						{
   							running = false;
+  							break;
   						}
+  						if(v=='U')
+  	  					{
+  	  						if(c != 'U' && c != 'M' && c != 'N' && c != 'E')
+  	  							continue;
+  	  					}
+  						if(v == 'N') // k=3 => 'D'
+  						{
+  							if(k==0 || k == 3) // n deve conter:   deve conter: 
+  								continue;
+  						}
+  						if(v == 'M')
+  						{
+  							if( k ==1) // n deve conter:     deve conter: 
+  								continue;
+  						}
+  						if(v == '.')
+  						{
+  							if(c != '.' && c != 'M' && c != 'N' && c != 'e')
+  							{
+  								continue;
+  							}
+  							//System.out.println("Sou "+ c+" e vou para "+ v);
+  						}
+  						if(v == 'b')
+  						{
+  							if(c != '.' && c != 'M' && c != 'N' && c != 'e')
+  							{
+  								continue;
+  							}
+  							
+  							//System.out.println("Sou "+ c+" e vou para "+ v);
+  						}
+  						if(v == 'B')
+  						{
+  							if(c != 'U' && c != 'M' && c != 'N' && c != 'E')
+  							{
+  								continue;
+  							}
+  							if(c == 'M' && (k ==2 || k == 0|| k == 1|| k == 3))
+  							{
+  								continue;
+  							}
+  							//System.out.println("Sou "+ c+" e vou para "+ v);
+  						}
+  						
+  						
   						
   						switch(k)
   						{
   							case 0:
-  								map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]] = 'A';
+  								map[news.get(i).getFirst()+dirI[k]][news.get(i).getSecond()+dirJ[k]] = 'A';
   								break;
   							case 1:
-  								map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]] = '>';
+  								map[news.get(i).getFirst()+dirI[k]][news.get(i).getSecond()+dirJ[k]] = '>';
   								break;
   							case 2:
-  								map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]] = '<';
+  								map[news.get(i).getFirst()+dirI[k]][news.get(i).getSecond()+dirJ[k]] = '<';
   								break;
   							case 3:
-  								map[news.get(i).getFirst().getFirst()+dirI[k]][news.get(i).getFirst().getSecond()+dirJ[k]] = 'V';
+  								map[news.get(i).getFirst()+dirI[k]][news.get(i).getSecond()+dirJ[k]] = 'V';
   								break;
   						}
   						
-  						newNews.add(Pair.of(Pair.of(news.get(i).getFirst().getFirst()+dirI[k], news.get(i).getFirst().getSecond()+dirJ[k]),0));
+  						newNews.add(Pair.of(news.get(i).getFirst()+dirI[k], news.get(i).getSecond()+dirJ[k]));
   					}
+  					
+  						
   				}
   				if(!running)
   					break;

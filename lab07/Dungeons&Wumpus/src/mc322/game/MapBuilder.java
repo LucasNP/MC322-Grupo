@@ -81,7 +81,7 @@ public class MapBuilder{
                   for(int j = 0 ; j < size;j++){
                         char token = scannedRoom[j][0].charAt(i);
                         String dir = chooseOrientation(i, j, size);
-                        Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir);
+                        Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir, room.getColor());
                         tiles.get(i).add(pe);
                         if(pe!=null && pe.getFirst() instanceof Chest)
                         {
@@ -91,6 +91,7 @@ public class MapBuilder{
                         {
                         	room.setChest((Chest) pe.getSecond());
                         }
+                        
                   }
             }
             return tiles;

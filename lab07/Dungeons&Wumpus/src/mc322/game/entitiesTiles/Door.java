@@ -6,11 +6,13 @@ import mc322.game.GameRenderer;
 
 public class Door extends Entity{
 	
-      public Door (int i, int j, String direction, int elevation){
+	private String color;
+      public Door (int i, int j, String direction, int elevation, String color){
             this.name = "door";
 		this.i=i;
 		this.j=j;
             this.elevation = elevation + 1;
+            this.color = color;
 
             this.initAnimation = false;
             this.velocityAnim = 8;
@@ -31,7 +33,7 @@ public class Door extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir);
+		GameRenderer.drawTile(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir,this.color);
 	}
 
       public void toggleAnimation(){

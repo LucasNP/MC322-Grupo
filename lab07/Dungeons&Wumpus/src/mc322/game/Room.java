@@ -34,28 +34,30 @@ public class Room implements BasicObject {
       public Room(MapBuilder mapBuilder, Pair<Integer, Integer> pos,String color, Dungeon dungeon){
             Random rnd = new Random();
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            //numberRoom = "testRoom";
+            numberRoom = "7";
+            this.color = color;
             tiles = mapBuilder.buildTiles(size, pos, numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
-            this.color = color;
+            
             this.dungeon = dungeon;
             this.i = pos.getFirst();
             this.j = pos.getSecond();
       }
 
       private void renderTerrain(Renderer r){
+    	  
             String floor = "tile";
             int elevationFloor = -1;
 
             for(int i = size-1; i > 0; i--){
                   for(int j = 0; j < size-1; j++){
-                        GameRenderer.drawTile(i, j, elevationFloor, floor, r, 0, 0);
+                        GameRenderer.drawTile(i, j, elevationFloor, floor, r, 0, 0,this.color);
                   }
             }
 
-            GameRenderer.drawTile(size/2, size-1, elevationFloor, floor, r,0,0);
-            GameRenderer.drawTile(0, size/2, elevationFloor, floor, r,0,0);
+            GameRenderer.drawTile(size/2, size-1, elevationFloor, floor, r,0,0,this.color);
+            GameRenderer.drawTile(0, size/2, elevationFloor, floor, r,0,0,this.color);
       }
 
       public void update(double dt) {
@@ -76,6 +78,7 @@ public class Room implements BasicObject {
       }
 
       public void renderer(Renderer r) {
+    	 
             this.renderTerrain(r);
             for(int i = size-1; i >= 0; i--){
                   for(int j=0;j<size;j++){
@@ -157,6 +160,11 @@ public class Room implements BasicObject {
 	public void setChest(Chest chest)
 	{
 		this.chest = chest;
+	}
+	
+	public String getColor()
+	{
+		return this.color;
 	}
 	
 	public boolean isAccessible(int i, int j,double elevation, double legSize,int dir)
@@ -399,13 +407,20 @@ public class Room implements BasicObject {
 		{
 			for(int j = 0; j < size; j++)
 			{
-				if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone || tiles.get(i).get(j).getFirst() instanceof Ladder)
+				if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
 				{
 					map[i][j] = '.';
 				}
-				else if(tiles.get(i).get(j).getFirst() instanceof Platform)
+				else if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
 				{
 					map[i][j] = 'U';
+				}
+				else if(tiles.get(i).get(j).getFirst() instanceof Ladder )
+				{
+					if(tiles.get(i).get(j).getFirst().getDirection()==1)
+						map[i][j] = 'M';
+					else
+						map[i][j] = 'N';
 				}
 				else
 				{
@@ -416,12 +431,18 @@ public class Room implements BasicObject {
 				{
 					if(i==iBegin && j == jBegin)
 					{
-						map[i][j] = 'B';
+						if(tiles.get(i).get(j) != null && (tiles.get(i).get(j).getFirst() instanceof Platform ||tiles.get(i).get(j).getFirst() instanceof Ladder))
+							map[i][j] = 'B';
+						else
+							map[i][j] = 'b';
 						continue;
 					}
 					if(i==iEnd && j == jEnd)
 					{
-						map[i][j] = 'E';
+						if(tiles.get(i).get(j) != null && (tiles.get(i).get(j).getFirst() instanceof Platform ||tiles.get(i).get(j).getFirst() instanceof Ladder))
+							map[i][j] = 'E';
+						else
+							map[i][j] = 'e';
 						continue;
 					}
 					map[i][j] = '#';
