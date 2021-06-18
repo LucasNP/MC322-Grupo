@@ -116,14 +116,14 @@ public abstract class LinearAlgebra{
   	  						if(c != 'U' && c != 'M' && c != 'N' && c != 'E')
   	  							continue;
   	  					}
-  						if(v == 'N') // k=3 => 'D'
+  						if(v == 'N')
   						{
-  							if(k==0 || k == 3) // n deve conter:   deve conter: 
+  							if(k==0 || k == 3) // n deve conter: 2  1  deve conter: 3 4
   								continue;
   						}
   						if(v == 'M')
   						{
-  							if( k ==1) // n deve conter:     deve conter: 
+  							if(k==1 || k == 2 || k ==0 ) // n deve conter: 3 4    deve conter: 2 1
   								continue;
   						}
   						if(v == '.')
@@ -140,16 +140,11 @@ public abstract class LinearAlgebra{
   							{
   								continue;
   							}
-  							
   							//System.out.println("Sou "+ c+" e vou para "+ v);
   						}
   						if(v == 'B')
   						{
   							if(c != 'U' && c != 'M' && c != 'N' && c != 'E')
-  							{
-  								continue;
-  							}
-  							if(c == 'M' && (k ==2 || k == 0|| k == 1|| k == 3))
   							{
   								continue;
   							}

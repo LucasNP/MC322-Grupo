@@ -43,14 +43,6 @@ public abstract class Character extends Entity{
 	protected char[][] requestMap(Room room, int iDest, int jDest)
 	{
 		char map[][] = room.builCharMap(this.i,this.j,iDest,jDest);
-		System.out.println("mapa fabricado: ");
-		for(int a = 0 ; a<map.length;a++,System.out.println())
-		{
-			for(int b = 0 ; b<map.length;b++)
-			{
-				System.out.print(map[a][b]);
-			}
-		}
 		map = LinearAlgebra.solveMaze(map);
 //		for(int i = 0;i<map.length;i++,System.out.println())
 //		{
@@ -69,35 +61,21 @@ public abstract class Character extends Entity{
 		
 		
 		char map[][] = requestMap(room,i,j);
-		System.out.println("mapa de "+this.name+": ");
-		
-		for(int a = 0 ; a<map.length;a++,System.out.println())
-		{
-			for(int b = 0 ; b<map.length;b++)
-			{
-				System.out.print(map[a][b]);
-			}
-		}
-		System.out.println("decisao de "+this.name+": ");
 		
 		
 		switch(map[this.i][this.j])
 		{
 		case 'V':
 			this.move('W',room);
-			System.out.println("W");
 			break;
 		case 'A':
 			this.move('S',room);
-			System.out.println("S");
 			break;
 		case '<':
 			this.move('A',room);
-			System.out.println("A");
 			break;
 		case '>':
 			this.move('D',room);
-			System.out.println("D");
 			break;
 		default:
 			break;
