@@ -42,12 +42,12 @@ public abstract class GameMapTokens{
       // TokensTiles: blank, door, pillar, tile_half, tile_ladder, tile_side_wall, tile_wall, tile, torch
       // TokensColors: Red, Blue, Purple, Yellow, Green, White, Black
       public static ImageTile getImageTile(String object, String color){
-            if(mapTokens.get(object) == null){
+            if(mapTokens.get(object+color) == null){
                   String path = DIR_TILES + color + "/" + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
-                  mapTokens.put(object, image);
+                  mapTokens.put(object+color, image);
             }
-            return mapTokens.get(object);
+            return mapTokens.get(object+color);
       }
 
      // TokensCharacter: Milo, Luna, Raju, Ze

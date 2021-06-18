@@ -7,10 +7,12 @@ import mc322.game.GameRenderer;
 
 public class Platform extends Entity{
 
-	public Platform(int i, int j){
+	private String color;
+	public Platform(int i, int j, String color){
 		this.i = i;
 		this.j = j;
 		this.name = "tile";
+		this.color = color;
 	}
 
 	public void update(double dt) {
@@ -18,7 +20,7 @@ public class Platform extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, 0, 1);
+		GameRenderer.drawTile(i,j,elevation,name,r, 0, 1,this.color);
 	}
 
       public void toggleAnimation(){
