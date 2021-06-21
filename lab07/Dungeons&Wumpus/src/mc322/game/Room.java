@@ -29,6 +29,7 @@ public class Room implements BasicObject {
       private Heroes luna;
       private String color;
       private Dungeon dungeon;
+      private boolean blocked;
       private int i;
       private int j;
 
@@ -40,7 +41,8 @@ public class Room implements BasicObject {
             this.numberRoom = "" + (rnd.nextInt(9)+1);
             this.color = color;
             this.rooms_around = rooms_around;
-            numberRoom = "6";
+            //numberRoom = "testRoom";
+            this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
@@ -145,6 +147,17 @@ public class Room implements BasicObject {
       public String getColor(){
             return this.color;
       }
+      
+      public void open()
+      {
+    	  this.blocked = false;
+    	  
+      }
+      
+      public boolean getBlocked()
+      {
+    	  return this.blocked;
+      }
 
 
       public boolean isAccessible(int i, int j,double elevation, double legSize,int dir,Character charac){
@@ -164,7 +177,7 @@ public class Room implements BasicObject {
                         if(tiles.get(i).get(j).getSecond() == null && elevation > (1-legSize))
                               return true;
 
-                  if(tiles.get(i).get(j).getFirst() instanceof Door){
+                  if(tiles.get(i).get(j).getFirst() instanceof Door && !this.blocked){
                         if(i==0){
                               if(dungeon.getRoom(this.i,this.j-1) !=null) //south
                                     return true;
@@ -255,7 +268,6 @@ public class Room implements BasicObject {
             this.entities[i0][j0]=removedEntity;
             if(removedEntity != null)
             {
-            	System.out.println("pao");
             removedEntity.setPos(i0,j0);
             if(tiles.get(i0).get(j0) == null || tiles.get(i0).get(j0).getFirst() instanceof SafeZone)
                     this.entities[i0][j0].setElevation(0);

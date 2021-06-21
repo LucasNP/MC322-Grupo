@@ -84,6 +84,10 @@ public abstract class KeysManager {
             if(gc.getInput().isKeyDown('T')){
                   dungeon.toggleFollow();
             }
+            
+            if(gc.getInput().isKeyDown('O')){
+                dungeon.getCurrentRoom().open();
+            }
 
             if(gc.getInput().wasClicked()){
                   Pair<Integer,Integer> posClick = gc.getInput().getClick();

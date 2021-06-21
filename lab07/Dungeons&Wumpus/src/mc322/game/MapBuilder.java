@@ -97,7 +97,7 @@ public class MapBuilder{
 
                         boolean blocked = is_blocked_filter(token, dir, rooms_around);
                         Pair <Entity, Entity>pe;
-                        pe = EntityTilesLoader.getEntity(token,blocked,i,j,dir,room.getColor());
+                        pe = EntityTilesLoader.getEntity(token,blocked,i,j,dir,room.getColor(),room);
                         tiles.get(i).add(pe);
 
                         if(pe!=null && pe.getFirst() instanceof Chest){
