@@ -391,7 +391,7 @@ public class Room implements BasicObject {
             this.dungeon.setAtual(iSala,jSala);
       }
 
-      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd)
+      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes)
       {
             char map[][] = new char[size][size];
             for(int i = 0; i < size; i++)
@@ -413,12 +413,16 @@ public class Room implements BasicObject {
                               else
                                     map[i][j] = 'N';
                         }
+                        else if(tiles.get(i).get(j).getFirst() instanceof Door )
+                        {
+                              map[i][j] = 'D';
+                        }
                         else
                         {
                               map[i][j] = '#';
                               continue;
                         }
-                        if(entities[i][j]!=null)
+                        if(entities[i][j]!=null && !ignoreHeroes)
                         {
                               if(i==iBegin && j == jBegin)
                               {

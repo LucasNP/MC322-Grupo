@@ -59,6 +59,8 @@ public abstract class GameBrain{
   			map[iEnd][jEnd]='e';
   		else if(map[iEnd][jEnd]=='#')
   			throw new ImpossibleOriginOrDestiny();
+  		else if(map[iEnd][jEnd]=='D')
+  			throw new DoorSelected();
   		else
   			map[iEnd][jEnd]='E';
   		
@@ -184,24 +186,24 @@ public abstract class GameBrain{
             Random rand = new Random();
 
             if(cRoom.getMilo() != cRoom.getPlayer()){
-                  if(rand.nextInt(9)<7) cRoom.getMilo().follow(cRoom.getLuna(),cRoom);
-                  else cRoom.getMilo().follow(cRoom.getRaju(),cRoom);
+                  if(rand.nextInt(9)<7) cRoom.getMilo().follow(cRoom.getLuna(),cRoom,false);
+                  else cRoom.getMilo().follow(cRoom.getRaju(),cRoom,false);
             }
 
             if(cRoom.getLuna() != cRoom.getPlayer()){
-                  if(rand.nextInt(13)<9) cRoom.getLuna().follow(cRoom.getPlayer(),cRoom);
-                  else cRoom.getLuna().follow(cRoom.getZe(),cRoom);
+                  if(rand.nextInt(13)<9) cRoom.getLuna().follow(cRoom.getPlayer(),cRoom,false);
+                  else cRoom.getLuna().follow(cRoom.getZe(),cRoom,false);
             }
 
             if(cRoom.getZe() != cRoom.getPlayer()) {
-                  if(rand.nextInt(15)<8) cRoom.getZe().follow(cRoom.getRaju(),cRoom);
+                  if(rand.nextInt(15)<8) cRoom.getZe().follow(cRoom.getRaju(),cRoom,false);
                   else
-                        cRoom.getZe().follow(cRoom.getLuna(),cRoom);
+                        cRoom.getZe().follow(cRoom.getLuna(),cRoom,false);
             }
 
             if(cRoom.getRaju() != cRoom.getPlayer()){
-                  if(rand.nextInt(8)<5) cRoom.getRaju().follow(cRoom.getMilo(),cRoom);
-                  else cRoom.getRaju().follow(cRoom.getLuna(),cRoom);
+                  if(rand.nextInt(8)<5) cRoom.getRaju().follow(cRoom.getMilo(),cRoom,false);
+                  else cRoom.getRaju().follow(cRoom.getLuna(),cRoom,false);
             }
       }
 

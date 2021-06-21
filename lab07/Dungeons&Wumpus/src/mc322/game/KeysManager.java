@@ -112,15 +112,15 @@ public abstract class KeysManager {
 
                 posClick = LinearAlgebra.toCartesianas(posClick);
 
-                int x = posClick.getFirst() + 332;
-                int y = posClick.getSecond() - 475;
+                int x = posClick.getFirst() + 332+32;
+                int y = posClick.getSecond() - 475+32;
                 x /= 32;
                 y /= 32;
 
-                if( x > 13 || x < -1 || y < -1 || y > 13 ) return;
+                if( x > 14 || x < 0 || y < 0 || y > 14 ) return;
                 //System.out.println(x + " , " + y);
 
-                dungeon.getCurrentRoom().getPlayer().follow(x+1, y+1, dungeon.getCurrentRoom());
+                dungeon.getCurrentRoom().getPlayer().follow(x, y, dungeon.getCurrentRoom(),true);
           }
     }
       
