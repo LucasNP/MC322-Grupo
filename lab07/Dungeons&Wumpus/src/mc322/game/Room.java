@@ -147,11 +147,9 @@ public class Room implements BasicObject {
       }
 
 
-      public boolean isAccessible(int i, int j,double elevation, double legSize,int dir){
+      public boolean isAccessible(int i, int j,double elevation, double legSize,int dir,Character charac){
 
-            if(entities[i][j] instanceof Heroes) return true;
-
-            if(this.entities[i][j] == null){
+            if(this.entities[i][j] == null || (this.entities[i][j] instanceof Heroes && charac ==this.player)){
 
                   if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone){
                         if(elevation < legSize) return true;
@@ -200,20 +198,19 @@ public class Room implements BasicObject {
             return false;
       }
 
-      public void move(int i0,int j0,int i,int j){
+      public void move(int i0,int j0,int i,int j,Character charac){
 
-            if(entities[i][j] instanceof Heroes) {
-
-                  Entity entity_player, entity_buddy;
-
-                  entity_player = this.entities[i0][j0];
-                  entity_buddy  = this.entities[i][j];
-
-                  this.entities[i][j] = entity_player;
-                  this.entities[i0][j0] = entity_buddy;
-                  entities[i0][j0].setPos(i0,j0);
-
-                  return;
+    	  Entity removedEntity = null;
+            if(entities[i][j] instanceof Heroes ) {
+            		if(charac == player)
+            		{
+            			removedEntity  = this.entities[i][j];
+            		}
+            		else
+            		{
+            			System.err.println("Something went wrong, a hero triet to move to another");
+            			return;
+            		}
             }
 
             this.entities[i][j]=this.entities[i0][j0];
@@ -222,7 +219,7 @@ public class Room implements BasicObject {
                   this.entities[i][j].setElevation(0);
             else if(tiles.get(i).get(j).getFirst() instanceof Ladder)
                   this.entities[i][j].setElevation(0.5);
-            else if(tiles.get(i).get(j).getFirst() instanceof Door){
+            else if(tiles.get(i).get(j).getFirst() instanceof Door){ //if wants to change room
                   char dir='0'; //direcao para entrar na sala
                   int newRoomI=this.i; //nova posicao da sala
                   int newRoomJ=this.j; //nova posicao da sala
@@ -255,7 +252,18 @@ public class Room implements BasicObject {
                   this.changeRoom(newRoomI,newRoomJ,dir);
             }
             else this.entities[i][j].setElevation(1);
-            this.entities[i0][j0]=null;
+            this.entities[i0][j0]=removedEntity;
+            if(removedEntity != null)
+            {
+            	System.out.println("pao");
+            removedEntity.setPos(i0,j0);
+            if(tiles.get(i0).get(j0) == null || tiles.get(i0).get(j0).getFirst() instanceof SafeZone)
+                    this.entities[i0][j0].setElevation(0);
+              else if(tiles.get(i0).get(j0).getFirst() instanceof Ladder)
+                    this.entities[i0][j0].setElevation(0.5);
+              else this.entities[i0][j0].setElevation(1);
+            	  
+            }
       }
 
       public void updateHerosAtRoom(){
