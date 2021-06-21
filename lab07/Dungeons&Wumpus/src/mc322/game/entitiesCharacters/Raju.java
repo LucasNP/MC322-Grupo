@@ -4,7 +4,7 @@ import mc322.engine.Renderer;
 import mc322.game.GameRenderer;
 import mc322.game.Room;
 
-public class Raju extends Heros{
+public class Raju extends Heroes{
 
 	int velocidade_anim = 10;
 	private double temp = 0;
@@ -13,7 +13,17 @@ public class Raju extends Heros{
 	{
 		super(i,j,elevation);
 		this.name = "Raju";
-		this.updateDir =3;
+            this.state = "idle";
+
+            this.updateDir = 3;
+            this.updateFrame = 0;
+            
+            this.initAnimation = true;
+            this.velocityAnim = this.velocityAnimIdle = 5;
+            this.velocityAnimMoving = 1;
+
+            this.nFrames = this.nFramesIdle = 6;
+            this.nFramesMoving = 4;
 		
 	}
 	
@@ -24,7 +34,7 @@ public class Raju extends Heros{
 	}
 
 	@Override
-	public void atack(int i, int j) {
+	public void attack(int i, int j) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -41,16 +51,19 @@ public class Raju extends Heros{
 		
 	}
 
+      public void change_state(String state){
+            this.state = state;
+            if(state == "moving") this.nFrames = 3;
+            if(state == "idle") this.nFrames = 5;
+      }
+
 	public void update(double dt) {
-        //temp += velocidade_anim*dt;
-		
+            this.updateFrame += this.velocityAnim*dt;
 	}
 
 	@Override
 	public void renderer(Renderer r) {
-		//GameRenderer.drawCharacter(i,j,elevation,name,r, (int)(temp%3), this.updateDir,"idle");
-		GameRenderer.drawCharacter(i,j,elevation,name,r, (int)(temp%3), 0,"idle");
-		
+            GameRenderer.drawCharacter(i,j,elevation,name,r,(int)updateFrame%nFrames, this.updateDir,this.state);
 	}
 
 	@Override

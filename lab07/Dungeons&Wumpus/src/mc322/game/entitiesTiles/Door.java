@@ -6,21 +6,21 @@ import mc322.game.GameRenderer;
 
 public class Door extends Entity{
 	
-	private String color;
+      private String color;
       public Door (int i, int j, String direction, int elevation, String color){
             this.name = "door";
-		this.i=i;
-		this.j=j;
+            this.i=i;
+            this.j=j;
             this.elevation = elevation + 1;
             this.color = color;
 
-            this.initAnimation = false;
+            this.updateFrame = 0;
+            this.initAnimation = true;
             this.velocityAnim = 8;
             this.nFrames = 5;
 
             if(direction == "east" || direction == "west") this.updateDir = 0; 
             else if(direction == "north" || direction == "south") this.updateDir = 1;
-		this.updateFrame = 0;
 	}
 	
 	public void update(double dt){
@@ -33,8 +33,10 @@ public class Door extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir,this.color);
-	}
+            int renderer_frame = 5;
+            if(this.initAnimation) renderer_frame = (int)updateFrame%nFrames;
+		GameRenderer.drawTile(i,j,elevation,name,r,renderer_frame,updateDir,this.color);
+      }
 
       public void toggleAnimation(){
             this.initAnimation = !(this.initAnimation);
