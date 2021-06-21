@@ -12,9 +12,10 @@ public abstract class GameMapTokens{
 
       private static String PNG = ".png";
       private static String CSV = ".csv";
+      private static String WAV = ".wav";
 
       private static String ASSETS = "../_assets";
-      private static String SOUNDS        = "../_sounds";
+      private static String SOUNDS = "../_sounds";
       private static String DATA   = "../_data";
 
       private static Map<String, ImageTile> mapTokens = new HashMap<>();
@@ -41,18 +42,18 @@ public abstract class GameMapTokens{
       // TokensTiles: blank, door, pillar, tile_half, tile_ladder, tile_side_wall, tile_wall, tile, torch
       // TokensColors: Red, Blue, Purple, Yellow, Green, White, Black
       public static ImageTile getImageTile(String object, String color){
-            if(mapTokens.get(object) == null){
+            if(mapTokens.get(object+color) == null){
                   String path = DIR_TILES + color + "/" + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
-                  mapTokens.put(object, image);
+                  mapTokens.put(object+color, image);
             }
-            return mapTokens.get(object);
+            return mapTokens.get(object+color);
       }
 
      // TokensCharacter: Milo, Luna, Raju, Ze
-      // TokensStates: ilde, moving
+      // TokensStates: idle, moving
       public static ImageTile getImageItem(String object, String state){
-            if(mapTokens.get(object) == null){
+            if(mapTokens.get(object+state) == null){
                   String path = DIR_ITENS + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
                   mapTokens.put(object, image);
@@ -63,12 +64,16 @@ public abstract class GameMapTokens{
       // TokensCharacter: Milo, Luna, Raju, Ze
       // TokensStates: ilde, moving
       public static ImageTile getImageCharacter(String object, String state){
-            if(mapTokens.get(object) == null){
+            if(mapTokens.get(object+state) == null){
                   String path = DIR_CHARACTERS + object + "/" + state + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
                   mapTokens.put(object, image);
             }
             return mapTokens.get(object);
       }
+      
+      public static String getPathSound(String object){
+        return SOUNDS + "/" + object + WAV;
+    }
 
 }

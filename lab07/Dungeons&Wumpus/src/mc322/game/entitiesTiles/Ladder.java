@@ -6,11 +6,13 @@ import mc322.game.GameRenderer;
 
 public class Ladder extends Entity{
 	
-      public Ladder (int i, int j, String direction, int elevation){
+	private String color;
+      public Ladder (int i, int j, String direction, int elevation, String color){
             this.name = "tile_ladder";
 		this.i=i;
 		this.j=j;
             this.elevation = elevation;
+            this.color = color;
 
             this.initAnimation = false;
             this.velocityAnim = 8;
@@ -30,7 +32,7 @@ public class Ladder extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir);
+		GameRenderer.drawTile(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir,this.color);
 	}
 
       public void toggleAnimation(){

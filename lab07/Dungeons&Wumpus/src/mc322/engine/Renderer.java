@@ -10,7 +10,7 @@ import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
 
 public class Renderer{
-      
+
       private int pW, pH;
       private int[] p;
 
@@ -30,6 +30,57 @@ public class Renderer{
       public void setPixel(int x, int y, int value){
             if( (x < 0 || x >= pW || y < 0 || y >= pH) || value == 0xffff00ff) return;
             p[x + y*pW] = value;
+      }
+
+      // Bresenham’s Line Algorithm
+      public void drawLine(int xi, int yi, int xf, int yf, int color){
+            int m = 2*(yf - yi);
+            int slope_error = m - (xf - xi);
+            
+            for(int x = xi, y = yi; x < xf; x++){
+                  setPixel(x, y, color);
+                  slope_error += m;
+                  if(slope_error >= 0){
+                        y++;
+                        slope_error -=  2*(xf - xi);
+                  }
+            }
+      }
+
+      public void drawRect(int xi, int yi, int lenX, int lenY, int color){
+            for(int i = yi; i < yi+lenY; i++){
+                  for(int j = xi; j < xi+lenX; j++){
+                        int x = j;
+                        int y = i;
+                        setPixel(x, y, color);
+                  }
+            }
+      }
+
+      // Bresenham’s Circle Algorithm
+      public void drawCirc(int xi, int yi, int r, int color){
+            int y = r;
+            int x = 0;
+            int fp = 3 - 2*r;
+
+            int di[] = {1, -1, 1, -1};
+            int dj[] = {1, 1, -1, -1};
+
+            while(y >= x){
+                  for(int k = 0; k < 4; k++){
+                        setPixel(x*di[k] + xi, y*dj[k] + yi, color);
+                        setPixel(y*di[k] + xi, x*dj[k] + yi, color);
+                  }
+
+                  x++;
+                  if(fp <= 0) fp += 4*x + 6;
+                  else {
+                        y--;
+                        fp += 4*(x - y) + 10;
+                  }
+
+            }
+
       }
 
       public void drawImage(Image image, int offX, int offY){
@@ -89,6 +140,13 @@ public class Renderer{
             Pair <Integer, Integer> b = Pair.of(i*sizeX, j*sizeY);
             b = LinearAlgebra.toIsometrica(b);
             drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
+      }
+
+      public int getWidth(){
+            return pW;
+      }
+      public int getHeight(){
+            return pH;
       }
 
 }

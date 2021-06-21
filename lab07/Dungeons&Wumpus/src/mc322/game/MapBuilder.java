@@ -7,38 +7,84 @@ import java.util.Iterator;
 import mc322.engine.Pair;
 import mc322.engine.CSVHandling;
 import mc322.engine.LinearAlgebra;
+import mc322.game.entitiesCharacters.Heroes;
+import mc322.game.entitiesCharacters.Luna;
+import mc322.game.entitiesCharacters.Milo;
+import mc322.game.entitiesCharacters.Raju;
+import mc322.game.entitiesCharacters.Ze;
 import mc322.game.entitiesTiles.*;
 
 public class MapBuilder{
-      private EntityTilesLoader entityTilesLoader;
 
       private Room[][] rooms;
-      private final int mapHeight = 10;
-      private final int mapWidth  = 10;
+      private final int mapHeight = 20;
+      private final int mapWidth  = 20;
 
-      private String dungeonPath;
       private Pair <Integer, Integer> origin;
- 
+      private Heroes player;
 
-      public Room[][] buildRooms(String dungeonPath) { 
-            this.dungeonPath = dungeonPath;
-            this.origin = LinearAlgebra.getOrigin();
-            this.rooms = new Room[mapHeight][mapWidth]; 
-            
+
+      public Room[][] buildRooms(String dungeonPath, Dungeon dungeon) { 
+            this.origin = GameBrain.getOrigin();
+            this.rooms = new Room[mapHeight][mapWidth];
+
+
+            CSVHandling scannerCSV = new CSVHandling();
+            scannerCSV.setDataSource(dungeonPath);
+
+            String scannedDungeon[][] = scannerCSV.requestCommands();
+
             for(int i = 0; i < mapHeight; i++){
                   for(int j = 0; j < mapHeight; j++){
-                        Pair<Integer, Integer> pi = Pair.of(i, j); 
-                        rooms[i][j] = new Room(this, pi);
+
+                        Pair<Integer, Integer> pi = Pair.of(i, j);
+                        char token = scannedDungeon[i][j].charAt(0);
+
+                        String rooms_around = "";
+                        if(token != '0'){
+                              rooms_around += scannedDungeon[i][j+1].charAt(0);
+                              rooms_around += scannedDungeon[i][j-1].charAt(0);
+                              rooms_around += scannedDungeon[i+1][j].charAt(0);
+                              rooms_around += scannedDungeon[i-1][j].charAt(0); 
+                        }
+
+                        switch(token){
+                              case 'y':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Yellow", dungeon);
+                                    break;
+                              case 'k':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Black", dungeon);
+                                    break;
+                              case 'b':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Blue", dungeon);
+                                    break;
+                              case 'g':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Green", dungeon);
+                                    break;
+                              case 'r':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Red", dungeon);
+                                    break;
+                              case 'p':
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Purple", dungeon);
+                                    break;
+                              case '0':
+                              default:
+                                    rooms[i][j] = null;
+                                    break;
+                        }
                   }
             }
-            
             return rooms;
       }
 
-      public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos,String numberRoom){
+      public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos, 
+            String rooms_around,
+            String numberRoom,
+            Room room){
+            
             CSVHandling scannerCSV = new CSVHandling();
             scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
-            
+
             String scannedRoom[][] = scannerCSV.requestCommands();
             ArrayList<ArrayList<Pair<Entity, Entity>>> tiles = new ArrayList<>();
 
@@ -48,8 +94,19 @@ public class MapBuilder{
                   for(int j = 0 ; j < size;j++){
                         char token = scannedRoom[j][0].charAt(i);
                         String dir = chooseOrientation(i, j, size);
-                        Pair <Entity, Entity> pe = EntityTilesLoader.getEntity(token, i, j, dir);
+
+                        boolean blocked = is_blocked_filter(token, dir, rooms_around);
+                        Pair <Entity, Entity>pe;
+                        pe = EntityTilesLoader.getEntity(token,blocked,i,j,dir,room.getColor());
                         tiles.get(i).add(pe);
+
+                        if(pe!=null && pe.getFirst() instanceof Chest){
+                              room.setChest((Chest) pe.getFirst());
+                        }
+                        else if(pe!=null && pe.getSecond() instanceof Chest){
+                              room.setChest((Chest) pe.getSecond());
+                        }
+
                   }
             }
             return tiles;
@@ -62,9 +119,53 @@ public class MapBuilder{
             if(j == size-1) return "east";
             return "internal";
       }
-      
-      public Entity[][] buildEntities(Pair<Integer,Integer>pos) {
-            return null;
+
+      private boolean is_blocked_filter(char token, String dir, String rooms_around){
+            if(token != 'd') return false;
+            if(dir == "north" && rooms_around.charAt(0) == '0') return true;
+            if(dir == "south" && rooms_around.charAt(1) == '0') return true;
+            if(dir == "east" && rooms_around.charAt(2)  == '0') return true;
+            if(dir == "west" && rooms_around.charAt(3)  == '0') return true;
+
+            return false;
       }
-      
+
+      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom,Room room) {
+            player = null;
+            Entity entities[][] = new Entity[size][size];
+
+            CSVHandling scannerCSV = new CSVHandling();
+            scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
+
+            String scannedRoom[][] = scannerCSV.requestCommands();
+
+            for(int i = 0; i < size;i++)
+                  for(int j = 0 ; j < size;j++)
+                        entities[i][j] = null;
+
+            if(this.origin.getFirst() == pos.getFirst() && this.origin.getSecond() == pos.getSecond()){
+                  int targetI = 2;
+                  int targetJ = 7;
+                  char token = scannedRoom[targetJ][0].charAt(targetI);
+
+                  if(token == '.' || token == 's' ||token =='S'){
+                        player = new Luna(targetI,targetJ,0);
+                        entities[targetI][targetJ] = player;
+                        room.setZe(new Ze(targetI-1,targetJ-1,0));
+                        room.setLuna(player);
+                        room.setRaju(new Raju(targetI-1,targetJ,0));
+                        room.setMilo(new Milo(targetI-1,targetJ+1,0));
+
+                  }
+                  room.setPlayer(player);
+
+            }
+            return entities;
+      }
+
+      public Heroes getPlayer(){
+            return player;
+      }
+
+
 }

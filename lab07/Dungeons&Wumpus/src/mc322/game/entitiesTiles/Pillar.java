@@ -6,19 +6,20 @@ import mc322.game.GameRenderer;
 
 public class Pillar extends Entity{
 	
-      public Pillar (int i, int j, String direction, int elevation){
+	private String color;
+      public Pillar (int i, int j, String direction, int elevation, String color){
             this.name = "pillar";
-            this.updateDir = 1; 
 		this.i=i;
 		this.j=j;
             this.elevation = elevation;
+            this.color = color;
 
             this.initAnimation = false;
             this.velocityAnim = 8;
             this.nFrames = 6;
 
-            if(direction == "internal") this.updateDir = 0;
-		this.updateFrame = 0;
+            this.updateFrame = 0;
+            if(direction != "internal") this.updateDir = 1;
 	}
 	
 	public void update(double dt){
@@ -31,7 +32,7 @@ public class Pillar extends Entity{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawTile(i,j,elevation,name,r, 0, this.updateDir);
+		GameRenderer.drawTile(i,j,elevation,name,r, 0, updateDir, this.color);
 	}
 
       public void toggleAnimation(){

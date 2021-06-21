@@ -1,7 +1,5 @@
 package mc322.engine;
 
-import java.awt.event.KeyEvent;
-
 public class GameContainer implements Runnable{
       
       private Thread thread;
@@ -67,7 +65,7 @@ public class GameContainer implements Runnable{
                               frameTime = 0;
                               fps = frames;
                               frames = 0;
-                              System.out.println("FPS: " + fps);
+                              //System.out.println("FPS: " + fps);
                         }
                   }
 

@@ -2,6 +2,7 @@ package mc322.game;
 
 import mc322.engine.gfx.Image;
 import mc322.engine.gfx.ImageTile;
+import mc322.engine.sfx.AudioManager;
 
 import java.io.*;
 import java.io.BufferedReader;
@@ -16,55 +17,40 @@ import mc322.engine.Input;
 import mc322.game.entitiesTiles.*;
 
 public class GameManager implements AbstractGame{
-      private ImageTile image;
       private Dungeon dungeon;
 
-      private double temp = 0;
-      private char[][] board;
-      private Pillar pillar;
+      private AudioManager audio;
+      private String STATE = "exploration"; 
+
+      private double timing_keys_move;
+      private double timming_background_light;
 
       public GameManager(){
             dungeon = new Dungeon();
-            image = GameMapTokens.getImageCharacter("Milo", "idle");
+            audio = new AudioManager();
 
-            board = new char[15][15];
-            int lin = board[0].length;
-            int col = board.length;
-            for(int i = 0; i < lin; i++){
-                  for(int j = 0; j < col; j++) {
-                        board[i][j] = 'a';
-                        if(i == lin-1 || j == 0) {
-                              board[i][j] = 'c';
-                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
-                        }
-                        if(j == col-1 || i == 0) {
-                              board[i][j] = '.';
-                              if(i == lin/2 || j == col/2) board[i][j] = 'd';
-                        }
-                  }
-            }
-            board[0][0] = 'b';
-            board[0][col-1] = 'b';
-            board[col-1][0] = 'b';
-            board[col-1][col-1] = 'b';
+            this.timing_keys_move = 0;
+            this.timming_background_light = 0;
       }
 
       @Override
       public void update(GameContainer gc, double dt){
-            if(gc.getInput().isKey(KeyEvent.VK_A)) System.out.println("A");
+            if(timming_background_light > 3) timming_background_light = 0;
+            if(timing_keys_move > 0.12){
+                  timing_keys_move = 0;
+                  KeysManager.keys_movement(gc,dungeon);
+            }
 
-            int velocidade_anim = 10;
-            temp += velocidade_anim*dt;
+            KeysManager.keys_action(gc,dungeon);
+            dungeon.update(dt);
+
+            timing_keys_move += dt;
+            timming_background_light += dt;
       }
 
-      @Override
       public void renderer(GameContainer gc, Renderer r){
-            int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
-            int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
-
-            //r.drawBoard(0, 0, board, (int)temp%3);
+            GameRenderer.drawBackground(r, timming_background_light);
             dungeon.renderer(r);
-            r.drawImageTile(image, xCurrent, yCurrent, (int)temp%6, 0);
       }
 
       public static void main(String args[]){
