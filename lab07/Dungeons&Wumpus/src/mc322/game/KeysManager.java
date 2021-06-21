@@ -39,6 +39,8 @@ public abstract class KeysManager {
             }
             GameRenderer.change_animation_state("idle", dungeon);
             return;
+            
+            
       }
 
 
@@ -92,11 +94,8 @@ public abstract class KeysManager {
             
 
             if(gc.getInput().wasClicked()){
-                  Pair<Integer,Integer> posClick = gc.getInput().getClick();
-                  System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
-                  posClick = LinearAlgebra.toIsometrica(posClick);
-                  posClick = LinearAlgebra.toCartesianas(posClick);
-                  System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
+                  //Pair<Integer,Integer> posClick = gc.getInput().getClick();
+                  //System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
             }
       }
       
@@ -106,6 +105,24 @@ public abstract class KeysManager {
                 game.togglePause();
             }
       }
+      
+      public static void mouse_action(GameContainer gc, Dungeon dungeon){
+          if(gc.getInput().wasClicked()){
+                Pair<Integer,Integer> posClick = gc.getInput().getClick();
+
+                posClick = LinearAlgebra.toCartesianas(posClick);
+
+                int x = posClick.getFirst() + 332;
+                int y = posClick.getSecond() - 475;
+                x /= 32;
+                y /= 32;
+
+                if( x > 13 || x < -1 || y < -1 || y > 13 ) return;
+                //System.out.println(x + " , " + y);
+
+                dungeon.getCurrentRoom().getPlayer().follow(x+1, y+1, dungeon.getCurrentRoom());
+          }
+    }
       
 
 }
