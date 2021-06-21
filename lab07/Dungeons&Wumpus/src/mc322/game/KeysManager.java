@@ -88,6 +88,8 @@ public abstract class KeysManager {
             if(gc.getInput().isKeyDown('O')){
                 dungeon.getCurrentRoom().open();
             }
+            
+            
 
             if(gc.getInput().wasClicked()){
                   Pair<Integer,Integer> posClick = gc.getInput().getClick();
@@ -97,5 +99,13 @@ public abstract class KeysManager {
                   System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
             }
       }
+      
+      public static void keys_game_flow(GameContainer gc, GameManager game)
+      {
+    	  if(gc.getInput().isKeyDown('P')){
+                game.togglePause();
+            }
+      }
+      
 
 }

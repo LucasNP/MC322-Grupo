@@ -20,7 +20,7 @@ public class Dungeon implements BasicObject{
 
       @Override
       public void update(double dt){
-            getCurrentRoom().update(dt);
+    	  getCurrentRoom().update(dt);
       }
 
       @Override
@@ -47,5 +47,7 @@ public class Dungeon implements BasicObject{
       public boolean getFollow(){
             return follow;
       }
+      
+      
 
 }
