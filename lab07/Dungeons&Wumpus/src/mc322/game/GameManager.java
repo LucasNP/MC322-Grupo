@@ -22,25 +22,34 @@ public class GameManager implements AbstractGame{
       private AudioManager audio;
       private String STATE = "exploration"; 
 
+      private double timing_keys_move;
+      private double timming_background_light;
+
       public GameManager(){
             dungeon = new Dungeon();
             audio = new AudioManager();
-            //audio.playMusic(GameMapTokens.getPathSound("Enviroment"),true);
+
+            this.timing_keys_move = 0;
+            this.timming_background_light = 0;
       }
 
       @Override
       public void update(GameContainer gc, double dt){
-            //if(gc.getInput().isKey(KeyEvent.VK_A)) System.out.println("A");
-//            if(gc.getInput().isKeyDown(65))
-//            	System.out.println("Apertou a");
-    	  	KeysManager.keys(gc,dungeon);
+            if(timming_background_light > 3) timming_background_light = 0;
+            if(timing_keys_move > 0.12){
+                  timing_keys_move = 0;
+                  KeysManager.keys_movement(gc,dungeon);
+            }
+
+            KeysManager.keys_action(gc,dungeon);
             dungeon.update(dt);
+
+            timing_keys_move += dt;
+            timming_background_light += dt;
       }
 
       public void renderer(GameContainer gc, Renderer r){
-//            int xCurrent = gc.getInput().getMouseX()  - image.getTileWidth()/2;
-//            int yCurrent =  gc.getInput().getMouseY() - image.getTileHeight()/2;
-
+            GameRenderer.drawBackground(r, timming_background_light);
             dungeon.renderer(r);
       }
 
