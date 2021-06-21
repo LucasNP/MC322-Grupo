@@ -58,10 +58,10 @@ public abstract class Character extends Entity{
             }
       }
 
-      public void follow(int i, int j, Room room, boolean ignoreHeroes)
+      public int follow(int i, int j, Room room, boolean ignoreHeroes)
       {
             if(i == this.i && j == this.j)
-                  return;
+                  return 0;
 
 
             try
@@ -88,7 +88,7 @@ public abstract class Character extends Entity{
             catch(ImpossibleOriginOrDestiny e)
             {
             	System.out.println("This place is inaccessable");
-            	return;
+            	return 0;
             }
             catch(DoorSelected e)
             {
@@ -104,16 +104,18 @@ public abstract class Character extends Entity{
             	if(LinearAlgebra.getModulo(i-this.i)+LinearAlgebra.getModulo(j-this.j) == 1)
             	{
             		if(i==0)
-            			this.move('S',room);;
+            			this.move('S',room);
                 	if(j==0)
-                		this.move('A',room);;
+                		this.move('A',room);
                 	if(i==14)
-                		this.move('W',room);;
+                		this.move('W',room);
                 	if(j==14)
-                		this.move('D',room);;
+                		this.move('D',room);
             	}
-            	return;
+            	return LinearAlgebra.getModulo(i-this.i)+LinearAlgebra.getModulo(j-this.j);
+            	
             }
+			return LinearAlgebra.getModulo(i-this.i)+LinearAlgebra.getModulo(j-this.j)-1;
       }
 
       public void follow(Character charac, Room room, boolean ignoreHeroes){
