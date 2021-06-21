@@ -52,6 +52,7 @@ public class GameManager implements AbstractGame{
 	            }
 	
 	            KeysManager.keys_action(gc,dungeon);
+	            KeysManager.mouse_action(gc,dungeon);
 	            dungeon.update(dt);
 	
 	            
