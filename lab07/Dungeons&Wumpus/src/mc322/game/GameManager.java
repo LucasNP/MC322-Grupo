@@ -24,28 +24,42 @@ public class GameManager implements AbstractGame{
 
       private double timing_keys_move;
       private double timming_background_light;
+      private boolean pause;
 
       public GameManager(){
             dungeon = new Dungeon();
             audio = new AudioManager();
-
+            this.pause =false;
             this.timing_keys_move = 0;
             this.timming_background_light = 0;
       }
+      
+      public void togglePause()
+      {
+    	  this.pause = !this.pause;
+      }
+      
 
       @Override
       public void update(GameContainer gc, double dt){
+    	  
             if(timming_background_light > 3) timming_background_light = 0;
-            if(timing_keys_move > 0.12){
-                  timing_keys_move = 0;
-                  KeysManager.keys_movement(gc,dungeon);
+            if(!this.pause)
+            {
+	            if(timing_keys_move > 0.12){
+	                  timing_keys_move = 0;
+	                  KeysManager.keys_movement(gc,dungeon);
+	            }
+	
+	            KeysManager.keys_action(gc,dungeon);
+	            dungeon.update(dt);
+	
+	            
+	            timing_keys_move += dt;
+	            
             }
-
-            KeysManager.keys_action(gc,dungeon);
-            dungeon.update(dt);
-
-            timing_keys_move += dt;
             timming_background_light += dt;
+            KeysManager.keys_game_flow(gc,this);
       }
 
       public void renderer(GameContainer gc, Renderer r){
