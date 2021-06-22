@@ -21,7 +21,7 @@ public class GameManager implements AbstractGame{
       private Menu menu;
       private AudioManager audio;
       private String STATE = "exploration"; 
-
+      private Bag bag;
       private double timing_keys_move;
       private double timming_background_light;
       private boolean pause;
@@ -34,6 +34,7 @@ public class GameManager implements AbstractGame{
             this.timing_keys_move = 0;
             this.timming_background_light = 0;
             audio.playMusic(GameMapTokens.getPathSound("BestAmbientMusic"),true);
+            bag = new Bag();
       }
       
       public void togglePause()
@@ -62,7 +63,7 @@ public class GameManager implements AbstractGame{
 	                  KeysManager.keys_movement(gc,dungeon);
 	            }
 	
-	            KeysManager.keys_action(gc,dungeon);
+	            KeysManager.keys_action(gc,dungeon,bag);
 	            KeysManager.mouse_action(gc,dungeon);
 	            dungeon.update(dt);
 	

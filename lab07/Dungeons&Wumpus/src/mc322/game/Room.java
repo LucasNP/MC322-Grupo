@@ -13,6 +13,7 @@ import mc322.game.entitiesTiles.Door;
 import mc322.game.entitiesTiles.Ladder;
 import mc322.game.entitiesTiles.Platform;
 import mc322.game.entitiesTiles.SafeZone;
+import mc322.game.itens.Key;
 
 public class Room implements BasicObject {
       private final int size = 15;
@@ -35,10 +36,13 @@ public class Room implements BasicObject {
 
       public Room(MapBuilder mapBuilder,Pair<Integer,Integer>pos,String rooms_around,
                   String color,
-                  Dungeon dungeon){
+                  Dungeon dungeon, boolean hasKey){
 
             Random rnd = new Random();
+            
             this.numberRoom = "" + (rnd.nextInt(9)+1);
+            if(hasKey && (numberRoom == "1" || numberRoom == "5" || numberRoom == "9"))
+            	this.numberRoom = "7";
             this.color = color;
             this.rooms_around = rooms_around;
             numberRoom = "testRoom";
@@ -47,7 +51,8 @@ public class Room implements BasicObject {
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
-
+            if(hasKey)
+            	this.chest.insertItem(new Key(this.color));
             this.dungeon = dungeon;
             this.i = pos.getFirst();
             this.j = pos.getSecond();

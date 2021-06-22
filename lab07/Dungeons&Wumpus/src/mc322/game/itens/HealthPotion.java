@@ -21,5 +21,10 @@ public class HealthPotion extends Item{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String toString()
+	{
+		return "health potion";
+	}
 
 }
