@@ -91,12 +91,14 @@ public abstract class KeysManager {
                 dungeon.getCurrentRoom().open();
             }
             
-            
-
-            if(gc.getInput().wasClicked()){
-                  //Pair<Integer,Integer> posClick = gc.getInput().getClick();
-                  //System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
+            if(gc.getInput().isKeyDown(' ')){
+                 dungeon.getCurrentRoom().getPlayer().use(dungeon.getCurrentRoom());
             }
+
+//            if(gc.getInput().wasClicked()){
+//                  Pair<Integer,Integer> posClick = gc.getInput().getClick();
+//                  System.out.println("Clicked at " + posClick.getFirst() + ", "+posClick.getSecond());
+//            }
       }
       
       public static void keys_game_flow(GameContainer gc, GameManager game, Menu menu)
