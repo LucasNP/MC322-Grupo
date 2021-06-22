@@ -18,7 +18,7 @@ import mc322.game.entitiesTiles.*;
 
 public class GameManager implements AbstractGame{
       private Dungeon dungeon;
-
+      private Menu menu;
       private AudioManager audio;
       private String STATE = "exploration"; 
 
@@ -29,6 +29,7 @@ public class GameManager implements AbstractGame{
       public GameManager(){
             dungeon = new Dungeon();
             audio = new AudioManager();
+            menu = new Menu(this);
             this.pause =false;
             this.timing_keys_move = 0;
             this.timming_background_light = 0;
@@ -39,6 +40,15 @@ public class GameManager implements AbstractGame{
     	  this.pause = !this.pause;
       }
       
+  	public void pause() {
+		this.pause = true;
+		
+	}
+  	
+  	public void unpause() {
+		this.pause = false;
+		
+	}
 
       @Override
       public void update(GameContainer gc, double dt){
@@ -59,13 +69,15 @@ public class GameManager implements AbstractGame{
 	            timing_keys_move += dt;
 	            
             }
+            menu.update(dt);
             timming_background_light += dt;
-            KeysManager.keys_game_flow(gc,this);
+            KeysManager.keys_game_flow(gc,this,menu);
       }
 
       public void renderer(GameContainer gc, Renderer r){
             GameRenderer.drawBackground(r, timming_background_light);
             dungeon.renderer(r);
+            menu.renderer(r);
       }
 
       public static void main(String args[]){
@@ -73,5 +85,7 @@ public class GameManager implements AbstractGame{
             GameContainer gc = new GameContainer(new GameManager());
             gc.start();
       }
+
+
 
 }

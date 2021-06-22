@@ -132,6 +132,7 @@ public class Renderer{
 
       public void drawIsometricImage(int i, int j, ImageTile image, int tileX, int tileY){
             int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
+            //int ty = pH/2 - image.getTileHeight()/2 + 24;
             int ty = pH/2 - image.getTileHeight()/2 + 24;
 
             int sizeX = image.getTileWidth()/4;
