@@ -3,7 +3,7 @@ package mc322.game.itens;
 import mc322.engine.Renderer;
 import mc322.game.GameRenderer;
 
-public class StrengthPotion extends Item{
+public class ResistancePotion extends Item{
 
 	@Override
 	public void update(double dt) {
@@ -12,7 +12,7 @@ public class StrengthPotion extends Item{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawBag(27,-10,0, "potion",r, 0, 1);
+		GameRenderer.drawBag(29,-10,0, "potion",r, 0, 2);
 		
 	}
 
@@ -24,7 +24,7 @@ public class StrengthPotion extends Item{
 	
 	public String toString()
 	{
-		return "strength potion";
+		return "resistance potion";
 	}
 
 }

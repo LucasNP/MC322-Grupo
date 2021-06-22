@@ -52,13 +52,13 @@ public abstract class GameMapTokens{
 
      // TokensCharacter: Milo, Luna, Raju, Ze
       // TokensStates: idle, moving
-      public static ImageTile getImageItem(String object, String state){
-            if(mapTokens.get(object+state) == null){
+      public static ImageTile getImageItem(String object){
+            if(mapTokens.get(object) == null){
                   String path = DIR_ITENS + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
-                  mapTokens.put(object+state, image);
+                  mapTokens.put(object, image);
             }
-            return mapTokens.get(object+state);
+            return mapTokens.get(object);
       }
       
       public static ImageTile getImageMenu(String object){

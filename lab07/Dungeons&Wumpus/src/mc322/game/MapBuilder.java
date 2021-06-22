@@ -75,12 +75,6 @@ public class MapBuilder{
             	
             	selectedRoom[i]+=(rand.nextInt(numbersOfColors[i]));
             }
-            for(int i = 0;i<selectedRoom.length;i++)
-            {
-            	
-            	System.out.println(selectedRoom[i]);
-            }
-            
             
             for(int i = 0; i < mapHeight; i++){
                   for(int j = 0; j < mapHeight; j++){

@@ -1,6 +1,7 @@
 package mc322.game.itens;
 
 import mc322.engine.Renderer;
+import mc322.game.GameRenderer;
 
 public class HealthPotion extends Item{
 
@@ -12,7 +13,7 @@ public class HealthPotion extends Item{
 
 	@Override
 	public void renderer(Renderer r) {
-		// TODO Auto-generated method stub
+		GameRenderer.drawBag(25,-10,0, "potion",r, 0, 0);
 		
 	}
 

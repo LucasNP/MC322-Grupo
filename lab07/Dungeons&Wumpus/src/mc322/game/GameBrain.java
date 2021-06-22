@@ -64,6 +64,8 @@ public abstract class GameBrain{
   		else
   			map[iEnd][jEnd]='E';
   		
+  	
+  		
   		//arrays of new points
   		ArrayList<Pair<Integer,Integer>> news = new ArrayList<Pair<Integer,Integer>>();
   		ArrayList<Pair<Integer,Integer>> newNews = new ArrayList<Pair<Integer,Integer>>();

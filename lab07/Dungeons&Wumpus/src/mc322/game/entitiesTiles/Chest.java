@@ -9,6 +9,7 @@ import mc322.game.Entity;
 import mc322.game.GameRenderer;
 import mc322.game.itens.HealthPotion;
 import mc322.game.itens.Item;
+import mc322.game.itens.ResistancePotion;
 import mc322.game.itens.StrengthPotion;
 
 public class Chest extends Entity{
@@ -29,13 +30,17 @@ public class Chest extends Entity{
             this.updateFrame = 0;
             Random rand = new Random();
             int num = rand.nextInt(60);
-            if(num%2==0)
+            if(num%2==0)//2
             {
             	insertItem(new HealthPotion());
             }
-            if(num%5==0)
+            if(num%5==0)//5
             {
             	insertItem(new StrengthPotion());
+            }
+            if(num%6==0)//6
+            {
+            	insertItem(new ResistancePotion());
             }
             
 	}
