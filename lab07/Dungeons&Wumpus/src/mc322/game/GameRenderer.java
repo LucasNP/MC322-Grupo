@@ -37,14 +37,14 @@ public class GameRenderer {
       }
 
 
-      public static void drawBackground(Renderer r, Dungeon dungeon, double timming_background_light){
+      public static void drawBackground(Renderer r, Dungeon dungeon, double timing_background_light){
             int red, green, blue;
 
             String color = dungeon.getCurrentRoom().getColor();
             int pH = r.getHeight();
             int pW = r.getWidth();
             
-            double seno = Math.sin(timming_background_light);
+            double seno = Math.sin(timing_background_light);
             seno *= 70;
             int lim = (int) seno + 500;
 
@@ -64,7 +64,7 @@ public class GameRenderer {
                   String hex = String.format("%02x%02x%02x%02x", alpha, red, green, blue);
                   r.drawCirc(pW/2, pH/2, lim/2-i, (int) Long.parseLong(hex, 16) );
             }
-            r.drawLine(10, 10, pW, pH, 0xffffffff);
+            //r.drawLine(10, 10, pW, pH, 0xffffffff);
 
       }
 

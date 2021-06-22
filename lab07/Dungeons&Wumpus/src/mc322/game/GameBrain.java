@@ -39,10 +39,10 @@ public abstract class GameBrain{
 
       // Solve Maze with BFS
       static class Node{
-            Pair<Integer, Integer> pt;
+            Pair <Integer, Integer> pt;
             int dist;
 
-            Node(Pair<Integer, Integer> p, int dist){
+            Node(Pair <Integer, Integer> p, int dist){
                   this.pt = p;
                   this.dist = dist;
             }
@@ -50,23 +50,22 @@ public abstract class GameBrain{
       public static boolean isSafe(int i, int j, int n){
             return (i >= 0) && (j >= 0) && (i < n) && (j < n); 
       }
-      public static String solveMaze(char map[][],int iBeg, int jBeg, int iEnd, int jEnd){
+      public static String solveMaze(char mat[][],int iBeg, int jBeg, int iEnd, int jEnd){
 
-            Pair <Integer, Integer> src  = Pair.of(jBeg-1, iBeg-1);
-            Pair <Integer, Integer> dest = Pair.of(iEnd-1, jEnd-1);
+            Pair <Integer, Integer> src  = Pair.of(jBeg, iBeg);
+            Pair <Integer, Integer> dest = Pair.of(iEnd, jEnd);
 
-            System.out.println(src.getFirst() + " , " + src.getSecond());
-            System.out.println(dest.getFirst() + " , " + dest.getSecond());
+            //System.out.println(src.getFirst() + " , " + src.getSecond());
+            //System.out.println(dest.getFirst() + " , " + dest.getSecond());
 
-
-            for(int i = 0;i<map.length;i++){
-                  for(int j = 0;j<map.length;j++) System.out.print(map[i][j]);
-                  System.out.println();
-            }
+            //for(int i = 0;i<mat.length;i++){
+                  //for(int j = 0;j<mat.length;j++) System.out.print(mat[i][j]);
+                  //System.out.println();
+            //}
 
             // Impossible to reach
-            if(map[iBeg][jBeg]=='#' || map[iEnd][jEnd]=='#') throw new ImpossibleOriginOrDestiny();
-            else if(map[iEnd][jEnd]=='D') throw new DoorSelected();
+            if(mat[iBeg][jBeg]=='#' || mat[iEnd][jEnd]=='#') throw new ImpossibleOriginOrDestiny();
+            //else if(mat[iEnd][jEnd]=='D') throw new DoorSelected();
 
             //directions
             int dirI[] = {1,0,0,-1};
@@ -74,71 +73,65 @@ public abstract class GameBrain{
 
             //BFS
             String solution = "";
-            int n = map.length - 2;
-            boolean ok = false;
+            int n = mat.length;
+
             int distance[][] = new int[n][n];
-
-
             boolean visited[][] = new boolean[n][n];
-            for(int d[] : distance) Arrays.fill(d, -1);
-            for(boolean v[] : visited)  Arrays.fill(v, false);
-
-
-            distance[src.getFirst()][src.getSecond()] = 0;
-            visited[src.getFirst()][src.getSecond()]  = true;
-
             ArrayDeque<Node> q = new ArrayDeque<>();
-            q.addLast(new Node(src, 0));
 
+            for(int d[] : distance) Arrays.fill(d, -1);
+            distance[src.getFirst()][src.getSecond()] = 0;
+            visited[src.getFirst()][src.getSecond()] = true;
+
+            Node s = new Node(src, 0);
+            q.addLast(s);
+
+            boolean ok = false;
 
             while (!q.isEmpty()){
+                  Node curr = q.removeFirst();
+                  Pair <Integer, Integer> pt = curr.pt;
+                  int i = pt.getFirst();
+                  int j = pt.getSecond();
 
-                  Node current = q.removeFirst();
-                  Pair <Integer, Integer> pt = current.pt;
+                  if (i == dest.getFirst() && j == dest.getSecond()){
+                        int dist = curr.dist;
 
-                  if (pt.getFirst() == dest.getFirst() && pt.getSecond() == dest.getSecond()){
-                        int i = pt.getFirst(); 
-                        int j = pt.getSecond();
-
-                        int dist = current.dist;
-                        System.out.println("pao: " + dist);
                         distance[i][j] = dist;
+                        //System.out.println(dist);
+                        String pathmoves = "";
 
-                        while ( i != src.getFirst() || j != src.getSecond() ){
-                              if (i>0   && distance[i-1][j] == dist - 1){ solution += 'D'; i--; }
-                              if (i<n-1 && distance[i+1][j] == dist - 1){ solution += 'A'; i++; }
-                              if (j>0   && distance[i][j-1] == dist - 1){ solution += 'W'; j--; }
-                              if (j<n-1 && distance[i][j+1] == dist - 1){ solution += 'S'; j++; }
+                        while (i != src.getFirst() || j != src.getSecond()){
+                              if (j > 0   && distance[i][j - 1] == dist - 1){ pathmoves += 'W'; j--; }
+                              if (i < n-1 && distance[i + 1][j] == dist - 1){ pathmoves += 'A'; i++; }
+                              if (j < n-1 && distance[i][j + 1] == dist - 1){ pathmoves += 'S'; j++; }
+                              if (i > 0   && distance[i - 1][j] == dist - 1){ pathmoves += 'D'; i--; }
                               dist--;
                         }
-
+                        for(int k = pathmoves.length() - 1; k >= 0; --k) solution += pathmoves.charAt(k);
                         ok = true;
                         break;
                   }
 
                   for(int k = 0; k < 4; k++){
+                        int ni = i + dirI[k];
+                        int nj = j + dirJ[k];
 
-                        int ni = pt.getFirst() + dirI[k];
-                        int nj = pt.getSecond() + dirJ[k];
+                        if(!isSafe(ni, nj, n)) continue;
 
-
-                        if (isSafe(ni, nj, n) && !visited[ni][nj]){
-                              if(map[nj][ni] == '#'){
-                                    System.out.println(ni + " " + nj);
+                        if( mat[ni][nj] != '#' ){
+                              if (isSafe(ni, nj, n) && !visited[ni][nj]){
+                                          visited[ni][nj] = true;
+                                          Node adjCell = new Node(Pair.of(ni,nj), curr.dist + 1);
+                                          q.addLast(adjCell);
+                                          distance[ni][nj] = curr.dist + 1;
                               }
-
-                              visited[ni][nj] = true;
-                              Node adjCell = new Node(Pair.of(ni, nj), current.dist + 1);
-                              q.addLast(adjCell);
-                              distance[ni][nj] = current.dist + 1;
                         }
                   }
-                  //System.out.println();
 
             }
 
-            System.out.println(solution);
-
+            if (ok) return solution;
             return null;
       }
 
