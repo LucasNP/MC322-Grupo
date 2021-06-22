@@ -99,11 +99,17 @@ public abstract class KeysManager {
             }
       }
       
-      public static void keys_game_flow(GameContainer gc, GameManager game)
+      public static void keys_game_flow(GameContainer gc, GameManager game, Menu menu)
       {
     	  if(gc.getInput().isKeyDown('P')){
                 game.togglePause();
             }
+    	  if(gc.getInput().isKeyDown('M')){
+    		  if(menu.getState() != "map")
+    			  menu.setState("map");
+    		  else
+    			  menu.setState("game");
+          }
       }
       
       public static void mouse_action(GameContainer gc, Dungeon dungeon){

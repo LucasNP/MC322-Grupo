@@ -60,6 +60,15 @@ public abstract class GameMapTokens{
             }
             return mapTokens.get(object+state);
       }
+      
+      public static ImageTile getImageMenu(String object){
+          if(mapTokens.get(object) == null){
+                String path = DIR_MENU + object + PNG;
+                image = new ImageTile(path, tileWidth, tileHeight);
+                mapTokens.put(object, image);
+          }
+          return mapTokens.get(object);
+    }
 
       // TokensCharacter: Milo, Luna, Raju, Ze
       // TokensStates: ilde, moving
