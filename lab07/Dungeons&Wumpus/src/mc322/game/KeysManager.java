@@ -131,6 +131,7 @@ public abstract class KeysManager {
 
                 if( x > 14 || x < 0 || y < 0 || y > 14 ) return;
                 //System.out.println(x + " , " + y);
+
                 dungeon.getCurrentRoom().getPlayer().follow(x, y, dungeon.getCurrentRoom(),true);
           }
     }

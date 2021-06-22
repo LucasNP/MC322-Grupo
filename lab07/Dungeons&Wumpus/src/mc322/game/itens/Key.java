@@ -1,6 +1,7 @@
 package mc322.game.itens;
 
 import mc322.engine.Renderer;
+import mc322.game.GameRenderer;
 
 public class Key extends Item{
 
@@ -42,7 +43,7 @@ public class Key extends Item{
 
 	@Override
 	public void renderer(Renderer r) {
-		// TODO Auto-generated method stub
+		GameRenderer.drawBag(25 + ((this.updateDir)%3)*2,4+((this.updateDir/3)*3),0, "key",r, 0, this.updateDir);
 		
 	}
 

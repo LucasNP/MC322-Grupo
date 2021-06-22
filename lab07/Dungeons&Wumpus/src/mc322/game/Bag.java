@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import mc322.engine.BasicObject;
 import mc322.engine.Pair;
 import mc322.engine.Renderer;
+import mc322.game.itens.HealthPotion;
 import mc322.game.itens.Item;
+import mc322.game.itens.Key;
+import mc322.game.itens.StrengthPotion;
 
 public class Bag implements BasicObject{
 	
@@ -22,9 +25,12 @@ public class Bag implements BasicObject{
 		{
 			if(item.getClass().equals(itens.get(i).getFirst().getClass()))
 			{
-				itens.add(Pair.of(itens.get(i).getFirst(),itens.get(i).getSecond()+1));
-				itens.remove(i);
-				return;
+				if(!(item instanceof Key))
+				{
+					itens.add(Pair.of(itens.get(i).getFirst(),itens.get(i).getSecond()+1));
+					itens.remove(i);
+					return;
+				}
 			}
 			
 		}
@@ -63,7 +69,10 @@ public class Bag implements BasicObject{
 	}
 
 	public void renderer(Renderer r) {
-		
+		for(int i = 0;i<itens.size();i++)
+		{
+			itens.get(i).getFirst().renderer(r);
+		}
 		
 	}
 	

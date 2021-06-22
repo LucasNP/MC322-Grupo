@@ -142,6 +142,19 @@ public class Renderer{
             b = LinearAlgebra.toIsometrica(b);
             drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
       }
+      
+      public void drawImage(int i, int j, ImageTile image, int tileX, int tileY){
+          int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
+          //int ty = pH/2 - image.getTileHeight()/2 + 24;
+          int ty = pH/2 - image.getTileHeight()/2 + 24;
+
+          int sizeX = image.getTileWidth()/4;
+          int sizeY = image.getTileHeight()/4;
+
+          Pair <Integer, Integer> b = Pair.of(i*sizeX, j*sizeY);
+          drawImageTile(image, b.getFirst() + tx, b.getSecond() + ty, tileX, tileY);
+    }
+      
 
       public int getWidth(){
             return pW;

@@ -12,7 +12,7 @@ public class GameRenderer {
       }
 
       public static void drawItem(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY){
-            ImageTile image = GameMapTokens.getImageItem(name, "Purple");
+            ImageTile image = GameMapTokens.getImageItem(name);
             r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
       }
 
@@ -26,6 +26,12 @@ public class GameRenderer {
           ImageTile image = GameMapTokens.getImageMenu(name);
           r.drawImage(image,i, j);
     }
+      
+      public static void drawBag(int i,int j,double elevation, String name, Renderer r, int updateX, int updateY){
+          ImageTile image = GameMapTokens.getImageItem(name);
+          r.drawImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
+    }
+      
 
       public static void change_animation_state(String state, Dungeon dungeon){
             Room cRoom = dungeon.getCurrentRoom();

@@ -33,7 +33,7 @@ public class GameManager implements AbstractGame{
             this.pause =false;
             this.timing_keys_move = 0;
             this.timming_background_light = 0;
-            audio.playMusic(GameMapTokens.getPathSound("BestAmbientMusic"),true);
+            //audio.playMusic(GameMapTokens.getPathSound("BestAmbientMusic"),true);
             bag = new Bag();
       }
       
@@ -79,6 +79,7 @@ public class GameManager implements AbstractGame{
       public void renderer(GameContainer gc, Renderer r){
             GameRenderer.drawBackground(r, timming_background_light);
             dungeon.renderer(r);
+            bag.renderer(r);
             menu.renderer(r);
       }
 

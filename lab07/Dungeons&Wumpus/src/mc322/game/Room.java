@@ -41,18 +41,24 @@ public class Room implements BasicObject {
             Random rnd = new Random();
             
             this.numberRoom = "" + (rnd.nextInt(9)+1);
-            if(hasKey && (numberRoom == "1" || numberRoom == "5" || numberRoom == "9"))
+            if(hasKey && (this.numberRoom.equals("1") || this.numberRoom.equals("5") || this.numberRoom.equals("9")))
+            {
             	this.numberRoom = "7";
+            }
             this.color = color;
             this.rooms_around = rooms_around;
-            numberRoom = "testRoom";
+            //numberRoom = "testRoom";
             this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
             if(hasKey)
+            {
+            	if(this.chest == null)
+            		System.out.println(this.numberRoom);
             	this.chest.insertItem(new Key(this.color));
+            }
             this.dungeon = dungeon;
             this.i = pos.getFirst();
             this.j = pos.getSecond();
