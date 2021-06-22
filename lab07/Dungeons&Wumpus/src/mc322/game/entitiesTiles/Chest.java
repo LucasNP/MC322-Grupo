@@ -1,13 +1,20 @@
 package mc322.game.entitiesTiles;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import mc322.engine.Pair;
 import mc322.engine.Renderer;
 import mc322.game.Entity;
 import mc322.game.GameRenderer;
+import mc322.game.itens.HealthPotion;
+import mc322.game.itens.Item;
+import mc322.game.itens.StrengthPotion;
 
 public class Chest extends Entity{
 
 	private boolean opened;
+	private ArrayList<Item> itens;
       public Chest (int i, int j, String direction, int elevation){
             this.name = "chest";
             this.i=i;
@@ -17,9 +24,20 @@ public class Chest extends Entity{
             this.initAnimation = false;
             this.velocityAnim = 8;
             this.nFrames = 6;
-
+            this.itens = new ArrayList<Item>();
             if(direction == "west-east") this.updateDir = 1;
             this.updateFrame = 0;
+            Random rand = new Random();
+            int num = rand.nextInt(60);
+            if(num%2==0)
+            {
+            	insertItem(new HealthPotion());
+            }
+            if(num%5==0)
+            {
+            	insertItem(new StrengthPotion());
+            }
+            
 	}
 	
       public void update(double dt){
@@ -48,5 +66,16 @@ public class Chest extends Entity{
       {
     	  return Pair.of(this.i,this.j);
       }
+
+    public void insertItem(Item item)
+    {
+    	itens.add(item);
+    }
+      
+	public ArrayList<Item> getItens() {
+		ArrayList<Item> removedItens = itens;
+		itens = null;
+		return removedItens;
+	}
 
 }

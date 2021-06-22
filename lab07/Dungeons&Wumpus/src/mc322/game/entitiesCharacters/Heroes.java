@@ -1,8 +1,12 @@
 package mc322.game.entitiesCharacters;
 
+import java.util.ArrayList;
+
 import mc322.engine.LinearAlgebra;
+import mc322.game.Bag;
 import mc322.game.GameRenderer;
 import mc322.game.Room;
+import mc322.game.itens.Item;
 
 public abstract class Heroes extends Character{
 
@@ -10,7 +14,7 @@ public abstract class Heroes extends Character{
             super(i, j, elevation);
       }
       
-      public void use(Room room)
+      public void use(Room room,Bag bag)
       {
           int iDir[] = {0,-1,0,1};
           int jDir[] = {1,0,-1,0};
@@ -20,6 +24,15 @@ public abstract class Heroes extends Character{
         	  if(room.getChest().getPos().getFirst() == this.i + iDir[this.updateDir]  && room.getChest().getPos().getSecond() == jDir[this.updateDir]+this.j)
         	  {
         		  room.getChest().toggleAnimation();
+        		  
+        		  ArrayList<Item> itens;
+        		  itens = room.getChest().getItens();
+        		  if(itens == null)
+        			  return;
+        		  for(int i = 0;i<itens.size();i++)
+        		  {
+        			  bag.addItem(itens.get(i));
+        		  }
         		  
         		  
         	  }

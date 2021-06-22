@@ -2,6 +2,7 @@ package mc322.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Iterator;
 
 import mc322.engine.Pair;
@@ -22,6 +23,9 @@ public class MapBuilder{
 
       private Pair <Integer, Integer> origin;
       private Heroes player;
+      
+      private int numbersOfColors[] = {0,0,0,0,0,0}; //Black,Purple,Yellow,Red,Green,Blue
+      
 
 
       public Room[][] buildRooms(String dungeonPath, Dungeon dungeon) { 
@@ -34,6 +38,50 @@ public class MapBuilder{
 
             String scannedDungeon[][] = scannerCSV.requestCommands();
 
+            for(int i = 0; i < mapHeight; i++){
+                for(int j = 0; j < mapHeight; j++){
+                	char token = scannedDungeon[i][j].charAt(0);
+                	switch(token){
+	                    case 'y':
+	                        numbersOfColors[2]=numbersOfColors[2]+1;
+	                          break;
+	                    case 'k':
+	                    	numbersOfColors[0]=numbersOfColors[0]+1;
+	                          break;
+	                    case 'b':
+	                    	numbersOfColors[5]=numbersOfColors[5]+1;
+	                          break;
+	                    case 'g':
+	                    	numbersOfColors[4]=numbersOfColors[4]+1;
+	                          break;
+	                    case 'r':
+	                    	numbersOfColors[3]=numbersOfColors[3]+1;
+	                          break;
+	                    case 'p':
+	                    	numbersOfColors[1]=numbersOfColors[1]+1;
+	                          break;
+	                    case '0':
+	                    default:
+	                          break;
+                	}
+                	
+                }
+            }
+            
+            int selectedRoom[] = {0,0,0,0,0,0};
+            Random rand = new Random();
+            for(int i = 0;i<selectedRoom.length;i++)
+            {
+            	
+            	selectedRoom[i]+=(rand.nextInt(numbersOfColors[i]));
+            }
+            for(int i = 0;i<selectedRoom.length;i++)
+            {
+            	
+            	System.out.println(selectedRoom[i]);
+            }
+            
+            
             for(int i = 0; i < mapHeight; i++){
                   for(int j = 0; j < mapHeight; j++){
 
@@ -50,22 +98,34 @@ public class MapBuilder{
 
                         switch(token){
                               case 'y':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Yellow", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Yellow", dungeon,selectedRoom[2]==0);
+                                    selectedRoom[2]--;
                                     break;
                               case 'k':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Black", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Black", dungeon,selectedRoom[0]==0);
+                                    selectedRoom[0]--;
                                     break;
                               case 'b':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Blue", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Blue", dungeon,selectedRoom[5]==0);
+                                    selectedRoom[5]--;
                                     break;
                               case 'g':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Green", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Green", dungeon,selectedRoom[4]==0);
+                                    selectedRoom[4]--;
                                     break;
                               case 'r':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Red", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Red", dungeon,selectedRoom[3]==0);
+                                    selectedRoom[3]--;
                                     break;
                               case 'p':
-                                    rooms[i][j] = new Room(this, pi, rooms_around,"Purple", dungeon);
+                            	  
+                                    rooms[i][j] = new Room(this, pi, rooms_around,"Purple", dungeon,selectedRoom[1]==0);
+                                    selectedRoom[1]--;
                                     break;
                               case '0':
                               default:

@@ -21,5 +21,10 @@ public class StrengthPotion extends Item{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String toString()
+	{
+		return "strength potion";
+	}
 
 }

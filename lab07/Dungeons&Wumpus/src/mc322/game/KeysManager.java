@@ -44,7 +44,7 @@ public abstract class KeysManager {
       }
 
 
-      public static void keys_action(GameContainer gc, Dungeon dungeon){
+      public static void keys_action(GameContainer gc, Dungeon dungeon, Bag bag){
 
             if(gc.getInput().isKeyDown('E')){
                   Heroes player = dungeon.getCurrentRoom().getPlayer();
@@ -92,7 +92,11 @@ public abstract class KeysManager {
             }
             
             if(gc.getInput().isKeyDown(' ')){
-                 dungeon.getCurrentRoom().getPlayer().use(dungeon.getCurrentRoom());
+                 dungeon.getCurrentRoom().getPlayer().use(dungeon.getCurrentRoom(),bag);
+            }
+            
+            if(gc.getInput().isKeyDown('I')){
+                System.out.println("Bag: "+bag);
             }
 
 //            if(gc.getInput().wasClicked()){
