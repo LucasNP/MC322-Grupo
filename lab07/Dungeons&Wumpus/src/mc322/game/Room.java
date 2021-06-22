@@ -13,6 +13,7 @@ import mc322.game.entitiesTiles.Door;
 import mc322.game.entitiesTiles.Ladder;
 import mc322.game.entitiesTiles.Platform;
 import mc322.game.entitiesTiles.SafeZone;
+import mc322.game.itens.Key;
 
 public class Room implements BasicObject {
       private final int size = 15;
@@ -35,19 +36,29 @@ public class Room implements BasicObject {
 
       public Room(MapBuilder mapBuilder,Pair<Integer,Integer>pos,String rooms_around,
                   String color,
-                  Dungeon dungeon){
+                  Dungeon dungeon, boolean hasKey){
 
             Random rnd = new Random();
+
             this.numberRoom = "" + (rnd.nextInt(9)+1);
+            if(hasKey && (this.numberRoom.equals("1") || this.numberRoom.equals("5") || this.numberRoom.equals("9")))
+            {
+                  this.numberRoom = "7";
+            }
             this.color = color;
             this.rooms_around = rooms_around;
-            numberRoom = "6";
+            //numberRoom = "testRoom";
             this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
             this.updateHerosAtRoom();
-
+            if(hasKey)
+            {
+                  if(this.chest == null)
+                        System.out.println(this.numberRoom);
+                  this.chest.insertItem(new Key(this.color));
+            }
             this.dungeon = dungeon;
             this.i = pos.getFirst();
             this.j = pos.getSecond();
@@ -144,6 +155,10 @@ public class Room implements BasicObject {
       public void setChest(Chest chest){
             this.chest = chest;
       }
+      public Chest getChest(){
+            return this.chest;
+      }
+
       public String getColor(){
             return this.color;
       }
@@ -154,7 +169,8 @@ public class Room implements BasicObject {
 
       }
 
-      public boolean getBlocked(){
+      public boolean getBlocked()
+      {
             return this.blocked;
       }
 
@@ -214,8 +230,12 @@ public class Room implements BasicObject {
 
             Entity removedEntity = null;
             if(entities[i][j] instanceof Heroes ) {
-                  if(charac == player) removedEntity  = this.entities[i][j];
-                  else{
+                  if(charac == player)
+                  {
+                        removedEntity  = this.entities[i][j];
+                  }
+                  else
+                  {
                         System.err.println("Something went wrong, a hero triet to move to another");
                         return;
                   }
@@ -386,30 +406,49 @@ public class Room implements BasicObject {
             this.dungeon.setAtual(iSala,jSala);
       }
 
-      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes){
+      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes)
+      {
             char map[][] = new char[size][size];
-
-            for(int i = 0; i < size; i++){
-                  for(int j = 0; j < size; j++){
-                        Pair<Entity,Entity> tile = tiles.get(j).get(i);
-
-                        if(tile == null || tile.getFirst() instanceof SafeZone) map[i][j] = '.';
-                        else if(tile.getFirst() instanceof Platform && tile.getSecond()==null) map[i][j] = 'U';
-
-                        else if(tile.getFirst() instanceof Ladder ){
-                              if(tile.getFirst().getDirection() == 1) map[i][j] = 'M';
-                              else map[i][j] = 'N';
+            for(int i = 0; i < size; i++)
+            {
+                  for(int j = 0; j < size; j++)
+                  {
+                        if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
+                        {
+                              map[i][j] = '.';
                         }
-                        else if(tile.getFirst() instanceof Door) map[i][j] = 'D';
-                        else{
+                        else if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
+                        {
+                              map[i][j] = 'U';
+                        }
+                        else if(tiles.get(i).get(j).getFirst() instanceof Ladder )
+                        {
+                              if(tiles.get(i).get(j).getFirst().getDirection()==1)
+                                    map[i][j] = 'M';
+                              else
+                                    map[i][j] = 'N';
+                        }
+                        else if(tiles.get(i).get(j).getFirst() instanceof Door )
+                        {
+                              map[i][j] = 'D';
+                        }
+                        else
+                        {
                               map[i][j] = '#';
                               continue;
                         }
-
-                        if(entities[i][j] != null && !ignoreHeroes){
-                              if( (i==iBegin && j==jBegin) || (i==iEnd && j==jEnd) )
+                        if(entities[i][j]!=null && !ignoreHeroes)
+                        {
+                              if(i==iBegin && j == jBegin)
+                              {
                                     continue;
+                              }
+                              if(i==iEnd && j == jEnd)
+                              {
+                                    continue;
+                              }
                               map[i][j] = '#';
+
                         }
                   }
             }
@@ -419,3 +458,4 @@ public class Room implements BasicObject {
       }
 
 }
+

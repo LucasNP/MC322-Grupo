@@ -45,7 +45,7 @@ public abstract class KeysManager {
       }
 
 
-      public static void keys_action(GameContainer gc, Dungeon dungeon){
+      public static void keys_action(GameContainer gc, Dungeon dungeon, Bag bag){
 
             if(gc.getInput().isKeyDown('E')){
                   Heroes player = dungeon.getCurrentRoom().getPlayer();
@@ -69,7 +69,7 @@ public abstract class KeysManager {
 
             if(gc.getInput().isKeyDown('Q')){
                   Heroes player = dungeon.getCurrentRoom().getPlayer();
-
+                  player.toggleSelect();
                   if(player instanceof Luna || player == null){
                         player = dungeon.getCurrentRoom().getZe();
                   }
@@ -84,6 +84,7 @@ public abstract class KeysManager {
                   }
                   else System.out.println("Player error while changing character");
                   dungeon.getCurrentRoom().setPlayer(player);
+                  player.toggleSelect();
             }
 
             if(gc.getInput().isKeyDown('T')){
@@ -94,11 +95,24 @@ public abstract class KeysManager {
                   dungeon.getCurrentRoom().open();
             }
 
+            if(gc.getInput().isKeyDown(' ')){
+                  dungeon.getCurrentRoom().getPlayer().use(dungeon.getCurrentRoom(),bag);
+            }
+
+            if(gc.getInput().isKeyDown('I')){
+                  System.out.println("Bag: "+bag);
+            }
       }
 
-      public static void keys_game_flow(GameContainer gc, GameManager game){
+      public static void keys_game_flow(GameContainer gc, GameManager game, Menu menu){
             if(gc.getInput().isKeyDown('P')){
                   game.togglePause();
+            }
+            if(gc.getInput().isKeyDown('M')){
+                  if(menu.getState() != "map")
+                        menu.setState("map");
+                  else
+                        menu.setState("game");
             }
       }
 

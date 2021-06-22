@@ -19,8 +19,10 @@ import mc322.game.entitiesTiles.*;
 
 public class GameManager implements AbstractGame{
       private Dungeon dungeon;
-
+      private Menu menu;
       private AudioManager audio;
+      private Bag bag;
+
       private String STATE = "exploration"; 
 
       private double timing_keys_move;
@@ -34,6 +36,7 @@ public class GameManager implements AbstractGame{
       public GameManager(){
             dungeon = new Dungeon();
             audio = new AudioManager();
+            menu = new Menu(this);
 
             this.pause =false;
             this.timing_keys_move = 0;
@@ -41,11 +44,22 @@ public class GameManager implements AbstractGame{
             
             this.movingToPointer = false;
             this.mouseClick = null;
+            audio.playMusic(GameMapTokens.getPathSound("BestAmbientMusic"),true);
+            bag = new Bag();
+      }
+
+      public void togglePause()
+      {
+    	  this.pause = !this.pause;
       }
       
-      public void togglePause(){
-            this.pause = !this.pause;
-      }
+  	public void pause() {
+		this.pause = true;
+	}
+  	
+  	public void unpause() {
+		this.pause = false;
+	}
 
 
       @Override
@@ -59,7 +73,7 @@ public class GameManager implements AbstractGame{
 
                   }
 
-                  KeysManager.keys_action(gc,dungeon);
+                  KeysManager.keys_action(gc,dungeon, bag);
                   KeysManager.keys_movement(gc,dungeon, timing_keys_move);
                   
                   mouseClick = KeysManager.verifyMouseClick(gc,dungeon);
@@ -77,13 +91,17 @@ public class GameManager implements AbstractGame{
                   dungeon.update(dt);
 	            timing_keys_move += dt;
             }
+
+            menu.update(dt);
             timing_background_light += dt;
-            KeysManager.keys_game_flow(gc,this);
+            KeysManager.keys_game_flow(gc,this, menu);
       }
 
       public void renderer(GameContainer gc, Renderer r){
             GameRenderer.drawBackground(r, dungeon, timing_background_light);
             dungeon.renderer(r);
+            bag.renderer(r);
+            menu.renderer(r);
       }
 
       public static void main(String args[]){
