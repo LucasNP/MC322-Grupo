@@ -78,10 +78,10 @@ public class MapBuilder{
       }
 
       public ArrayList<ArrayList<Pair<Entity,Entity>>>buildTiles(int size,Pair<Integer,Integer>pos, 
-            String rooms_around,
-            String numberRoom,
-            Room room){
-            
+                  String rooms_around,
+                  String numberRoom,
+                  Room room){
+
             CSVHandling scannerCSV = new CSVHandling();
             scannerCSV.setDataSource(GameMapTokens.getRoomPATH(numberRoom));
 
@@ -90,14 +90,14 @@ public class MapBuilder{
 
             for(int i=0; i < size; i++) tiles.add(new ArrayList<Pair<Entity, Entity>>());
 
-            for(int i = 0; i < size;i++){
+            for(int i = size-1; i >= 0; i--){
                   for(int j = 0 ; j < size;j++){
                         char token = scannedRoom[j][0].charAt(i);
                         String dir = chooseOrientation(i, j, size);
 
                         boolean blocked = is_blocked_filter(token, dir, rooms_around);
                         Pair <Entity, Entity>pe;
-                        pe = EntityTilesLoader.getEntity(token,blocked,i,j,dir,room.getColor());
+                        pe = EntityTilesLoader.getEntity(token,blocked,i,j,dir,room.getColor(),room);
                         tiles.get(i).add(pe);
 
                         if(pe!=null && pe.getFirst() instanceof Chest){

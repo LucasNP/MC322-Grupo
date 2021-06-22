@@ -37,8 +37,10 @@ public class GameRenderer {
       }
 
 
-      public static void drawBackground(Renderer r, double timming_background_light){
+      public static void drawBackground(Renderer r, Dungeon dungeon, double timming_background_light){
             int red, green, blue;
+
+            String color = dungeon.getCurrentRoom().getColor();
             int pH = r.getHeight();
             int pW = r.getWidth();
             
@@ -50,14 +52,19 @@ public class GameRenderer {
             for(int i = lim; i > 0; i--){
                   red = green = blue = i/4;
 
+                  if(color == "Purple"){ blue *=2; red *=2; }
+                  else if(color == "Green"){ green *= 2; }
+                  else if(color == "Yellow"){ red *= 2; green *= 2; }
+                  else if(color == "Red"){red *= 2; }
+                  else if(color == "Blue") {blue *= 2; }
+
                   int a = 1;
                   int alpha = (int)(a * 255.99);
 
                   String hex = String.format("%02x%02x%02x%02x", alpha, red, green, blue);
                   r.drawCirc(pW/2, pH/2, lim/2-i, (int) Long.parseLong(hex, 16) );
-                  //break;
             }
-            //r.drawLine(10, 10, pW, pH, 0xffffffff);
+            r.drawLine(10, 10, pW, pH, 0xffffffff);
 
       }
 

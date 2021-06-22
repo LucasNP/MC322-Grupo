@@ -1,6 +1,7 @@
 package mc322.game;
 
 import java.util.ArrayList;
+import java.util.*;  
 
 import mc322.engine.GameContainer;
 import mc322.engine.LinearAlgebra;
@@ -15,15 +16,14 @@ import java.util.Random;
 public abstract class GameBrain{
 
       public static Pair<Integer, Integer> getOrigin(){
-            
             //Purple:
-            //Pair <Integer, Integer> origin = Pair.of(11, 1);
-            
+            Pair <Integer, Integer> origin = Pair.of(11, 1);
+
             //Green:
             //Pair <Integer, Integer> origin = Pair.of(8, 12);
 
             //Yellow:
-            Pair <Integer, Integer> origin = Pair.of(6, 12);
+            //Pair <Integer, Integer> origin = Pair.of(6, 12);
 
             //Blue:
             //Pair <Integer, Integer> origin = Pair.of(10, 13);
@@ -33,71 +33,113 @@ public abstract class GameBrain{
 
             //Black
             //Pair <Integer, Integer> origin = Pair.of(3, 14);
-
-
             return origin;
       }
 
-      public static char[][] solveMaze(char map[][]){
-            char auxMap[][] = new char[map.length][map.length];
-            for(int i = 0;i<map.length;i++) for(int j = 0;j<map.length;j++) auxMap[i][j] = map[i][j];
 
-            ArrayList<Pair<Integer,Integer>> news = new ArrayList<Pair<Integer,Integer>>();
-            ArrayList<Pair<Integer,Integer>> newNews = new ArrayList<Pair<Integer,Integer>>();
-            int dirI[] = {1,0,0,-1};
-            int dirJ[] = {0,-1,1,0};
+      // Solve Maze with BFS
+      static class Node{
+            Pair<Integer, Integer> pt;
+            int dist;
+
+            Node(Pair<Integer, Integer> p, int dist){
+                  this.pt = p;
+                  this.dist = dist;
+            }
+      }
+      public static boolean isSafe(int i, int j, int n){
+            return (i >= 0) && (j >= 0) && (i < n) && (j < n); 
+      }
+      public static String solveMaze(char map[][],int iBeg, int jBeg, int iEnd, int jEnd){
+
+            Pair <Integer, Integer> src  = Pair.of(jBeg-1, iBeg-1);
+            Pair <Integer, Integer> dest = Pair.of(iEnd-1, jEnd-1);
+
+            System.out.println(src.getFirst() + " , " + src.getSecond());
+            System.out.println(dest.getFirst() + " , " + dest.getSecond());
 
 
             for(int i = 0;i<map.length;i++){
-                  for(int j = 0;j<map.length;j++){
-                        if(map[i][j]=='E' || map[i][j]=='e') newNews.add(Pair.of(i,j));
-                  }
+                  for(int j = 0;j<map.length;j++) System.out.print(map[i][j]);
+                  System.out.println();
             }
 
-            boolean running = true;
-            int counting = 0;
+            // Impossible to reach
+            if(map[iBeg][jBeg]=='#' || map[iEnd][jEnd]=='#') throw new ImpossibleOriginOrDestiny();
+            else if(map[iEnd][jEnd]=='D') throw new DoorSelected();
 
-            while(running && counting <map.length*map.length/2){
-                  for(int i = 0;i<newNews.size();i++) news.add(newNews.get(i));
-                  newNews.clear();
+            //directions
+            int dirI[] = {1,0,0,-1};
+            int dirJ[] = {0,-1,1,0};
 
-                  if(news.size()==0){
-                        running = false;
+            //BFS
+            String solution = "";
+            int n = map.length - 2;
+            boolean ok = false;
+            int distance[][] = new int[n][n];
+
+
+            boolean visited[][] = new boolean[n][n];
+            for(int d[] : distance) Arrays.fill(d, -1);
+            for(boolean v[] : visited)  Arrays.fill(v, false);
+
+
+            distance[src.getFirst()][src.getSecond()] = 0;
+            visited[src.getFirst()][src.getSecond()]  = true;
+
+            ArrayDeque<Node> q = new ArrayDeque<>();
+            q.addLast(new Node(src, 0));
+
+
+            while (!q.isEmpty()){
+
+                  Node current = q.removeFirst();
+                  Pair <Integer, Integer> pt = current.pt;
+
+                  if (pt.getFirst() == dest.getFirst() && pt.getSecond() == dest.getSecond()){
+                        int i = pt.getFirst(); 
+                        int j = pt.getSecond();
+
+                        int dist = current.dist;
+                        System.out.println("pao: " + dist);
+                        distance[i][j] = dist;
+
+                        while ( i != src.getFirst() || j != src.getSecond() ){
+                              if (i>0   && distance[i-1][j] == dist - 1){ solution += 'D'; i--; }
+                              if (i<n-1 && distance[i+1][j] == dist - 1){ solution += 'A'; i++; }
+                              if (j>0   && distance[i][j-1] == dist - 1){ solution += 'W'; j--; }
+                              if (j<n-1 && distance[i][j+1] == dist - 1){ solution += 'S'; j++; }
+                              dist--;
+                        }
+
+                        ok = true;
                         break;
                   }
 
-                  for(int i = 0;i<news.size();i++){
-                        for(int k =0;k<4;k++){
-                              int next_i = news.get(i).getFirst()+dirI[k];
-                              int next_j = news.get(i).getSecond()+dirJ[k];
+                  for(int k = 0; k < 4; k++){
 
-                              if(!LinearAlgebra.between(next_i,0,map.length-1)||
-                                          !LinearAlgebra.between(next_j,0,map.length-1)) 
-                                    continue;
+                        int ni = pt.getFirst() + dirI[k];
+                        int nj = pt.getSecond() + dirJ[k];
 
-                              char v = map[next_i][next_j];
 
-                              if(".BUMNEbe".indexOf(v) != -1){ 
-                                    char c = auxMap[news.get(i).getFirst()][news.get(i).getSecond()];
-                                    if(c == 'B' || c == 'b') { running = false; break; }
-
-                                    if("BU".indexOf(v) != -1 && "UMNE".indexOf(c) == -1) continue;
-                                    if(v == 'N' && (k==0 || k == 3)) continue;
-                                    if(v == 'M' && (k==1 || k == 2 || k ==0 )) continue;
-                                    if(".b".indexOf(v) != -1 && ".MNe".indexOf(c) ==  -1) continue;
-
-                                    String str_dir = "A><V";
-                                    map[next_i][next_j] = str_dir.charAt(k);
-                                    newNews.add(Pair.of(next_i, next_j));
+                        if (isSafe(ni, nj, n) && !visited[ni][nj]){
+                              if(map[nj][ni] == '#'){
+                                    System.out.println(ni + " " + nj);
                               }
-                        }
-                        if(!running) break;
-                  }
 
-                  news.clear();
-                  counting ++;
-            } 		
-            return map;
+                              visited[ni][nj] = true;
+                              Node adjCell = new Node(Pair.of(ni, nj), current.dist + 1);
+                              q.addLast(adjCell);
+                              distance[ni][nj] = current.dist + 1;
+                        }
+                  }
+                  //System.out.println();
+
+            }
+
+            System.out.println(solution);
+
+            return null;
       }
 
 
@@ -111,26 +153,26 @@ public abstract class GameBrain{
             Room cRoom = dungeon.getCurrentRoom();
             Random rand = new Random();
 
-            if(cRoom.getMilo() != cRoom.getPlayer()){
-                  if(rand.nextInt(9)<7) cRoom.getMilo().follow(cRoom.getLuna(),cRoom);
-                  else cRoom.getMilo().follow(cRoom.getRaju(),cRoom);
-            }
+            //if(cRoom.getMilo() != cRoom.getPlayer()){
+            //if(rand.nextInt(9)<7) cRoom.getMilo().follow(cRoom.getLuna(),cRoom,false);
+            //else cRoom.getMilo().follow(cRoom.getRaju(),cRoom,false);
+            //}
 
-            if(cRoom.getLuna() != cRoom.getPlayer()){
-                  if(rand.nextInt(13)<9) cRoom.getLuna().follow(cRoom.getPlayer(),cRoom);
-                  else cRoom.getLuna().follow(cRoom.getZe(),cRoom);
-            }
+            //if(cRoom.getLuna() != cRoom.getPlayer()){
+            //if(rand.nextInt(13)<9) cRoom.getLuna().follow(cRoom.getPlayer(),cRoom,false);
+            //else cRoom.getLuna().follow(cRoom.getZe(),cRoom,false);
+            //}
 
-            if(cRoom.getZe() != cRoom.getPlayer()) {
-                  if(rand.nextInt(15)<8) cRoom.getZe().follow(cRoom.getRaju(),cRoom);
-                  else
-                        cRoom.getZe().follow(cRoom.getLuna(),cRoom);
-            }
+            //if(cRoom.getZe() != cRoom.getPlayer()) {
+            //if(rand.nextInt(15)<8) cRoom.getZe().follow(cRoom.getRaju(),cRoom,false);
+            //else
+            //cRoom.getZe().follow(cRoom.getLuna(),cRoom,false);
+            //}
 
-            if(cRoom.getRaju() != cRoom.getPlayer()){
-                  if(rand.nextInt(8)<5) cRoom.getRaju().follow(cRoom.getMilo(),cRoom);
-                  else cRoom.getRaju().follow(cRoom.getLuna(),cRoom);
-            }
+            //if(cRoom.getRaju() != cRoom.getPlayer()){
+            //if(rand.nextInt(8)<5) cRoom.getRaju().follow(cRoom.getMilo(),cRoom,false);
+            //else cRoom.getRaju().follow(cRoom.getLuna(),cRoom,false);
+            //}
       }
 
 }

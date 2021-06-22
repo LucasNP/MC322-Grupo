@@ -21,8 +21,8 @@ public abstract class Heroes extends Character{
             int lastJ = this.j;
             this.i = i;
             this.j = j;
-            room.move(lastI,lastJ,i,j);
-            //this.change_state("idle");
+            room.move(lastI,lastJ,i,j,this);
+            this.change_state("idle");
       }
 
       public void move(char dir,Room room){
@@ -63,7 +63,7 @@ public abstract class Heroes extends Character{
                   System.out.println("erro: sala e nula");
                   return false;
             }
-            if(room.isAccessible(i,j,this.elevation,this.legSize,this.updateDir)) return true;
+            if(room.isAccessible(i,j,this.elevation,this.legSize,this.updateDir,this)) return true;
             return false;
       }
 }

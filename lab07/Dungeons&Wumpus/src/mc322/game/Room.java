@@ -29,6 +29,7 @@ public class Room implements BasicObject {
       private Heroes luna;
       private String color;
       private Dungeon dungeon;
+      private boolean blocked;
       private int i;
       private int j;
 
@@ -40,7 +41,8 @@ public class Room implements BasicObject {
             this.numberRoom = "" + (rnd.nextInt(9)+1);
             this.color = color;
             this.rooms_around = rooms_around;
-            //numberRoom = "7";
+            numberRoom = "1";
+            this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
             entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
@@ -146,12 +148,20 @@ public class Room implements BasicObject {
             return this.color;
       }
 
+      public void open()
+      {
+            this.blocked = false;
 
-      public boolean isAccessible(int i, int j,double elevation, double legSize,int dir){
+      }
 
-            if(entities[i][j] instanceof Heroes) return true;
+      public boolean getBlocked(){
+            return this.blocked;
+      }
 
-            if(this.entities[i][j] == null){
+
+      public boolean isAccessible(int i, int j,double elevation, double legSize,int dir,Character charac){
+
+            if(this.entities[i][j] == null || (this.entities[i][j] instanceof Heroes && charac ==this.player)){
 
                   if(tiles.get(i).get(j) == null || tiles.get(i).get(j).getFirst() instanceof SafeZone){
                         if(elevation < legSize) return true;
@@ -166,7 +176,7 @@ public class Room implements BasicObject {
                         if(tiles.get(i).get(j).getSecond() == null && elevation > (1-legSize))
                               return true;
 
-                  if(tiles.get(i).get(j).getFirst() instanceof Door){
+                  if(tiles.get(i).get(j).getFirst() instanceof Door && !this.blocked){
                         if(i==0){
                               if(dungeon.getRoom(this.i,this.j-1) !=null) //south
                                     return true;
@@ -200,20 +210,15 @@ public class Room implements BasicObject {
             return false;
       }
 
-      public void move(int i0,int j0,int i,int j){
+      public void move(int i0,int j0,int i,int j,Character charac){
 
-            if(entities[i][j] instanceof Heroes) {
-
-                  Entity entity_player, entity_buddy;
-
-                  entity_player = this.entities[i0][j0];
-                  entity_buddy  = this.entities[i][j];
-
-                  this.entities[i][j] = entity_player;
-                  this.entities[i0][j0] = entity_buddy;
-                  entities[i0][j0].setPos(i0,j0);
-
-                  return;
+            Entity removedEntity = null;
+            if(entities[i][j] instanceof Heroes ) {
+                  if(charac == player) removedEntity  = this.entities[i][j];
+                  else{
+                        System.err.println("Something went wrong, a hero triet to move to another");
+                        return;
+                  }
             }
 
             this.entities[i][j]=this.entities[i0][j0];
@@ -222,7 +227,7 @@ public class Room implements BasicObject {
                   this.entities[i][j].setElevation(0);
             else if(tiles.get(i).get(j).getFirst() instanceof Ladder)
                   this.entities[i][j].setElevation(0.5);
-            else if(tiles.get(i).get(j).getFirst() instanceof Door){
+            else if(tiles.get(i).get(j).getFirst() instanceof Door){ //if wants to change room
                   char dir='0'; //direcao para entrar na sala
                   int newRoomI=this.i; //nova posicao da sala
                   int newRoomJ=this.j; //nova posicao da sala
@@ -255,7 +260,17 @@ public class Room implements BasicObject {
                   this.changeRoom(newRoomI,newRoomJ,dir);
             }
             else this.entities[i][j].setElevation(1);
-            this.entities[i0][j0]=null;
+            this.entities[i0][j0]=removedEntity;
+            if(removedEntity != null)
+            {
+                  removedEntity.setPos(i0,j0);
+                  if(tiles.get(i0).get(j0) == null || tiles.get(i0).get(j0).getFirst() instanceof SafeZone)
+                        this.entities[i0][j0].setElevation(0);
+                  else if(tiles.get(i0).get(j0).getFirst() instanceof Ladder)
+                        this.entities[i0][j0].setElevation(0.5);
+                  else this.entities[i0][j0].setElevation(1);
+
+            }
       }
 
       public void updateHerosAtRoom(){
@@ -371,53 +386,30 @@ public class Room implements BasicObject {
             this.dungeon.setAtual(iSala,jSala);
       }
 
-      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd)
-      {
+      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes){
             char map[][] = new char[size][size];
-            for(int i = 0; i < size; i++)
-            {
-                  for(int j = 0; j < size; j++)
-                  {
-                        if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
-                        {
-                              map[i][j] = '.';
+
+            for(int i = 0; i < size; i++){
+                  for(int j = 0; j < size; j++){
+                        Pair<Entity,Entity> tile = tiles.get(j).get(i);
+
+                        if(tile == null || tile.getFirst() instanceof SafeZone) map[i][j] = '.';
+                        else if(tile.getFirst() instanceof Platform && tile.getSecond()==null) map[i][j] = 'U';
+
+                        else if(tile.getFirst() instanceof Ladder ){
+                              if(tile.getFirst().getDirection() == 1) map[i][j] = 'M';
+                              else map[i][j] = 'N';
                         }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
-                        {
-                              map[i][j] = 'U';
-                        }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Ladder )
-                        {
-                              if(tiles.get(i).get(j).getFirst().getDirection()==1)
-                                    map[i][j] = 'M';
-                              else
-                                    map[i][j] = 'N';
-                        }
-                        else
-                        {
+                        else if(tile.getFirst() instanceof Door) map[i][j] = 'D';
+                        else{
                               map[i][j] = '#';
                               continue;
                         }
-                        if(entities[i][j]!=null)
-                        {
-                              if(i==iBegin && j == jBegin)
-                              {
-                                    if(tiles.get(i).get(j) != null && (tiles.get(i).get(j).getFirst() instanceof Platform ||tiles.get(i).get(j).getFirst() instanceof Ladder))
-                                          map[i][j] = 'B';
-                                    else
-                                          map[i][j] = 'b';
-                                    continue;
-                              }
-                              if(i==iEnd && j == jEnd)
-                              {
-                                    if(tiles.get(i).get(j) != null && (tiles.get(i).get(j).getFirst() instanceof Platform ||tiles.get(i).get(j).getFirst() instanceof Ladder))
-                                          map[i][j] = 'E';
-                                    else
-                                          map[i][j] = 'e';
-                                    continue;
-                              }
-                              map[i][j] = '#';
 
+                        if(entities[i][j] != null && !ignoreHeroes){
+                              if( (i==iBegin && j==jBegin) || (i==iEnd && j==jEnd) )
+                                    continue;
+                              map[i][j] = '#';
                         }
                   }
             }

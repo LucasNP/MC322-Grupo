@@ -6,7 +6,7 @@ import mc322.game.entitiesTiles.*;
 public abstract class EntityTilesLoader {
 
       public static Pair<Entity, Entity> getEntity(char token, boolean blocked, int i, int j, 
-                  String dir,String color){
+                  String dir,String color,Room room){
 
             Pair<Entity, Entity> entityTile = null;
 
@@ -58,7 +58,7 @@ public abstract class EntityTilesLoader {
                                     entityTile = Pair.of(new Wall(i,j,internal,dir,elevation,color),null);
                               break;
                         }
-                        entityTile = Pair.of(new Door(i, j, dir,elevation, color),null);
+                        entityTile = Pair.of(new Door(i, j, dir,elevation, color,room),null);
                         break;
 
                         // Elevated Floor

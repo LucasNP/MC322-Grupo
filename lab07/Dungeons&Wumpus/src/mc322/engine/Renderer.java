@@ -134,6 +134,8 @@ public class Renderer{
             int tx = pW/2 - 7*image.getTileWidth()/2 - 24;
             int ty = pH/2 - image.getTileHeight()/2 + 24;
 
+            //System.out.println(tx + " " + ty);
+
             int sizeX = image.getTileWidth()/4;
             int sizeY = image.getTileHeight()/4;
 

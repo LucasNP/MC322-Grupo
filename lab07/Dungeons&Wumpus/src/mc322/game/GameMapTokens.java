@@ -56,9 +56,9 @@ public abstract class GameMapTokens{
             if(mapTokens.get(object+state) == null){
                   String path = DIR_ITENS + object + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
-                  mapTokens.put(object, image);
+                  mapTokens.put(object+state, image);
             }
-            return mapTokens.get(object);
+            return mapTokens.get(object+state);
       }
 
       // TokensCharacter: Milo, Luna, Raju, Ze
@@ -67,9 +67,9 @@ public abstract class GameMapTokens{
             if(mapTokens.get(object+state) == null){
                   String path = DIR_CHARACTERS + object + "/" + state + PNG;
                   image = new ImageTile(path, tileWidth, tileHeight);
-                  mapTokens.put(object, image);
+                  mapTokens.put(object+state, image);
             }
-            return mapTokens.get(object);
+            return mapTokens.get(object+state);
       }
       
       public static String getPathSound(String object){
