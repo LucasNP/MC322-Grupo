@@ -41,7 +41,7 @@ public class Room implements BasicObject {
             this.numberRoom = "" + (rnd.nextInt(9)+1);
             this.color = color;
             this.rooms_around = rooms_around;
-            //numberRoom = "testRoom";
+            numberRoom = "testRoom";
             this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
@@ -144,6 +144,10 @@ public class Room implements BasicObject {
       public void setChest(Chest chest){
             this.chest = chest;
       }
+      public Chest getChest(){
+          return this.chest;
+      }
+      
       public String getColor(){
             return this.color;
       }

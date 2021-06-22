@@ -1,6 +1,7 @@
 package mc322.game.entitiesCharacters;
 
 import mc322.engine.LinearAlgebra;
+import mc322.game.GameRenderer;
 import mc322.game.Room;
 
 public abstract class Heroes extends Character{
@@ -8,7 +9,23 @@ public abstract class Heroes extends Character{
       public Heroes(int i, int j,double elevation) {
             super(i, j, elevation);
       }
-
+      
+      public void use(Room room)
+      {
+          int iDir[] = {0,-1,0,1};
+          int jDir[] = {1,0,-1,0};
+         
+          if(room.getChest()!=null)
+          {
+        	  if(room.getChest().getPos().getFirst() == this.i + iDir[this.updateDir]  && room.getChest().getPos().getSecond() == jDir[this.updateDir]+this.j)
+        	  {
+        		  room.getChest().toggleAnimation();
+        		  
+        		  
+        	  }
+          }
+      }
+      
       protected abstract void interact(int i,int j);
 
       public void move(int i, int j,Room room) {
