@@ -13,8 +13,19 @@ dungeon:
 sala:
 a = tile1 chao
 b = tile2 pilar
+<<<<<<< HEAD
 d = door
 # = parede lateral
+=======
+c = door ao SO S
+d = door ao SE L
+e = door ao NE N
+f = door ao NO O
+g = parede SO S
+h = parede SE L
+i = parede NE N
+j = parede NO O
+>>>>>>> 10b5a03 (adicionei 8 salas)
 k = parede NS
 l = parede EO
 m = escada NS
