@@ -125,6 +125,7 @@ public abstract class KeysManager {
             if(gc.getInput().wasClicked()){
                   clicked = 1;
                   Pair<Integer, Integer> posClick = gc.getInput().getClick();
+                  //System.out.println("x: "+posClick.getFirst()+" y: "+posClick.getSecond());
                   posClick = LinearAlgebra.toCartesianas(posClick);
 
                   int i = posClick.getSecond() - 475+32;

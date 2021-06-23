@@ -51,7 +51,7 @@ public class Room implements BasicObject {
             this.blocked = true;
 
             tiles = mapBuilder.buildTiles(size, pos, rooms_around,numberRoom,this);
-            entities = mapBuilder.buildEntities(size, pos, numberRoom,this);
+            entities = mapBuilder.buildEntities(size, pos, numberRoom,this,true);
             this.updateHerosAtRoom();
             if(hasKey)
             {

@@ -28,6 +28,13 @@ public class GameRenderer {
             elevation+=0.5;
             r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, dir);
       }
+      
+      public static void drawEnemy(int i,int j,double elevation, String name, Renderer r, int updateX,int dir ,String state){
+          ImageTile image = GameMapTokens.getImageEnemies(name, state);
+          elevation+=0.5;
+          r.drawIsometricImage(i+(int)elevation, j-(int)elevation, image, updateX, dir);
+    }
+      
 
       public static void drawMenu(int i,int j, String name, Renderer r){
           ImageTile image = GameMapTokens.getImageMenu(name);
@@ -48,9 +55,35 @@ public class GameRenderer {
     	  int green = LinearAlgebra.clamp((int)(255*porcentHpMax*2),0,255);
     	  
     	  int horixontalDistance = 40;
-    	  int verticalDisctance = 10;
-    	  r.fillRect(verticalDisctance+j,horixontalDistance+i,verticalDisctance+j+10,horixontalDistance+i+((int)hpMax),50,50,50);
-    	  r.fillRect(verticalDisctance+j,horixontalDistance+i,verticalDisctance+j+10,horixontalDistance+i+((int)hp),red,green,100);
+    	  int verticalDistance = 10;
+    	  r.fillRect(verticalDistance+j,horixontalDistance+i,verticalDistance+j+10,horixontalDistance+i+((int)hpMax),50,50,50);
+    	  r.fillRect(verticalDistance+j,horixontalDistance+i,verticalDistance+j+10,horixontalDistance+i+((int)hp),red,green,100);
+    	  
+      }
+      
+      public static void drawLifeEnemy(int i,int j,double elevation,double hpMax,double hp,Renderer r)
+      {
+    	  elevation +=0.5;
+
+          Pair <Integer, Integer> b = Pair.of(i*16, j*16);
+          b = LinearAlgebra.toIsometrica(b);
+    	  i = b.getFirst() + 22;
+    	  j = b.getSecond() + 162;
+    	  
+    	  //ImageTile image = GameMapTokens.getImageItem("charctersFace");
+    	  //r.drawImage(i, j, image, 0, charact);
+          
+    	  double porcentHpMax = hp/hpMax;
+    	  int red = LinearAlgebra.clamp((int)(255 -(255*porcentHpMax)),0,255);
+    	  int green = LinearAlgebra.clamp((int)(255*porcentHpMax*2),0,255);
+//    	  green = 0;
+//    	  red = 255;
+    	  
+    	  int horixontalDistance = 8;
+    	  int verticalDistance = 0;
+    	  //System.out.println("i: "+i+" j: "+j);
+    	  r.fillRect(verticalDistance+j,horixontalDistance+i,verticalDistance+j+4,horixontalDistance+i+((int)hpMax/2),50,50,50);
+    	  r.fillRect(verticalDistance+j,horixontalDistance+i,verticalDistance+j+4,horixontalDistance+i+((int)hp/2),red,green,100);
     	  
       }
 

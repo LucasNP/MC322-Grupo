@@ -8,6 +8,7 @@ import java.util.Iterator;
 import mc322.engine.Pair;
 import mc322.engine.CSVHandling;
 import mc322.engine.LinearAlgebra;
+import mc322.game.entitiesCharacters.Eye;
 import mc322.game.entitiesCharacters.Heroes;
 import mc322.game.entitiesCharacters.Luna;
 import mc322.game.entitiesCharacters.Milo;
@@ -184,7 +185,7 @@ public class MapBuilder{
             return false;
       }
 
-      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom,Room room) {
+      public Entity[][] buildEntities(int size,Pair<Integer,Integer> pos,String numberRoom,Room room,boolean buildEnemys) {
             player = null;
             Entity entities[][] = new Entity[size][size];
 
@@ -196,7 +197,7 @@ public class MapBuilder{
             for(int i = 0; i < size;i++)
                   for(int j = 0 ; j < size;j++)
                         entities[i][j] = null;
-
+            
             if(this.origin.getFirst() == pos.getFirst() && this.origin.getSecond() == pos.getSecond()){
                   int targetI = 2;
                   int targetJ = 7;
@@ -215,6 +216,31 @@ public class MapBuilder{
                   room.setPlayer(player);
 
             }
+            if(buildEnemys)
+            {
+            	Random rand = new Random();
+            	int numberOfEnemys = rand.nextInt(5);
+            	int nGeneratedEnemys = 0;
+            	while(nGeneratedEnemys<numberOfEnemys)
+            	{
+            		int targetI = rand.nextInt(size);
+            		int targetJ = rand.nextInt(size);
+            		char token = scannedRoom[targetJ][0].charAt(targetI);
+            		if(token == '.' || token == 'a')
+            		{
+            			int elevation = 0;
+            			if(token == 'a')
+            				elevation = 1;
+            			
+            			if(entities[targetI][targetJ]==null)
+            			{
+            				entities[targetI][targetJ] = new Eye(targetI, targetJ, elevation);
+            				nGeneratedEnemys++;
+            			}
+            		}
+            	}
+            }
+            
             return entities;
       }
 

@@ -81,6 +81,17 @@ public abstract class GameMapTokens{
             return mapTokens.get(object+state);
       }
       
+      public static ImageTile getImageEnemies(String object, String state){
+          if(mapTokens.get(object+state) == null){
+                String path = DIR_ENEMIES + object + "/" + state + PNG;
+                //System.out.println(path);
+                image = new ImageTile(path, tileWidth, tileHeight);
+                mapTokens.put(object+state, image);
+          }
+          return mapTokens.get(object+state);
+    }
+      
+      
       public static String getPathSound(String object){
         return SOUNDS + "/" + object + WAV;
     }

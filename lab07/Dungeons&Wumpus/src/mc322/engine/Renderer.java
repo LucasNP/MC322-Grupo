@@ -185,6 +185,8 @@ public class Renderer{
 
             int sizeX = image.getTileWidth()/4;
             int sizeY = image.getTileHeight()/4;
+            
+      	  	//System.out.println("sizeX = "+sizeX+" sizeY: "+sizeY);
 
             Pair <Integer, Integer> b = Pair.of(i*sizeX, j*sizeY);
             b = LinearAlgebra.toIsometrica(b);
