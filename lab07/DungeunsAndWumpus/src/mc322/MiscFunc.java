@@ -72,7 +72,14 @@ public abstract class MiscFunc {
         return np;
   }
   
-  public static void Desenha(int i, int j, Image image, Graphics g){
+  public static void Desenha(int i, int j,int altura, Image image, Graphics g){
+	  
+	  int tempi =i;
+	  int tempj =j;
+	  i=modulo(14-tempj);
+	  j=tempi;
+	  i+=(altura);
+	  j-=(altura);
       int tX = Game.WIDTH/10;
       int tY = Game.HEIGHT/2;
 	  int cellSide = 32;
@@ -83,6 +90,13 @@ public abstract class MiscFunc {
       int y = b.getSecond() + tY-cellSize/2;
       g.drawImage(image, x, y, cellSize, cellSize, null);
 }
+  
+  public static int modulo(int n)
+  {
+	  if(n<0)
+		  return -n;
+	  return n;
+  }
 	
 	
 }
