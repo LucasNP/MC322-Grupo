@@ -26,12 +26,7 @@ public class Raju extends Heroes{
             this.nFramesMoving = 4;
 		
 	}
-	
-	@Override
-	protected void interact(int i, int j) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void attack(int i, int j) {
@@ -63,6 +58,7 @@ public class Raju extends Heroes{
 
 	@Override
 	public void renderer(Renderer r) {
+            if(this.selected == 1) super.renderer(r);
             GameRenderer.drawCharacter(i,j,elevation,name,r,(int)updateFrame%nFrames, this.updateDir,this.state);
 	}
 

@@ -39,11 +39,11 @@ public class Room implements BasicObject {
                   Dungeon dungeon, boolean hasKey){
 
             Random rnd = new Random();
-            
+
             this.numberRoom = "" + (rnd.nextInt(9)+1);
             if(hasKey && (this.numberRoom.equals("1") || this.numberRoom.equals("5") || this.numberRoom.equals("9")))
             {
-            	this.numberRoom = "7";
+                  this.numberRoom = "7";
             }
             this.color = color;
             this.rooms_around = rooms_around;
@@ -55,9 +55,9 @@ public class Room implements BasicObject {
             this.updateHerosAtRoom();
             if(hasKey)
             {
-            	if(this.chest == null)
-            		System.out.println(this.numberRoom);
-            	this.chest.insertItem(new Key(this.color));
+                  if(this.chest == null)
+                        System.out.println(this.numberRoom);
+                  this.chest.insertItem(new Key(this.color));
             }
             this.dungeon = dungeon;
             this.i = pos.getFirst();
@@ -156,22 +156,22 @@ public class Room implements BasicObject {
             this.chest = chest;
       }
       public Chest getChest(){
-          return this.chest;
+            return this.chest;
       }
-      
+
       public String getColor(){
             return this.color;
       }
-      
+
       public void open()
       {
-    	  this.blocked = false;
-    	  
+            this.blocked = false;
+
       }
-      
+
       public boolean getBlocked()
       {
-    	  return this.blocked;
+            return this.blocked;
       }
 
 
@@ -228,17 +228,17 @@ public class Room implements BasicObject {
 
       public void move(int i0,int j0,int i,int j,Character charac){
 
-    	  Entity removedEntity = null;
+            Entity removedEntity = null;
             if(entities[i][j] instanceof Heroes ) {
-            		if(charac == player)
-            		{
-            			removedEntity  = this.entities[i][j];
-            		}
-            		else
-            		{
-            			System.err.println("Something went wrong, a hero triet to move to another");
-            			return;
-            		}
+                  if(charac == player)
+                  {
+                        removedEntity  = this.entities[i][j];
+                  }
+                  else
+                  {
+                        System.err.println("Something went wrong, a hero triet to move to another");
+                        return;
+                  }
             }
 
             this.entities[i][j]=this.entities[i0][j0];
@@ -283,13 +283,13 @@ public class Room implements BasicObject {
             this.entities[i0][j0]=removedEntity;
             if(removedEntity != null)
             {
-            removedEntity.setPos(i0,j0);
-            if(tiles.get(i0).get(j0) == null || tiles.get(i0).get(j0).getFirst() instanceof SafeZone)
-                    this.entities[i0][j0].setElevation(0);
-              else if(tiles.get(i0).get(j0).getFirst() instanceof Ladder)
-                    this.entities[i0][j0].setElevation(0.5);
-              else this.entities[i0][j0].setElevation(1);
-            	  
+                  removedEntity.setPos(i0,j0);
+                  if(tiles.get(i0).get(j0) == null || tiles.get(i0).get(j0).getFirst() instanceof SafeZone)
+                        this.entities[i0][j0].setElevation(0);
+                  else if(tiles.get(i0).get(j0).getFirst() instanceof Ladder)
+                        this.entities[i0][j0].setElevation(0.5);
+                  else this.entities[i0][j0].setElevation(1);
+
             }
       }
 
@@ -406,55 +406,31 @@ public class Room implements BasicObject {
             this.dungeon.setAtual(iSala,jSala);
       }
 
-      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes)
-      {
+      public char[][] builCharMap(){
             char map[][] = new char[size][size];
-            for(int i = 0; i < size; i++)
-            {
-                  for(int j = 0; j < size; j++)
-                  {
-                        if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
-                        {
-                              map[i][j] = '.';
+            for(int i = 0; i < size; i++){
+                  for(int j = 0; j < size; j++){
+                        Pair<Entity,Entity> tile = tiles.get(j).get(i);
+
+                        if(tile == null || tile.getFirst() instanceof SafeZone) map[i][j] = '.';
+                        else if(tile.getFirst() instanceof Platform && tile.getSecond()==null) map[i][j] = 'U';
+
+                        else if(tile.getFirst() instanceof Ladder ){
+                              if(tile.getFirst().getDirection() == 1) map[i][j] = 'M';
+                              else map[i][j] = 'N';
                         }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
-                        {
-                              map[i][j] = 'U';
-                        }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Ladder )
-                        {
-                              if(tiles.get(i).get(j).getFirst().getDirection()==1)
-                                    map[i][j] = 'M';
-                              else
-                                    map[i][j] = 'N';
-                        }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Door )
-                        {
-                              map[i][j] = 'D';
-                        }
-                        else
-                        {
+                        else if(tile.getFirst() instanceof Door) map[i][j] = 'D';
+                        else{
                               map[i][j] = '#';
                               continue;
                         }
-                        if(entities[i][j]!=null && !ignoreHeroes)
-                        {
-                              if(i==iBegin && j == jBegin)
-                              {
-                                    continue;
-                              }
-                              if(i==iEnd && j == jEnd)
-                              {
-                                    continue;
-                              }
-                              map[i][j] = '#';
 
-                        }
                   }
-            }
 
+            }
 
             return map;
       }
 
 }
+

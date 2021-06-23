@@ -14,8 +14,8 @@ import mc322.game.itens.StrengthPotion;
 
 public class Chest extends Entity{
 
-	private boolean opened;
-	private ArrayList<Item> itens;
+      private boolean opened;
+      private ArrayList<Item> itens;
       public Chest (int i, int j, String direction, int elevation){
             this.name = "chest";
             this.i=i;
@@ -32,19 +32,19 @@ public class Chest extends Entity{
             int num = rand.nextInt(60);
             if(num%2==0)//2
             {
-            	insertItem(new HealthPotion());
+                  insertItem(new HealthPotion());
             }
             if(num%5==0)//5
             {
-            	insertItem(new StrengthPotion());
+                  insertItem(new StrengthPotion());
             }
             if(num%6==0)//6
             {
-            	insertItem(new ResistancePotion());
+                  insertItem(new ResistancePotion());
             }
-            
-	}
-	
+
+      }
+
       public void update(double dt){
             if(this.initAnimation){
                   this.updateFrame += this.velocityAnim*dt;
@@ -53,34 +53,35 @@ public class Chest extends Entity{
                         this.opened = true;
                   }
             }
-            
-	}
+
+      }
 
       public void renderer(Renderer r) {
-    	  if(opened)
-    		  GameRenderer.drawItem(i,j,elevation,name,r, 6, updateDir); 
-    	  else
-    		  GameRenderer.drawItem(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir);
-	}
-      
+            if(opened)
+                  GameRenderer.drawItem(i,j,elevation,name,r, 6, updateDir); 
+            else
+                  GameRenderer.drawItem(i,j,elevation,name,r, (int)updateFrame%nFrames, updateDir);
+      }
+
       public void toggleAnimation(){
             this.initAnimation = !(this.initAnimation);
       }
-      
+
       public Pair<Integer,Integer> getPos()
       {
-    	  return Pair.of(this.i,this.j);
+            return Pair.of(this.i,this.j);
       }
 
-    public void insertItem(Item item)
-    {
-    	itens.add(item);
-    }
-      
-	public ArrayList<Item> getItens() {
-		ArrayList<Item> removedItens = itens;
-		itens = null;
-		return removedItens;
-	}
+      public void insertItem(Item item)
+      {
+            itens.add(item);
+      }
+
+      public ArrayList<Item> getItens() {
+            ArrayList<Item> removedItens = itens;
+            itens = null;
+            return removedItens;
+      }
 
 }
+
