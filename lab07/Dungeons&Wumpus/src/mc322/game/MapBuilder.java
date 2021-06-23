@@ -211,6 +211,7 @@ public class MapBuilder{
                         room.setMilo(new Milo(targetI-1,targetJ+1,0));
 
                   }
+                  player.toggleSelect();
                   room.setPlayer(player);
 
             }
@@ -223,3 +224,4 @@ public class MapBuilder{
 
 
 }
+

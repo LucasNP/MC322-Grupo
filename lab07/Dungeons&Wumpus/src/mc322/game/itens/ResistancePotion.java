@@ -12,8 +12,7 @@ public class ResistancePotion extends Item{
 	}
 
 	public void renderer(Renderer r) {
-		GameRenderer.drawBag(29,-10,0, "potion",r, 0, 2);
-		
+		GameRenderer.drawBag(29, -10, 0, "potion",r, 0, 2);
 	}
 
 	@Override
