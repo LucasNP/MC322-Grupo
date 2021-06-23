@@ -15,6 +15,9 @@ public abstract class Character extends Entity{
 
       protected int solutionIndex;
       protected String solution;
+      protected int hp;
+      protected int hpMax;
+      protected int armor;
 
       public Character(int i,int j,double elevation)
       {
@@ -26,7 +29,6 @@ public abstract class Character extends Entity{
       }
 
       protected double legSize;
-      protected int health;
       protected String name;
 
       //public abstract void change_state(String state);
@@ -34,7 +36,12 @@ public abstract class Character extends Entity{
       public abstract void move(int i, int j, Room room);
       public abstract boolean move(char dir, Room room, double timing_keys_move);
       public abstract void die();
-      public abstract void hurt(int damage);
+      public void hurt(int damage)
+      {
+    	  //System.out.println("hp antes: " + hp+ " damage: "+ damage + " armor "+ armor);
+    	  hp -= (damage - ( damage * armor / 100 ));
+    	  //System.out.println("hp: " + hp);
+      }
 
 
       public String toString()

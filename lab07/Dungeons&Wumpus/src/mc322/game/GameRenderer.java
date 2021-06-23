@@ -1,9 +1,11 @@
 package mc322.game;
 
+import java.awt.Color;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import mc322.engine.LinearAlgebra;
 import mc322.engine.Pair;
 import mc322.engine.Renderer;
 import mc322.engine.gfx.ImageTile;
@@ -36,6 +38,21 @@ public class GameRenderer {
           ImageTile image = GameMapTokens.getImageItem(name);
           r.drawImage(i+(int)elevation, j-(int)elevation, image, updateX, updateY);
     }
+      
+      public static void drawLife(int i,int j,int charact,double hpMax,double hp,Renderer r)
+      {
+    	  //ImageTile image = GameMapTokens.getImageItem("charctersFace");
+    	  //r.drawImage(i, j, image, 0, charact);
+    	  double porcentHpMax = hp/hpMax;
+    	  int red = LinearAlgebra.clamp((int)(255 -(255*porcentHpMax)),0,255);
+    	  int green = LinearAlgebra.clamp((int)(255*porcentHpMax*2),0,255);
+    	  
+    	  int horixontalDistance = 40;
+    	  int verticalDisctance = 10;
+    	  r.fillRect(verticalDisctance+j,horixontalDistance+i,verticalDisctance+j+10,horixontalDistance+i+((int)hpMax),50,50,50);
+    	  r.fillRect(verticalDisctance+j,horixontalDistance+i,verticalDisctance+j+10,horixontalDistance+i+((int)hp),red,green,100);
+    	  
+      }
 
 
       public static void change_animation_state(String state, Dungeon dungeon){

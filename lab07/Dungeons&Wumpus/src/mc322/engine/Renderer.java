@@ -104,6 +104,20 @@ public class Renderer{
             }
 
       }
+      
+      public void fillRect(int xi,int yi, int xo, int yo, int red,int green,int blue)
+      {
+    	  String hex = String.format("%02x%02x%02x", red, green, blue);
+    	  
+    	  for(int i =yi;i<yo;i++)
+    	  {
+    		  for(int j = xi;j<xo;j++)
+    		  {
+    			  setPixel(i, j, (int)Long.parseLong(hex, 16));
+    		  }
+    	  }
+      }
+      
 
       public void drawImage(Image image, int offX, int offY){
 

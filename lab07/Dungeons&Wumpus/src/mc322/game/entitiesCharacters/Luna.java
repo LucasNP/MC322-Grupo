@@ -6,9 +6,6 @@ import mc322.game.Room;
 
 public class Luna extends Heroes{
 
-	int velocidade_anim = 10;
-	private double temp = 0;
-	
 	public Luna(int i, int j,double elevation)
 	{
 		super(i,j,elevation);
@@ -24,6 +21,9 @@ public class Luna extends Heroes{
 
             this.nFrames = this.nFramesIdle = 6;
             this.nFramesMoving = 4;
+            hpMax = 110;
+            hp = hpMax;
+            armor = 50;
 	}
 	
 
@@ -37,20 +37,16 @@ public class Luna extends Heroes{
 		// TODO Auto-generated method stub
 	}
 
-	@Override
-	public void hurt(int damage) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void update(double dt) {
             this.updateFrame += this.velocityAnim*dt;
 	}
 
 	@Override
 	public void renderer(Renderer r) {
-            if(this.selected == 1) super.renderer(r);
+        if(this.selected == 1) super.renderer(r);
 		GameRenderer.drawCharacter(i,j,elevation,name,r, (int)updateFrame%nFrames,this.updateDir,this.state);
+		GameRenderer.drawLife(0,0,0,this.hpMax,this.hp,r);
+		
 	}
 
 	@Override

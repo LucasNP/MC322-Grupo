@@ -102,6 +102,9 @@ public abstract class KeysManager {
             if(gc.getInput().isKeyDown('I')){
                   System.out.println("Bag: "+bag);
             }
+            if(gc.getInput().isKeyDown('G')){
+            	dungeon.getCurrentRoom().getPlayer().hurt(20);
+          }
       }
 
       public static void keys_game_flow(GameContainer gc, GameManager game, Menu menu){

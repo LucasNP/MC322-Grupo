@@ -1,13 +1,11 @@
 package mc322.game.entitiesCharacters;
 
+import mc322.engine.LinearAlgebra;
 import mc322.engine.Renderer;
 import mc322.game.GameRenderer;
 import mc322.game.Room;
 
 public class Milo extends Heroes{
-
-	int velocidade_anim = 10;
-	private double temp = 0;
 	
 	public Milo(int i, int j,double elevation)
 	{
@@ -24,6 +22,8 @@ public class Milo extends Heroes{
 
             this.nFrames = this.nFramesIdle = 6;
             this.nFramesMoving = 4;
+            hpMax = 100;
+            hp = hpMax;
 	}
 
 
@@ -39,12 +39,6 @@ public class Milo extends Heroes{
 		
 	}
 
-	@Override
-	public void hurt(int damage) {
-		// TODO Auto-generated method stub
-		
-	}
-
       public void change_state(String state){
             this.state = state;
             if(state == "moving") this.nFrames = 3;
@@ -53,12 +47,14 @@ public class Milo extends Heroes{
 
 	public void update(double dt) {
             this.updateFrame += this.velocityAnim*dt;
+            
 	}
 
 	@Override
 	public void renderer(Renderer r) {
-            if(this.selected == 1) super.renderer(r);
+        if(this.selected == 1) super.renderer(r);
 		GameRenderer.drawCharacter(i,j,elevation,name,r, (int)updateFrame%nFrames, this.updateDir,this.state);
+		GameRenderer.drawLife(0,20,1,this.hpMax,this.hp,r);
 	}
 
 	@Override
