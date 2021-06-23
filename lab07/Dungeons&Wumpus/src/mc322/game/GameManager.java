@@ -74,10 +74,10 @@ public class GameManager implements AbstractGame{
                   }
 
                   KeysManager.keys_action(gc,dungeon, bag);
-                  KeysManager.keys_movement(gc,dungeon, timing_keys_move);
-                  
-                  mouseClick = KeysManager.verifyMouseClick(gc,dungeon);
+                  boolean cond = KeysManager.keys_movement(gc,dungeon, timing_keys_move);
 
+                  mouseClick = KeysManager.verifyMouseClick(gc,dungeon);
+                  if(!cond) mouseClickPoint = null;
 
                   if(mouseClick != null){
                         if(mouseClick.getFirst() == 1){

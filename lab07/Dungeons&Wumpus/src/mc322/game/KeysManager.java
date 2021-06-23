@@ -15,33 +15,33 @@ public abstract class KeysManager {
       protected int iPointer;
       protected int jPointer;
 
-      public static void keys_movement(GameContainer gc, Dungeon dungeon, double timing_keys_move){
+      public static boolean keys_movement(GameContainer gc, Dungeon dungeon, double timing_keys_move){
             if(gc.getInput().isKey('W') || gc.getInput().isKey(38)){
                   dungeon.getCurrentRoom().getPlayer().move('W',dungeon.getCurrentRoom(), timing_keys_move);
                   GameRenderer.change_animation_state("moving", dungeon);
-                  GameBrain.walk(dungeon);
-                  return;
+                  GameBrain.walk(dungeon, timing_keys_move);
+                  return false;
             }
             if(gc.getInput().isKey('A') || gc.getInput().isKey(37)){
                   dungeon.getCurrentRoom().getPlayer().move('A',dungeon.getCurrentRoom(), timing_keys_move);
                   GameRenderer.change_animation_state("moving", dungeon);
-                  GameBrain.walk(dungeon);
-                  return;
+                  GameBrain.walk(dungeon, timing_keys_move);
+                  return false;
             }
             if(gc.getInput().isKey('S') || gc.getInput().isKey(40)){
                   dungeon.getCurrentRoom().getPlayer().move('S',dungeon.getCurrentRoom(), timing_keys_move);
                   GameRenderer.change_animation_state("moving", dungeon);
-                  GameBrain.walk(dungeon);
-                  return;
+                  GameBrain.walk(dungeon, timing_keys_move);
+                  return false;
             }
             if(gc.getInput().isKey('D') || gc.getInput().isKey(39)){
                   dungeon.getCurrentRoom().getPlayer().move('D',dungeon.getCurrentRoom(), timing_keys_move);
                   GameRenderer.change_animation_state("moving", dungeon);
-                  GameBrain.walk(dungeon);
-                  return;
+                  GameBrain.walk(dungeon, timing_keys_move);
+                  return false;
             }
             GameRenderer.change_animation_state("idle", dungeon);
-            return;
+            return true;
       }
 
 
@@ -131,6 +131,24 @@ public abstract class KeysManager {
 
                   if( i > 14 || i < 0 || j < 0 || j > 14 ) return null;
 
+                  char map[][] = dungeon.getCurrentRoom().builCharMap();
+                  
+                  if(".MN".indexOf(map[i][j]) != 1) {
+                        if(map[i+1][j-1] == 'U'){
+                              System.out.print("palanque: ");
+                              i += 1;
+                              j -= 1;
+                        }
+                        else System.out.print("chao: ");
+                  }
+                  else if(map[i][j] == 'U'){
+                        System.out.print("palanque: ");
+                        i += 1;
+                        j -= 1;
+
+                  }
+
+                  System.out.println("i: " + i + ", j: " + j);
                   return Pair.of(clicked, Pair.of(i, j));
             }
 
@@ -142,9 +160,9 @@ public abstract class KeysManager {
 
             Room cRoom = dungeon.getCurrentRoom();
             Heroes player = cRoom.getPlayer();
-            boolean mov = player.follow(p.getFirst(),p.getSecond(),cRoom,true,timing_keys_move,movingToPointer);
+            boolean mov = player.followPointer(p.getFirst(),p.getSecond(),cRoom,true,timing_keys_move,movingToPointer);
 
-            GameBrain.walk(dungeon);
+            GameBrain.walk(dungeon, timing_keys_move);
             return mov;
       }
 

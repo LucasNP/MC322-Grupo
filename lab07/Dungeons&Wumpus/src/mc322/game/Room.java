@@ -406,53 +406,28 @@ public class Room implements BasicObject {
             this.dungeon.setAtual(iSala,jSala);
       }
 
-      public char[][] builCharMap(int iBegin, int jBegin, int iEnd, int jEnd, boolean ignoreHeroes)
-      {
+      public char[][] builCharMap(){
             char map[][] = new char[size][size];
-            for(int i = 0; i < size; i++)
-            {
-                  for(int j = 0; j < size; j++)
-                  {
-                        if(tiles.get(i).get(j)==null || tiles.get(i).get(j).getFirst() instanceof SafeZone)
-                        {
-                              map[i][j] = '.';
+            for(int i = 0; i < size; i++){
+                  for(int j = 0; j < size; j++){
+                        Pair<Entity,Entity> tile = tiles.get(j).get(i);
+
+                        if(tile == null || tile.getFirst() instanceof SafeZone) map[i][j] = '.';
+                        else if(tile.getFirst() instanceof Platform && tile.getSecond()==null) map[i][j] = 'U';
+
+                        else if(tile.getFirst() instanceof Ladder ){
+                              if(tile.getFirst().getDirection() == 1) map[i][j] = 'M';
+                              else map[i][j] = 'N';
                         }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Platform && tiles.get(i).get(j).getSecond() == null)
-                        {
-                              map[i][j] = 'U';
-                        }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Ladder )
-                        {
-                              if(tiles.get(i).get(j).getFirst().getDirection()==1)
-                                    map[i][j] = 'M';
-                              else
-                                    map[i][j] = 'N';
-                        }
-                        else if(tiles.get(i).get(j).getFirst() instanceof Door )
-                        {
-                              map[i][j] = 'D';
-                        }
-                        else
-                        {
+                        else if(tile.getFirst() instanceof Door) map[i][j] = 'D';
+                        else{
                               map[i][j] = '#';
                               continue;
                         }
-                        if(entities[i][j]!=null && !ignoreHeroes)
-                        {
-                              if(i==iBegin && j == jBegin)
-                              {
-                                    continue;
-                              }
-                              if(i==iEnd && j == jEnd)
-                              {
-                                    continue;
-                              }
-                              map[i][j] = '#';
 
-                        }
                   }
-            }
 
+            }
 
             return map;
       }

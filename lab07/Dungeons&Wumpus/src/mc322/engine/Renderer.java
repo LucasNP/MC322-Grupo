@@ -2,6 +2,9 @@ package mc322.engine;
 
 import java.awt.image.DataBufferInt;
 import java.lang.Math;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import mc322.engine.LinearAlgebra;
 import mc322.game.GameMapTokens;
@@ -33,7 +36,14 @@ public class Renderer{
       }
 
       // Bresenham’s Line Algorithm
-      public void drawLine(int xi, int yi, int xf, int yf, int color){
+      public void drawLine(Pair<Integer, Integer> a, Pair<Integer, Integer> b, int color){
+            
+            int xi = a.getFirst();
+            int yi = a.getSecond();
+
+            int xf = b.getFirst();
+            int yf = b.getSecond();
+
             int m = 2*(yf - yi);
             int slope_error = m - (xf - xi);
             
@@ -44,6 +54,18 @@ public class Renderer{
                         y++;
                         slope_error -=  2*(xf - xi);
                   }
+            }
+      }
+
+      public void drawPolygon(ArrayList<Pair<Integer, Integer>> poly, int color){
+            for(int i = 0; i < poly.size()-1; i++){
+                  drawLine(poly.get(i), poly.get(i+1), color);
+            }
+      }
+
+      public void drawPoints(ArrayList<Pair<Integer, Integer>> points, int color){
+            for(int i = 0; i < points.size()-1; i++){
+                  setPixel(points.get(i).getFirst(), points.get(i).getSecond(), color);
             }
       }
 

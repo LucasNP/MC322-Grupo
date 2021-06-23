@@ -45,7 +45,7 @@ public abstract class Character extends Entity{
       protected abstract boolean verifyMovement(int i, int j, Room room);
 
       protected String requestSolution(Room room, int iDest, int jDest,boolean ignoreHeroes){
-            char map[][] = room.builCharMap(this.i,this.j,iDest,jDest,ignoreHeroes);
+            char map[][] = room.builCharMap();
             String solution = GameBrain.solveMaze(map,this.i,this.j,iDest,jDest);
             return solution;
       }
@@ -62,23 +62,24 @@ public abstract class Character extends Entity{
             }
       }
 
-      public boolean follow(int i, int j, Room room, boolean ignoreHeroes, double timing_keys_move, 
+      public boolean followPointer(int i, int j, Room room, boolean ignoreHeroes, double timing_keys_move, 
                   boolean movingToPointer){
 
             if(i == this.i && j == this.j) return false;
 
             try{
-                  if(!movingToPointer){
-                        solution = requestSolution(room, i, j, ignoreHeroes);
-                        this.solutionIndex = 0;
-                  }
                   if(solution != null && movingToPointer && solutionIndex < solution.length() ) {
-                        System.out.println(solutionIndex);
+                        //System.out.println(solutionIndex);
                         if(this.move(solution.charAt(solutionIndex), room, timing_keys_move))
                               solutionIndex += 1;
                         if(solutionIndex == solution.length()-1) {
+                              solution = null;
                               return false;
                         }
+                  }
+                  if(!movingToPointer){
+                        this.solution = requestSolution(room, i, j, ignoreHeroes);
+                        this.solutionIndex = 0;
                   }
             }
             catch(ImpossibleOriginOrDestiny e){
@@ -87,10 +88,10 @@ public abstract class Character extends Entity{
             }
             catch(DoorSelected e){
                   System.out.println("Tentei entrar na porta");
-                  if(i==0) follow(i+1, j, room, ignoreHeroes, timing_keys_move, movingToPointer);
-                  if(j==0) follow(i, j+1, room, ignoreHeroes, timing_keys_move, movingToPointer);
-                  if(i==14)follow(i-1, j, room, ignoreHeroes, timing_keys_move, movingToPointer);
-                  if(j==14)follow(i, j-1, room, ignoreHeroes, timing_keys_move, movingToPointer);
+                  if(i==0) followPointer(i+1, j, room, ignoreHeroes, timing_keys_move, movingToPointer);
+                  if(j==0) followPointer(i, j+1, room, ignoreHeroes, timing_keys_move, movingToPointer);
+                  if(i==14)followPointer(i-1, j, room, ignoreHeroes, timing_keys_move, movingToPointer);
+                  if(j==14)followPointer(i, j-1, room, ignoreHeroes, timing_keys_move, movingToPointer);
 
                   if(LinearAlgebra.getModulo(i-this.i)+LinearAlgebra.getModulo(j-this.j) == 1){
                         if(i==14)this.move('W',room, timing_keys_move);
@@ -103,10 +104,32 @@ public abstract class Character extends Entity{
             return true;
       }
 
-      public void follow(Character charac, Room room, boolean ignoreHeroes, double timing_keys_move, 
-                  boolean movingToPointer){
-            Pair<Integer, Integer> p = charac.getPos();
-            this.follow(p.getFirst(), p.getSecond(),room,ignoreHeroes,timing_keys_move, movingToPointer);
+      public void followHero(Character charac, Room room, boolean ignoreHeroes, double timing_keys_move){
+            int i = charac.getPos().getFirst();
+            int j = charac.getPos().getSecond();
+
+            char map[][] = room.builCharMap();
+
+            if(".MN".indexOf(map[i][j]) != -1) {
+                  if(map[i+1][j-1] == 'U'){ i += 1; j -= 1; }
+                  if(map[i][j] == 'N') i++;
+                  if(map[i][j] == 'M') j++;
+            }
+            else if(map[i][j] == 'U'){ i += 1; j -= 1; }
+
+            if(i == this.i && j == this.j) return;
+
+            String solution = requestSolution(room, i, j, ignoreHeroes);
+            System.out.println("i: " + i +" , " + "j: " + j + "  char: " + map[i][j]);
+
+            try{
+                  if(solution != null && solution.length() > 0)
+                        this.move(solution.charAt(0), room, timing_keys_move);
+            }
+            catch(ImpossibleOriginOrDestiny e){
+                  System.out.println("This place is inaccessable");
+                  return;
+            }
       }
 
 }

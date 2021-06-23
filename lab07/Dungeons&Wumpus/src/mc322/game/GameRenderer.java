@@ -1,6 +1,10 @@
 package mc322.game;
 
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import mc322.engine.Pair;
 import mc322.engine.Renderer;
 import mc322.engine.gfx.ImageTile;
 
@@ -73,7 +77,31 @@ public class GameRenderer {
                   String hex = String.format("%02x%02x%02x%02x", alpha, red, green, blue);
                   r.drawCirc(pW/2, pH/2, lim/2-i, (int) Long.parseLong(hex, 16) );
             }
-            //r.drawLine(10, 10, pW, pH, 0xffffffff);
+
+            ArrayList<Pair<Integer, Integer>> poly = new ArrayList<>();
+            
+            poly.add(Pair.of(0,10));
+            Random rand = new Random();
+
+            int listaY[] = {10, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30};
+            int listaX[] = {30, 70, 110, 150, 200, 280, 340, 390, 460, 530, 600};
+
+
+            for(int k = 0; k < 11; k++){
+                  int y = listaY[k];
+                  int x = listaX[k];
+                  poly.add(Pair.of(x, y));
+            }
+
+            r.drawLine(Pair.of(30, 10), Pair.of(70, 20),0xffffffff );
+            r.drawLine(Pair.of(70, 20), Pair.of(110, 50),0xffffffff);
+            //r.drawLine(Pair.of(110, 30), Pair.of(150, 20),0xffffffff);
+            //r.drawLine(Pair.of(150, 20), Pair.of(200, 10),0xffffffff);
+            //r.drawLine(Pair.of(200, 10), Pair.of(280, 30),0xffffffff);
+
+
+
+            //r.drawPolygon(poly,0xffffffff);
 
       }
 
